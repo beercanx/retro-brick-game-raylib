@@ -1,5 +1,5 @@
 #include <iostream>
-#include <raylib.h>
+#include "raylib.h"
 
 int main() {
 
@@ -9,7 +9,7 @@ int main() {
     int windowWidth{800};
     int windowHeight{450};
 
-    InitWindow(windowWidth, windowHeight, "Axe Game");
+    InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
     // Circle
     int circleX{windowWidth / 2};
@@ -31,7 +31,7 @@ int main() {
         ClearBackground(WHITE);
 
         // Draw Circle
-        DrawCircle(circleX, circleY, circleRadius, BLUE);
+        DrawCircle(circleX, circleY, (float) circleRadius, BLUE);
 
         // Draw Axe
         DrawRectangle(axeX, axeY, axeWidth, axeHeight, RED);
