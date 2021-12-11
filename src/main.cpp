@@ -1,5 +1,6 @@
 #include <iostream>
 #include "raylib.h"
+#include "bricks/TextureBrick.h"
 
 int main() {
 
@@ -11,17 +12,8 @@ int main() {
 
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
-    // Circle
-    int circleX{windowWidth / 2};
-    int circleY{windowHeight / 2};
-    int circleRadius{25};
-
-    // Axe
-    int axeX{300};
-    int axeY{0};
-    int axeWidth{50};
-    int axeHeight{50};
-    int axeDirection{10};
+    // New
+    TextureBrick brick = TextureBrick(windowWidth, windowHeight);
 
     SetTargetFPS(60);
 
@@ -30,36 +22,31 @@ int main() {
 
         ClearBackground(WHITE);
 
-        // Draw Circle
-        DrawCircle(circleX, circleY, (float) circleRadius, BLUE);
+        // Draw brick
+        brick.draw();
 
-        // Draw Axe
-        DrawRectangle(axeX, axeY, axeWidth, axeHeight, RED);
-
-        // Move the Axe
-        axeY += axeDirection;
-        if (axeY + axeHeight > windowHeight || axeY < 0) {
-            axeDirection = -axeDirection;
-        }
-
-        // Do X Axis Movement
-        if (IsKeyDown(KEY_D) && circleX + circleRadius < windowWidth) {
-            circleX += circleRadius;
-        }
-        if (IsKeyDown(KEY_A) && circleX - circleRadius > 0) {
-            circleX -= circleRadius;
-        }
-
-        // Do Y Axis Movement
-        if (IsKeyDown(KEY_W) && circleY - circleRadius > 0) {
-            circleY -= circleRadius;
-        }
-        if (IsKeyDown(KEY_S) && circleY + circleRadius < windowHeight) {
-            circleY += circleRadius;
-        }
+//        // Do X Axis Movement
+//        if (IsKeyDown(KEY_D) && circleX + circleRadius < windowWidth) {
+//            circleX += circleRadius;
+//        }
+//        if (IsKeyDown(KEY_A) && circleX - circleRadius > 0) {
+//            circleX -= circleRadius;
+//        }
+//
+//        // Do Y Axis Movement
+//        if (IsKeyDown(KEY_W) && circleY - circleRadius > 0) {
+//            circleY -= circleRadius;
+//        }
+//        if (IsKeyDown(KEY_S) && circleY + circleRadius < windowHeight) {
+//            circleY += circleRadius;
+//        }
 
         EndDrawing();
     }
+
+    brick.unloadTextures();
+
+    CloseWindow();
 
     return 0;
 }
