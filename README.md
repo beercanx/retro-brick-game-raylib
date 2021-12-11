@@ -1,5 +1,24 @@
 # Retro Brick Game - in raylib
 
+This is an attempt at recoding another project written in C# and Unity into C++ and Raylib.
+
+The original game can be found here:
+* https://github.com/beercan1989/retro-brick-game
+* https://beercan.itch.io/retro-brick-game
+
+## Platforms
+Supported:
+* Windows 10
+* Linux
+
+Probable future support:
+* Web
+* Android
+
+Unlikely future support:
+* iOS
+* MacOS
+
 ## Setup
 
 ### MinGW in Windows with Clion bundle
