@@ -1,6 +1,6 @@
 #include <iostream>
 #include "raylib.h"
-#include "bricks/TextureBrick.h"
+#include "bricks/SingleBrick.h"
 
 int main() {
 
@@ -13,7 +13,8 @@ int main() {
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
     // New
-    TextureBrick brick = TextureBrick(windowWidth, windowHeight);
+    const Texture2D brickTexture{LoadTexture("assets/bricks/brick.png")};
+    SingleBrick brick{brickTexture, windowWidth, windowHeight};
 
     SetTargetFPS(60);
 
@@ -44,7 +45,7 @@ int main() {
         EndDrawing();
     }
 
-    brick.unloadTextures();
+    UnloadTexture(brickTexture);
 
     CloseWindow();
 

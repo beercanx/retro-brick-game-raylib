@@ -1,5 +1,9 @@
 //
-// Created by Beer on 05/12/2021.
+// Created by Beercan on 05/12/2021.
 //
 
 #include "RawBrick.h"
+
+void RawBrick::draw() {
+    // TODO - Implement
+}

@@ -1,12 +1,17 @@
 //
-// Created by Beer on 05/12/2021.
+// Created by Beercan on 05/12/2021.
 //
 
 #ifndef RETRO_BRICK_GAME_RAWBRICK_H
 #define RETRO_BRICK_GAME_RAWBRICK_H
 
+#include "Brick.h"
 
-class RawBrick {
+class RawBrick : public Brick {
+
+public:
+
+    void draw() override;
 
 };
 
