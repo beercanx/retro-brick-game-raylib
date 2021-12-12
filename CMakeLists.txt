@@ -20,5 +20,12 @@ add_subdirectory(libs/raylib)
 ##
 # Define the game
 ##
-add_executable(${PROJECT_NAME} src/main.cpp src/bricks/Brick.cpp src/bricks/Brick.h src/bricks/RawBrick.cpp src/bricks/RawBrick.h src/bricks/TextureBrick.cpp src/bricks/TextureBrick.h src/bricks/SingleBrick.cpp src/bricks/SingleBrick.h)
+add_executable(${PROJECT_NAME} src/main.cpp
+        src/bricks/Brick.cpp src/bricks/Brick.h
+        src/bricks/RawBrick.cpp src/bricks/RawBrick.h
+        src/bricks/TextureBrick.cpp src/bricks/TextureBrick.h
+        src/bricks/SingleBrick.cpp src/bricks/SingleBrick.h)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+
+enable_testing()

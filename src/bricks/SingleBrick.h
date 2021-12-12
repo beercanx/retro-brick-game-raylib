@@ -12,18 +12,13 @@ class SingleBrick : public TextureBrick {
 
 public:
 
-    SingleBrick(const Texture2D &texture, int windowWidth, int windowHeight);
+    SingleBrick(const Texture2D &texture, float scale, float rotation, const Vector2 &position);
 
     void draw() override;
 
 private:
 
-    const int bricks{1};
-    const float scale{2.0f};
-
     const Rectangle source{(float) texture.width, 0.0f, (float) texture.width, (float) texture.height};
-
-    const Vector2 position;
 
     /**
      * tee 3 by 3

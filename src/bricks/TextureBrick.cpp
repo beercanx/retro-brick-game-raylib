@@ -4,4 +4,10 @@
 
 #include "TextureBrick.h"
 
-TextureBrick::TextureBrick(const Texture2D &texture) : texture(texture) {}
+TextureBrick::TextureBrick(
+    const Texture2D &texture,
+    const float scale,
+    const float rotation,
+    const Vector2 &position
+) : Brick(scale, rotation, position),
+    texture(texture) {}

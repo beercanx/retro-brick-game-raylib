@@ -3,3 +3,11 @@
 //
 
 #include "Brick.h"
+
+Brick::Brick(
+    const float scale,
+    const float rotation,
+    const Vector2 &position
+) : scale(scale),
+    rotation(rotation),
+    position(position) {}

@@ -12,7 +12,7 @@ class TextureBrick : public Brick {
 
 public:
 
-    explicit TextureBrick(const Texture2D &texture);
+    explicit TextureBrick(const Texture2D &texture, float scale, float rotation, const Vector2 &position);
 
 protected:
 

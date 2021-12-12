@@ -11,6 +11,8 @@ class RawBrick : public Brick {
 
 public:
 
+    RawBrick() : Brick(0, 0, Vector2()) {}
+
     void draw() override;
 
 };
