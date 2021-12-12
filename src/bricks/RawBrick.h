@@ -11,9 +11,15 @@ class RawBrick : public Brick {
 
 public:
 
-    RawBrick() : Brick(0, 0, Vector2()) {}
+    explicit RawBrick(float scale, float rotation, const Vector2 &position);
 
     void draw() override;
+
+private:
+
+    const Rectangle outerBorder;
+    const Rectangle innerBorder;
+    const Rectangle center;
 
 };
 

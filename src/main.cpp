@@ -1,28 +1,44 @@
 #include <iostream>
 #include "raylib.h"
 #include "bricks/SingleBrick.h"
+#include "bricks/RawBrick.h"
+#include "raymath.h"
 
 int main() {
 
     std::cout << "Hello, World!" << std::endl;
 
+    // Game Size
+    const int scale{2};
+
     // Window Dimensions
-    int windowWidth{200};
-    int windowHeight{400};
+    const int windowWidth{scale * 100};
+    const int windowHeight{scale * 200};
 
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
-    // New texture brick
-    const Texture2D brickTexture{LoadTexture("assets/bricks/brick.png")};
-    SingleBrick brick{
-        brickTexture,
-        2.0f,
-        0.0f,
-        {
-            (float) windowWidth / 2.0f,
-            (float) windowHeight / 2.0f
-        }
+    // Positions
+    const Vector2 gameCentre{
+        (float) windowWidth / 2.0f,
+        (float) windowHeight / 2.0f
     };
+
+    // Sizes
+    const int brickSize{scale * 6};
+    const int gapSize{scale * 1};
+
+    // Movement
+    const Vector2 right{brickSize + gapSize, 0.0f};
+    const Vector2 left = Vector2Scale(right, -1.0f);
+    const Vector2 up{0.0f, brickSize + gapSize};
+    const Vector2 down = Vector2Scale(up, -1.0f);
+
+    // Textures
+    const Texture2D brickTexture{LoadTexture("assets/bricks/brick.png")};
+
+    // Bricks
+    SingleBrick singleBrick{brickTexture, scale, 0.0f, gameCentre};
+    RawBrick rawBrick{scale, 0.0f, Vector2Add(gameCentre, right)};
 
     SetTargetFPS(60);
 
@@ -50,8 +66,9 @@ int main() {
 
         // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
-        // Draw brick
-        brick.draw();
+        // Draw bricks
+        singleBrick.draw();
+        rawBrick.draw();
 
 //        // Do X Axis Movement
 //        if (IsKeyDown(KEY_D) && circleX + circleRadius < windowWidth) {
