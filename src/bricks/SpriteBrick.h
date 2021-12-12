@@ -32,7 +32,7 @@ public:
         vehicle
     };
 
-    explicit SpriteBrick(const Texture2D &sprite, Type type, float scale, float rotation, const Vector2 &position);
+    explicit SpriteBrick(const Texture2D &sprite, Type type, float rotation, const Vector2 &position);
 
     void draw() override;
 

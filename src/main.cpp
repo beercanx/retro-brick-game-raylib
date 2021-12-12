@@ -9,12 +9,9 @@ int main() {
 
     std::cout << "Hello, World!" << std::endl;
 
-    // Game Size
-    const int scale{2};
-
     // Window Dimensions
-    const int windowWidth{scale * 100};
-    const int windowHeight{scale * 200};
+    const int windowWidth{Brick::scale * 100};
+    const int windowHeight{Brick::scale * 200};
 
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
@@ -31,21 +28,18 @@ int main() {
     // Bricks
     SingleBrick singleBrick{
         brickTexture,
-        scale,
         0.0f,
         gameCentre
     };
     RawBrick rawBrick{
-        scale,
         0.0f,
-        Vector2Add(gameCentre, Vector2Scale(Brick::right, scale))
+        Vector2Add(gameCentre, Brick::right)
     };
     SpriteBrick spriteBrick{
         spriteTexture,
         SpriteBrick::Type::vehicle,
-        scale,
         0.0f,
-        Vector2Add(gameCentre, Vector2Scale(Brick::down, scale * 2))
+        Vector2Add(gameCentre, Vector2Scale(Brick::down, 2))
     };
 
     SetTargetFPS(60);

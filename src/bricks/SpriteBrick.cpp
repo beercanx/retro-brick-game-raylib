@@ -7,10 +7,9 @@
 SpriteBrick::SpriteBrick(
     const Texture2D &sprite,
     const SpriteBrick::Type type,
-    float scale,
     float rotation,
     const Vector2 &position
-) : TextureBrick(sprite, scale, rotation, position),
+) : TextureBrick(sprite, rotation, position),
     type(type) {
 }
 

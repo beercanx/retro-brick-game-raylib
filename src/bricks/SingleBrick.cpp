@@ -4,8 +4,8 @@
 
 #include "SingleBrick.h"
 
-SingleBrick::SingleBrick(const Texture2D &texture, const float scale, const float rotation, const Vector2 &position) :
-    TextureBrick(texture, scale, rotation, position) {}
+SingleBrick::SingleBrick(const Texture2D &texture, const float rotation, const Vector2 &position) :
+    TextureBrick(texture, rotation, position) {}
 
 void SingleBrick::draw() {
     DrawTextureEx(texture, position, rotation, scale, WHITE);

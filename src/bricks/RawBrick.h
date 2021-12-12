@@ -11,7 +11,7 @@ class RawBrick : public Brick {
 
 public:
 
-    explicit RawBrick(float scale, float rotation, const Vector2 &position);
+    explicit RawBrick(float rotation, const Vector2 &position);
 
     void draw() override;
 

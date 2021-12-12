@@ -12,7 +12,7 @@ class SingleBrick : public TextureBrick {
 
 public:
 
-    SingleBrick(const Texture2D &texture, float scale, float rotation, const Vector2 &position);
+    SingleBrick(const Texture2D &texture, float rotation, const Vector2 &position);
 
     void draw() override;
 
