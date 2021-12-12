@@ -3,6 +3,7 @@
 #include "bricks/SingleBrick.h"
 #include "bricks/RawBrick.h"
 #include "raymath.h"
+#include "bricks/SpriteBrick.h"
 
 int main() {
 
@@ -23,22 +24,29 @@ int main() {
         (float) windowHeight / 2.0f
     };
 
-    // Sizes
-    const int brickSize{scale * 6};
-    const int gapSize{scale * 1};
-
-    // Movement
-    const Vector2 right{brickSize + gapSize, 0.0f};
-    const Vector2 left = Vector2Scale(right, -1.0f);
-    const Vector2 up{0.0f, brickSize + gapSize};
-    const Vector2 down = Vector2Scale(up, -1.0f);
-
     // Textures
     const Texture2D brickTexture{LoadTexture("assets/bricks/brick.png")};
+    const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
 
     // Bricks
-    SingleBrick singleBrick{brickTexture, scale, 0.0f, gameCentre};
-    RawBrick rawBrick{scale, 0.0f, Vector2Add(gameCentre, right)};
+    SingleBrick singleBrick{
+        brickTexture,
+        scale,
+        0.0f,
+        gameCentre
+    };
+    RawBrick rawBrick{
+        scale,
+        0.0f,
+        Vector2Add(gameCentre, Vector2Scale(Brick::right, scale))
+    };
+    SpriteBrick spriteBrick{
+        spriteTexture,
+        SpriteBrick::Type::vehicle,
+        scale,
+        0.0f,
+        Vector2Add(gameCentre, Vector2Scale(Brick::down, scale * 2))
+    };
 
     SetTargetFPS(60);
 
@@ -69,6 +77,7 @@ int main() {
         // Draw bricks
         singleBrick.draw();
         rawBrick.draw();
+        spriteBrick.draw();
 
 //        // Do X Axis Movement
 //        if (IsKeyDown(KEY_D) && circleX + circleRadius < windowWidth) {
@@ -90,6 +99,7 @@ int main() {
     }
 
     UnloadTexture(brickTexture);
+    UnloadTexture(spriteTexture);
 
     CloseWindow();
 
