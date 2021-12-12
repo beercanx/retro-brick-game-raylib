@@ -7,8 +7,8 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
 
     // Window Dimensions
-    int windowWidth{800};
-    int windowHeight{450};
+    int windowWidth{200};
+    int windowHeight{400};
 
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
@@ -46,8 +46,9 @@ int main() {
         //          Space for a next shape view (Title + 4 by 4 grid)
         //          Space to display current speed (2 digits, maybe base speed)
         //          Space to display current level (2 digits)
+        //          Space to display a pause symbol (maybe a cup tea/coffee)
 
-        // TODO - Add non game buttons, starting with sound and music toggles
+        // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
         // Draw brick
         brick.draw();
