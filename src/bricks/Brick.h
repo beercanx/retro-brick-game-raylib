@@ -20,6 +20,7 @@ public:
     static const int scale{2};
     static const int size{6};
     static const int gap{1};
+    static const int offset{size + gap};
 
     // Movement
     constexpr static const Vector2 right{(size + gap) * scale, 0.0f};
@@ -27,11 +28,11 @@ public:
     constexpr static const Vector2 down{0.0f, (size + gap) * scale};
     constexpr static const Vector2 up{down.x * -1.0f, down.y * -1.0f};
 
-protected:
-
-    const float rotation;
-    const Vector2 position;
+    float rotation;
+    Vector2 position;
 
 };
+
+void DrawBrick(Texture texture, Rectangle source, Vector2 position, float scale, float rotation, Color tint);
 
 #endif //RETRO_BRICK_GAME_BRICK_H

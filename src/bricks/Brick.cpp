@@ -9,3 +9,23 @@ Brick::Brick(
     const Vector2 &position
 ) : rotation(rotation),
     position(position) {}
+
+void DrawBrick(
+    const Texture texture,
+    const Rectangle source,
+    const Vector2 position,
+    const float scale,
+    const float rotation,
+    const Color tint
+) {
+
+    const Vector2 origin{0.0f, 0.0f};
+    const Rectangle destination{
+        position.x,
+        position.y,
+        (float) source.width * scale,
+        (float) source.height * scale
+    };
+
+    DrawTexturePro(texture, source, destination, origin, rotation, tint);
+}

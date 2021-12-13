@@ -3,6 +3,9 @@
 #include "bricks/RawBrick.h"
 #include "raymath.h"
 #include "bricks/SpriteBrick.h"
+#include "bricks/EnemyBrick.h"
+#include "bricks/BackgroundBrick.h"
+#include "bricks/PlayerBrick.h"
 
 int main() {
 
@@ -15,37 +18,66 @@ int main() {
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
     // Positions
-    const Vector2 gameCentre{
-        (float) windowWidth / 2.0f,
-        (float) windowHeight / 2.0f
-    };
+    const Vector2 gameViewPosition{Brick::gap * Brick::scale, 0.0f};
 
     // Textures
-    const Texture2D brickTexture{LoadTexture("assets/bricks/brick.png")};
     const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
+    const Texture2D backgroundTexture{LoadTexture("assets/bricks/backgrounds.png")};
 
     // Bricks
-    TextureBrick textureBrick{
-        brickTexture,
-        0.0f,
-        gameCentre
+    BackgroundBrick backgroundBrick{
+        backgroundTexture,
+        BackgroundBrick::START,
+        gameViewPosition
     };
-    RawBrick rawBrick{
-        0.0f,
-        Vector2Add(gameCentre, Brick::right)
-    };
-    SpriteBrick spriteBrick{
+    EnemyBrick enemyBrick{
         spriteTexture,
-        SpriteBrick::Type::vehicle,
+        EnemyBrick::Type::seat,
+        90.0f,
+        Vector2Add(
+            gameViewPosition,
+            Vector2Add(
+                Vector2Scale(Brick::right, 4),
+                Vector2Scale(Brick::down, 4)
+            )
+        )
+    };
+    PlayerBrick playerBrick{
+        spriteTexture,
         0.0f,
-        Vector2Add(gameCentre, Vector2Scale(Brick::down, 2))
+        Vector2Add(
+            gameViewPosition,
+            Vector2Add(
+                Vector2Scale(Brick::down, 13),
+                Vector2Scale(Brick::right, 4)
+            )
+        )
+    };
+    RawBrick bulletOne{
+        0.0f,
+        Vector2Add(
+            playerBrick.position,
+            Vector2Add(
+                Vector2Scale(Brick::up, 2),
+                Vector2Scale(Brick::right, 1)
+            )
+        )
+    };
+    RawBrick bulletTwo{
+        0.0f,
+        Vector2Add(
+            bulletOne.position,
+            Vector2Scale(Brick::up, 2)
+        )
     };
 
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
-        BeginDrawing();
 
+        const float deltaTime = GetFrameTime();
+
+        BeginDrawing();
         ClearBackground(WHITE);
 
         // TODO - Draw a grid 1 brick (6 pixels) with 1 "pixel" wide gap, so draw the grid lines in the "gap".
@@ -67,32 +99,21 @@ int main() {
 
         // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
-        // Draw bricks
-        textureBrick.draw();
-        rawBrick.draw();
-        spriteBrick.draw();
+        // Handle player movement
+        playerBrick.handleMovement(deltaTime);
 
-//        // Do X Axis Movement
-//        if (IsKeyDown(KEY_D) && circleX + circleRadius < windowWidth) {
-//            circleX += Brick::right;
-//        }
-//        if (IsKeyDown(KEY_A) && circleX - circleRadius > 0) {
-//            circleX += Brick::left;
-//        }
-//
-//        // Do Y Axis Movement
-//        if (IsKeyDown(KEY_W) && circleY - circleRadius > 0) {
-//            circleY += Brick::up;
-//        }
-//        if (IsKeyDown(KEY_S) && circleY + circleRadius < windowHeight) {
-//            circleY += Brick::down;
-//        }
+        // Draw bricks
+        backgroundBrick.draw();
+        bulletOne.draw();
+        bulletTwo.draw();
+        enemyBrick.draw();
+        playerBrick.draw();
 
         EndDrawing();
     }
 
-    UnloadTexture(brickTexture);
     UnloadTexture(spriteTexture);
+    UnloadTexture(backgroundTexture);
 
     CloseWindow();
 
