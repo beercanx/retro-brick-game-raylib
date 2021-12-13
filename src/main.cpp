@@ -2,7 +2,6 @@
 #include "raylib.h"
 #include "bricks/RawBrick.h"
 #include "raymath.h"
-#include "bricks/SpriteBrick.h"
 #include "bricks/EnemyBrick.h"
 #include "bricks/BackgroundBrick.h"
 #include "bricks/PlayerBrick.h"
@@ -12,8 +11,8 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
 
     // Window Dimensions
-    const int windowWidth{Brick::scale * 100};
-    const int windowHeight{Brick::scale * 200};
+    const int windowWidth{Brick::scale * 71};
+    const int windowHeight{Brick::scale * 140};
 
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
