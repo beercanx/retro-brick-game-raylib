@@ -1,6 +1,5 @@
 #include <iostream>
 #include "raylib.h"
-#include "bricks/SingleBrick.h"
 #include "bricks/RawBrick.h"
 #include "raymath.h"
 #include "bricks/SpriteBrick.h"
@@ -26,7 +25,7 @@ int main() {
     const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
 
     // Bricks
-    SingleBrick singleBrick{
+    TextureBrick textureBrick{
         brickTexture,
         0.0f,
         gameCentre
@@ -69,24 +68,24 @@ int main() {
         // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
         // Draw bricks
-        singleBrick.draw();
+        textureBrick.draw();
         rawBrick.draw();
         spriteBrick.draw();
 
 //        // Do X Axis Movement
 //        if (IsKeyDown(KEY_D) && circleX + circleRadius < windowWidth) {
-//            circleX += circleRadius;
+//            circleX += Brick::right;
 //        }
 //        if (IsKeyDown(KEY_A) && circleX - circleRadius > 0) {
-//            circleX -= circleRadius;
+//            circleX += Brick::left;
 //        }
 //
 //        // Do Y Axis Movement
 //        if (IsKeyDown(KEY_W) && circleY - circleRadius > 0) {
-//            circleY -= circleRadius;
+//            circleY += Brick::up;
 //        }
 //        if (IsKeyDown(KEY_S) && circleY + circleRadius < windowHeight) {
-//            circleY += circleRadius;
+//            circleY += Brick::down;
 //        }
 
         EndDrawing();

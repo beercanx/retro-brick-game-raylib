@@ -14,6 +14,8 @@ public:
 
     explicit TextureBrick(const Texture2D &texture, float rotation, const Vector2 &position);
 
+    void draw() override;
+
 protected:
 
     const Texture2D texture;

@@ -10,3 +10,7 @@ TextureBrick::TextureBrick(
     const Vector2 &position
 ) : Brick(rotation, position),
     texture(texture) {}
+
+void TextureBrick::draw() {
+    DrawTextureEx(texture, position, rotation, scale, WHITE);
+}

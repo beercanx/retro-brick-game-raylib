@@ -24,7 +24,6 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/bricks/Brick.cpp src/bricks/Brick.h
         src/bricks/RawBrick.cpp src/bricks/RawBrick.h
         src/bricks/TextureBrick.cpp src/bricks/TextureBrick.h
-        src/bricks/SingleBrick.cpp src/bricks/SingleBrick.h
         src/bricks/SpriteBrick.cpp src/bricks/SpriteBrick.h)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
