@@ -38,7 +38,7 @@ Basically documented stages of development, deemed worthy enough of writing down
 * Has an "enemy" and "player" drawn, with some example fired bullets.
 * The game does include the ability to move the player, but no limits on where and nothing else moves.  
 
-![Game State as of 2021-12-13 >](examples/2021-12-13.png?raw=true)
+![Game State as of 2021-12-13](examples/2021-12-13.png?raw=true)
 
 ## Platforms
 Supported:

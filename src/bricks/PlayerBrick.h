@@ -5,7 +5,9 @@
 #ifndef RETRO_BRICK_GAME_PLAYERBRICK_H
 #define RETRO_BRICK_GAME_PLAYERBRICK_H
 
+#include <optional>
 #include "SpriteBrick.h"
+#include "RawBrick.h"
 
 class PlayerBrick : public SpriteBrick {
 
@@ -15,10 +17,16 @@ public:
 
     void handleMovement(float deltaTime);
 
+    std::optional<RawBrick> handleShooting(float deltaTime);
+
 private:
 
-    const float updateTime{0.075f}; // 75ms
-    float runningTime{};
+    const float movementThreshold{0.050f}; // 50ms
+    float movementTime{};
+
+    const float shootingThreshold{1.000f}; // 1s
+    float shootingTime{};
+
 };
 
 

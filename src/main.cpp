@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 #include "raylib.h"
 #include "bricks/RawBrick.h"
 #include "raymath.h"
@@ -70,6 +71,9 @@ int main() {
         )
     };
 
+    // Bullets
+    std::list<RawBrick> bullets{};
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
@@ -101,12 +105,21 @@ int main() {
         // Handle player movement
         playerBrick.handleMovement(deltaTime);
 
+        // TODO - Handle bullet movement
+
+        // Handler player shooting
+        const auto shotBullet = playerBrick.handleShooting(deltaTime);
+        if(shotBullet.has_value()) bullets.push_back(shotBullet.value());
+
         // Draw bricks
         backgroundBrick.draw();
         bulletOne.draw();
         bulletTwo.draw();
         enemyBrick.draw();
         playerBrick.draw();
+        for(auto& bullet : bullets) {
+            bullet.draw();
+        }
 
         EndDrawing();
     }
