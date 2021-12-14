@@ -3,9 +3,10 @@
 #include "raylib.h"
 #include "bricks/RawBrick.h"
 #include "raymath.h"
-#include "bricks/EnemyBrick.h"
-#include "bricks/BackgroundBrick.h"
-#include "bricks/PlayerBrick.h"
+#include "bricks/Enemy.h"
+#include "bricks/Background.h"
+#include "bricks/Player.h"
+#include "bricks/Bullet.h"
 
 int main() {
 
@@ -25,14 +26,14 @@ int main() {
     const Texture2D backgroundTexture{LoadTexture("assets/bricks/backgrounds.png")};
 
     // Bricks
-    BackgroundBrick backgroundBrick{
+    Background background{
         backgroundTexture,
-        BackgroundBrick::START,
+        Background::START,
         gameViewPosition
     };
-    EnemyBrick enemyBrick{
+    Enemy enemy{
         spriteTexture,
-        EnemyBrick::Type::seat,
+        Enemy::Type::seat,
         90.0f,
         Vector2Add(
             gameViewPosition,
@@ -42,7 +43,7 @@ int main() {
             )
         )
     };
-    PlayerBrick playerBrick{
+    Player player{
         spriteTexture,
         0.0f,
         Vector2Add(
@@ -53,26 +54,9 @@ int main() {
             )
         )
     };
-    RawBrick bulletOne{
-        0.0f,
-        Vector2Add(
-            playerBrick.position,
-            Vector2Add(
-                Vector2Scale(Brick::up, 2),
-                Vector2Scale(Brick::right, 1)
-            )
-        )
-    };
-    RawBrick bulletTwo{
-        0.0f,
-        Vector2Add(
-            bulletOne.position,
-            Vector2Scale(Brick::up, 2)
-        )
-    };
 
     // Bullets
-    std::list<RawBrick> bullets{};
+    std::list<Bullet> bullets{};
 
     SetTargetFPS(60);
 
@@ -103,20 +87,27 @@ int main() {
         // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
         // Handle player movement
-        playerBrick.handleMovement(deltaTime);
+        player.handleMovement(deltaTime);
 
-        // TODO - Handle bullet movement
+        // TODO - Handle enemy movement
+
+        // Handle bullet movement and collisions
+        for(auto& bullet : bullets) {
+            //bullet.tick(deltaTime);
+            bullet.updatePosition(Vector2Add(bullet.position, Brick::up));
+            // TODO - Handle collisions with enemies.
+            // TODO - Remove bullet from game once invisible.
+        }
 
         // Handler player shooting
-        const auto shotBullet = playerBrick.handleShooting(deltaTime);
-        if(shotBullet.has_value()) bullets.push_back(shotBullet.value());
+        if(const auto& bullet = player.handleShooting(deltaTime)) {
+            bullets.push_back(*bullet);
+        }
 
         // Draw bricks
-        backgroundBrick.draw();
-        bulletOne.draw();
-        bulletTwo.draw();
-        enemyBrick.draw();
-        playerBrick.draw();
+        background.draw();
+        enemy.draw();
+        player.draw();
         for(auto& bullet : bullets) {
             bullet.draw();
         }

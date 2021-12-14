@@ -7,10 +7,10 @@
 RawBrick::RawBrick(
     const float rotation,
     const Vector2 &position
-) : Brick(rotation, position),
-    outerBorder({position.x, position.y, scale * 6, scale * 6}),
-    innerBorder({position.x + (scale * 1), position.y + (scale * 1), scale * 4, scale * 4}),
-    center({position.x + scale * 2, position.y + scale * 2, scale * 2, scale * 2}) {}
+) : Brick(rotation, position) {
+
+    updatePosition(position);
+}
 
 void RawBrick::draw() {
 
@@ -22,4 +22,13 @@ void RawBrick::draw() {
 
     // centre square, 2 by 2, black
     DrawRectangleRec(center, BLACK);
+}
+
+void RawBrick::updatePosition(const Vector2 &position) {
+
+    this->position = position;
+
+    this->outerBorder = {position.x, position.y, scale * 6, scale * 6};
+    this->innerBorder = {position.x + (scale * 1), position.y + (scale * 1), scale * 4, scale * 4};
+    this->center = {position.x + scale * 2, position.y + scale * 2, scale * 2, scale * 2};
 }

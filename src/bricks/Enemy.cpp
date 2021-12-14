@@ -2,10 +2,10 @@
 // Created by Beercan on 13/12/2021.
 //
 
-#include "EnemyBrick.h"
+#include "Enemy.h"
 #include "Brick.h"
 
-EnemyBrick::EnemyBrick(
+Enemy::Enemy(
     const Texture2D &sprite,
     const Type type,
     float rotation,
@@ -15,7 +15,7 @@ EnemyBrick::EnemyBrick(
 }
 
 // Hack to do static map initialisation "safely", credit to https://qr.ae/pGqMSG
-const EnemyBrick::EnemyConfig &EnemyBrick::getEnemyConfig() {
+const Enemy::EnemyConfig &Enemy::getEnemyConfig() {
 
     static const auto *map = new EnemyConfig{
         {Type::ell,         {1, 0, 2, 3}},

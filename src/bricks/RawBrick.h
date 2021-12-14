@@ -15,11 +15,13 @@ public:
 
     void draw() override;
 
+    void updatePosition(const Vector2 &position);
+
 private:
 
-    const Rectangle outerBorder;
-    const Rectangle innerBorder;
-    const Rectangle center;
+    Rectangle outerBorder{};
+    Rectangle innerBorder{};
+    Rectangle center{};
 
 };
 

@@ -4,12 +4,12 @@
 
 #include <optional>
 #include "RawBrick.h"
-#include "PlayerBrick.h"
+#include "Player.h"
 
-PlayerBrick::PlayerBrick(const Texture2D &sprite, const float rotation, const Vector2 &position) :
+Player::Player(const Texture2D &sprite, const float rotation, const Vector2 &position) :
     SpriteBrick(sprite, {9, 0, 3, 4}, rotation, position) {}
 
-void PlayerBrick::handleMovement(float deltaTime) {
+void Player::handleMovement(float deltaTime) {
 
     // Is it time to allow the next movement?
     if ((movementTime += deltaTime) < movementThreshold) {
@@ -27,7 +27,7 @@ void PlayerBrick::handleMovement(float deltaTime) {
 
 }
 
-std::optional<RawBrick> PlayerBrick::handleShooting(float deltaTime) {
+std::optional<Bullet> Player::handleShooting(float deltaTime) {
 
     // Is it time to allow the next movement?
     if ((shootingTime += deltaTime) < shootingThreshold) return std::nullopt;
@@ -38,9 +38,8 @@ std::optional<RawBrick> PlayerBrick::handleShooting(float deltaTime) {
     // Reset tracker
     shootingTime = 0.0f;
 
-    // Spawn a bullet
-    RawBrick bullet{
-        0.0f,
+    // Spawn a bullet - two cells up and one to the right from the player
+    Bullet bullet{
         Vector2Add(
             position,
             Vector2Add(

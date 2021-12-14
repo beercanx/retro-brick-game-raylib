@@ -2,14 +2,14 @@
 // Created by Beercan on 13/12/2021.
 //
 
-#ifndef RETRO_BRICK_GAME_ENEMYBRICK_H
-#define RETRO_BRICK_GAME_ENEMYBRICK_H
+#ifndef RETRO_BRICK_GAME_ENEMY_H
+#define RETRO_BRICK_GAME_ENEMY_H
 
 #include <map>
 #include "raylib.h"
 #include "SpriteBrick.h"
 
-class EnemyBrick : public SpriteBrick {
+class Enemy : public SpriteBrick {
 
 public:
 
@@ -28,16 +28,16 @@ public:
         zee_inverse
     };
 
-    explicit EnemyBrick(const Texture2D &sprite, Type type, float rotation, const Vector2 &position);
+    explicit Enemy(const Texture2D &sprite, Type type, float rotation, const Vector2 &position);
 
 private:
 
-    const EnemyBrick::Type type;
+    const Enemy::Type type;
 
-    typedef const std::map<EnemyBrick::Type, Rectangle> EnemyConfig;
+    typedef const std::map<Enemy::Type, Rectangle> EnemyConfig;
 
     const static EnemyConfig &getEnemyConfig();
 };
 
 
-#endif //RETRO_BRICK_GAME_ENEMYBRICK_H
+#endif //RETRO_BRICK_GAME_ENEMY_H
