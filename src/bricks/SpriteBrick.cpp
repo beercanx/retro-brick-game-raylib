@@ -10,7 +10,12 @@ SpriteBrick::SpriteBrick(
     float rotation,
     const Vector2 &position
 ) : TextureBrick(sprite, rotation, position),
-    source({source.x * offset, source.y * offset, source.width * offset, source.height * offset}) {
+    source({
+        (source.x * offset) - gap,
+        (source.y * offset) - gap,
+        source.width * offset,
+        source.height * offset
+    }) {
 }
 
 void SpriteBrick::draw() {

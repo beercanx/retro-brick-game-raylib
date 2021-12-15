@@ -14,12 +14,12 @@ int main() {
 
     // Window Dimensions
     const int windowWidth{Brick::scale * 71};
-    const int windowHeight{Brick::scale * 140};
+    const int windowHeight{Brick::scale * 141};
 
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
     // Positions
-    const Vector2 gameViewPosition{Brick::gap * Brick::scale, 0.0f};
+    const Vector2 gameViewPosition{1.0f, 1.0f};
 
     // Textures
     const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
@@ -34,7 +34,7 @@ int main() {
     Enemy enemy{
         spriteTexture,
         Enemy::Type::seat,
-        90.0f,
+        0.0f,
         Vector2Add(
             gameViewPosition,
             Vector2Add(
@@ -89,7 +89,8 @@ int main() {
         // Handle player movement
         player.handleMovement(deltaTime);
 
-        // TODO - Handle enemy movement
+        // Handle enemy movement
+        enemy.handleMovement(deltaTime);
 
         // Handle bullet movement and collisions
         for(auto& bullet : bullets) {

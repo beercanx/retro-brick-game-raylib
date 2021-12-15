@@ -34,3 +34,18 @@ const Enemy::EnemyConfig &Enemy::getEnemyConfig() {
 
     return *map;
 }
+
+void Enemy::handleMovement(float deltaTime) {
+
+    // Is it time to allow the next movement?
+    if ((movementTime += deltaTime) < movementThreshold) {
+        return;
+    }
+
+    // Reset tracker
+    movementTime = 0.0f;
+
+    // Spin me right 'round, baby, right 'round
+    // Like a record, baby, right 'round, 'round, 'round
+    rotation += 90.0f;
+}

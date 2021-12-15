@@ -30,7 +30,12 @@ public:
 
     explicit Enemy(const Texture2D &sprite, Type type, float rotation, const Vector2 &position);
 
+    void handleMovement(float deltaTime);
+
 private:
+
+    const float movementThreshold{0.500f}; // 50ms
+    float movementTime{};
 
     const Enemy::Type type;
 

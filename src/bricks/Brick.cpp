@@ -19,7 +19,7 @@ void DrawBrick(
     const Color tint
 ) {
 
-    const Vector2 origin{0.0f, 0.0f};
+    const Vector2 origin{1.0f, 1.0f};
     const Rectangle destination{
         position.x,
         position.y,
