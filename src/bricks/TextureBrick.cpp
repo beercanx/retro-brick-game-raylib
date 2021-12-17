@@ -6,11 +6,10 @@
 
 TextureBrick::TextureBrick(
     const Texture2D &texture,
-    const float rotation,
     const Vector2 &position
-) : Brick(rotation, position),
+) : Brick(position),
     texture(texture) {}
 
 void TextureBrick::draw() {
-    DrawTextureEx(texture, position, rotation, scale, WHITE);
+    DrawTextureEx(texture, position, 0.0f, scale, WHITE);
 }

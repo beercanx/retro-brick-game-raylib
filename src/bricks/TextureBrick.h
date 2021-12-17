@@ -12,7 +12,7 @@ class TextureBrick : public Brick {
 
 public:
 
-    explicit TextureBrick(const Texture2D &texture, float rotation, const Vector2 &position);
+    explicit TextureBrick(const Texture2D &texture, const Vector2 &position);
 
     void draw() override;
 

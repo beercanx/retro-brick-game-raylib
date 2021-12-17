@@ -14,7 +14,7 @@ class Player : public SpriteBrick {
 
 public:
 
-    explicit Player(const Texture2D &sprite, float rotation, const Vector2 &position);
+    explicit Player(const Texture2D &sprite, const Vector2 &position);
 
     void handleMovement(float deltaTime);
 

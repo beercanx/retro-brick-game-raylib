@@ -7,17 +7,37 @@
 SpriteBrick::SpriteBrick(
     const Texture2D &sprite,
     const Rectangle source,
-    float rotation,
     const Vector2 &position
-) : TextureBrick(sprite, rotation, position),
+) : TextureBrick(sprite, position),
     source({
         (source.x * offset) - gap,
         (source.y * offset) - gap,
         source.width * offset,
         source.height * offset
     }) {
+    updatePosition(position);
+}
+
+void SpriteBrick::updatePosition(const Vector2 &position) {
+
+    this->position = position;
+
+    // Recalculate destination
+    destination = {
+        position.x,
+        position.y,
+        (float) source.width * scale,
+        (float) source.height * scale
+    };
+}
+
+Rectangle SpriteBrick::getDestination() {
+    return destination;
 }
 
 void SpriteBrick::draw() {
-    DrawBrick(texture, source, position, scale, rotation, WHITE);
+
+    const Vector2 origin{1.0f, 1.0f};
+
+    DrawTexturePro(texture, source, destination, origin, 0.0f, WHITE);
 }

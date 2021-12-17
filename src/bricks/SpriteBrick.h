@@ -12,13 +12,18 @@ class SpriteBrick : public TextureBrick {
 
 public:
 
-    explicit SpriteBrick(const Texture2D &sprite, Rectangle source, float rotation, const Vector2 &position);
+    explicit SpriteBrick(const Texture2D &sprite, Rectangle source, const Vector2 &position);
 
     void draw() override;
 
-protected:
+    void updatePosition(const Vector2 &position);
+
+    Rectangle getDestination();
+
+private:
 
     const Rectangle source;
+    Rectangle destination;
 
 };
 

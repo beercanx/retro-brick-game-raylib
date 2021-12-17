@@ -4,4 +4,8 @@
 
 #include "Bullet.h"
 
-Bullet::Bullet(const Vector2 &position) : RawBrick(0.0f, position) {}
+Bullet::Bullet(const Vector2 &position) : RawBrick(position) {}
+
+Rectangle Bullet::getDestination() {
+    return outerBorder;
+}

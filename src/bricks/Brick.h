@@ -12,7 +12,7 @@ class Brick {
 
 public:
 
-    explicit Brick(float rotation, const Vector2 &position);
+    explicit Brick(const Vector2 &position);
 
     virtual void draw() = 0;
 
@@ -28,11 +28,8 @@ public:
     constexpr static const Vector2 down{0.0f, (size + gap) * scale};
     constexpr static const Vector2 up{down.x * -1.0f, down.y * -1.0f};
 
-    float rotation;
     Vector2 position;
 
 };
-
-void DrawBrick(Texture texture, Rectangle source, Vector2 position, float scale, float rotation, Color tint);
 
 #endif //RETRO_BRICK_GAME_BRICK_H

@@ -28,11 +28,18 @@ public:
         zee_inverse
     };
 
-    explicit Enemy(const Texture2D &sprite, Type type, float rotation, const Vector2 &position);
+    explicit Enemy(const Texture2D &sprite, Type type, const Vector2 &position);
+
+    void draw() override;
 
     void handleMovement(float deltaTime);
 
+    void handleDeath();
+
 private:
+
+    // TODO - Replace with rebirth
+    bool active{true};
 
     const float movementThreshold{0.500f}; // 50ms
     float movementTime{};

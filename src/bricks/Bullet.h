@@ -14,6 +14,8 @@ public:
 
     explicit Bullet(const Vector2 &position);
 
+    Rectangle getDestination();
+
 };
 
 

@@ -8,15 +8,15 @@
 Enemy::Enemy(
     const Texture2D &sprite,
     const Type type,
-    float rotation,
     const Vector2 &position
-) : SpriteBrick(sprite, getEnemyConfig().at(type), rotation, position),
+) : SpriteBrick(sprite, getEnemyConfig().at(type), position),
     type(type) {
 }
 
 // Hack to do static map initialisation "safely", credit to https://qr.ae/pGqMSG
 const Enemy::EnemyConfig &Enemy::getEnemyConfig() {
 
+    // TODO - Look at supporting rotation, but how do we do it and still have easy collision detection?
     static const auto *map = new EnemyConfig{
         {Type::ell,         {1, 0, 2, 3}},
         {Type::ell_inverse, {0, 0, 2, 3}},
@@ -37,6 +37,8 @@ const Enemy::EnemyConfig &Enemy::getEnemyConfig() {
 
 void Enemy::handleMovement(float deltaTime) {
 
+    if(!active) return;
+
     // Is it time to allow the next movement?
     if ((movementTime += deltaTime) < movementThreshold) {
         return;
@@ -45,7 +47,18 @@ void Enemy::handleMovement(float deltaTime) {
     // Reset tracker
     movementTime = 0.0f;
 
-    // Spin me right 'round, baby, right 'round
-    // Like a record, baby, right 'round, 'round, 'round
-    rotation += 90.0f;
+    // TODO - Update position
+    //updatePosition();
+}
+
+void Enemy::handleDeath() {
+
+    active = false;
+}
+
+void Enemy::draw() {
+
+    if(!active) return;
+
+    SpriteBrick::draw();
 }

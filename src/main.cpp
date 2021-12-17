@@ -16,6 +16,9 @@ int main() {
     const int windowWidth{Brick::scale * 71};
     const int windowHeight{Brick::scale * 141};
 
+    // Always on top
+    SetConfigFlags(FLAG_WINDOW_TOPMOST);
+
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
     // Positions
@@ -34,18 +37,13 @@ int main() {
     Enemy enemy{
         spriteTexture,
         Enemy::Type::seat,
-        0.0f,
-        Vector2Add(
+        Vector2Add( // TODO - Support random position placement
             gameViewPosition,
-            Vector2Add(
-                Vector2Scale(Brick::right, 4),
-                Vector2Scale(Brick::down, 4)
-            )
+            Vector2Scale(Brick::right, 4)
         )
     };
     Player player{
         spriteTexture,
-        0.0f,
         Vector2Add(
             gameViewPosition,
             Vector2Add(
@@ -100,7 +98,12 @@ int main() {
             // Handle bullet movement
             bullet->updatePosition(Vector2Add(bullet->position, Brick::up));
 
-            // TODO - Handle collisions with enemies.
+            // Handle collisions with enemies.
+            if(CheckCollisionRecs(bullet->getDestination(), enemy.getDestination())) {
+                std::cout << "Bullet has collided with Enemy" << std::endl;
+                bullets.erase(bullet);
+                enemy.handleDeath();
+            }
 
             // Remove bullet from game once invisible.
             if(bullet->position.y < gameViewPosition.y) {

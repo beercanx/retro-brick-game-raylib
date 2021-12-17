@@ -6,8 +6,8 @@
 #include "RawBrick.h"
 #include "Player.h"
 
-Player::Player(const Texture2D &sprite, const float rotation, const Vector2 &position) :
-    SpriteBrick(sprite, {9, 0, 3, 4}, rotation, position) {}
+Player::Player(const Texture2D &sprite, const Vector2 &position) :
+    SpriteBrick(sprite, {9, 0, 3, 4}, position) {}
 
 void Player::handleMovement(float deltaTime) {
 
@@ -20,11 +20,12 @@ void Player::handleMovement(float deltaTime) {
     movementTime = 0.0f;
 
     // TODO - Handle world bounds, aka we shouldn't be able to move over the walls on the background.
+    Vector2 position{this->position};
     if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) position = Vector2Add(position, Brick::right);
     if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) position = Vector2Add(position, Brick::left);
     if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) position = Vector2Add(position, Brick::up);
     if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) position = Vector2Add(position, Brick::down);
-
+    updatePosition(position);
 }
 
 std::optional<Bullet> Player::handleShooting(float deltaTime) {

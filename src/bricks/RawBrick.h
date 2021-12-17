@@ -11,13 +11,13 @@ class RawBrick : public Brick {
 
 public:
 
-    explicit RawBrick(float rotation, const Vector2 &position);
+    explicit RawBrick(const Vector2 &position);
 
     void draw() override;
 
     void updatePosition(const Vector2 &position);
 
-private:
+protected:
 
     Rectangle outerBorder{};
     Rectangle innerBorder{};

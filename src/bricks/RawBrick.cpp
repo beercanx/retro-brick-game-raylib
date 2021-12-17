@@ -5,9 +5,8 @@
 #include "RawBrick.h"
 
 RawBrick::RawBrick(
-    const float rotation,
     const Vector2 &position
-) : Brick(rotation, position) {
+) : Brick(position) {
 
     updatePosition(position);
 }
