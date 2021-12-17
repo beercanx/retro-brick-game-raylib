@@ -10,7 +10,7 @@
 
 int main() {
 
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Starting Retro Brick Game" << std::endl;
 
     // Window Dimensions
     const int windowWidth{Brick::scale * 71};
@@ -86,6 +86,8 @@ int main() {
 
         // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
+        // TODO - Draw more backgrounds to emphasise the game progression by switching to in_progress.
+
         // Handle player movement
         player.handleMovement(deltaTime);
 
@@ -93,11 +95,18 @@ int main() {
         enemy.handleMovement(deltaTime);
 
         // Handle bullet movement and collisions
-        for(auto& bullet : bullets) {
-            //bullet.tick(deltaTime);
-            bullet.updatePosition(Vector2Add(bullet.position, Brick::up));
+        for (auto bullet = bullets.begin(); bullet!=bullets.end(); bullet++){
+
+            // Handle bullet movement
+            bullet->updatePosition(Vector2Add(bullet->position, Brick::up));
+
             // TODO - Handle collisions with enemies.
-            // TODO - Remove bullet from game once invisible.
+
+            // Remove bullet from game once invisible.
+            if(bullet->position.y < gameViewPosition.y) {
+                std::cout << "Bullet has been deleted" << std::endl;
+                bullets.erase(bullet);
+            }
         }
 
         // Handler player shooting
