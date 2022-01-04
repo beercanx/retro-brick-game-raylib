@@ -30,6 +30,7 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/bricks/Player.cpp src/bricks/Player.h
         src/bricks/Bullet.cpp src/bricks/Bullet.h
         src/sidebar/Score.cpp src/sidebar/Score.h
+        src/sidebar/GameOver.cpp src/sidebar/GameOver.h
         )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)

@@ -8,6 +8,7 @@
 #include "bricks/Player.h"
 #include "bricks/Bullet.h"
 #include "sidebar/Score.h"
+#include "sidebar/GameOver.h"
 
 int main() {
 
@@ -62,7 +63,8 @@ int main() {
     std::list<Bullet> bullets{};
 
     // Sidebar
-    Score score{{gameView.width + Brick::right.x,0}};
+    Score score{{gameView.width + Brick::right.x, 0}};
+    GameOver gameOver{{Brick::right.x + Brick::gap * Brick::scale, gameView.height / 3}};
 
     SetTargetFPS(60);
 
@@ -91,6 +93,20 @@ int main() {
 
         // Handle enemy movement
         enemy.handleMovement(deltaTime);
+
+        // Handle enemy colliding with player
+        if (CheckCollisionRecs(player.getDestination(), enemy.getDestination())) {
+            std::cout << "Player was killed by an Enemy" << std::endl;
+
+            // Kill the player
+            player.handleDeath();
+
+            // Kill the enemy too?
+            enemy.handleDeath();
+
+            // Display game over
+            gameOver.display();
+        }
 
         // Handle bullet movement and collisions
         for (auto bullet = bullets.begin(); bullet!=bullets.end(); bullet++){
@@ -128,6 +144,7 @@ int main() {
 
         // Draw Sidebar
         score.draw();
+        gameOver.draw();
 
         EndDrawing();
     }

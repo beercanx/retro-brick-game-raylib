@@ -16,11 +16,15 @@ public:
 
     explicit Player(const Texture2D &sprite, const Vector2 &position);
 
+    void handleDeath();
+
     void handleMovement(float deltaTime);
 
     std::optional<Bullet> handleShooting(float deltaTime);
 
 private:
+
+    bool active{true};
 
     const float movementThreshold{0.050f}; // 50ms
     float movementTime{};

@@ -17,7 +17,7 @@ public:
     virtual void draw() = 0;
 
     // Sizes
-    static const int scale{2};
+    static const int scale{4};
     static const int size{6};
     static const int gap{1};
     static const int offset{size + gap};

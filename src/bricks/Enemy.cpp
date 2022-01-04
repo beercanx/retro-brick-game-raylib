@@ -47,8 +47,10 @@ void Enemy::handleMovement(float deltaTime) {
     // Reset tracker
     movementTime = 0.0f;
 
-    // TODO - Update position
-    //updatePosition();
+    // Update position
+    position = Vector2Add(position, Brick::down);
+
+    // TODO - Handle falling off the screen.?
 }
 
 void Enemy::handleDeath() {

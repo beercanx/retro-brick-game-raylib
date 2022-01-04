@@ -9,7 +9,14 @@
 Player::Player(const Texture2D &sprite, const Vector2 &position) :
     SpriteBrick(sprite, {9, 0, 3, 4}, position) {}
 
+void Player::handleDeath() {
+    active = false;
+}
+
 void Player::handleMovement(float deltaTime) {
+
+    // Stop moving, your "dead"
+    if (!active) return;
 
     // Is it time to allow the next movement?
     if ((movementTime += deltaTime) < movementThreshold) {
@@ -22,11 +29,14 @@ void Player::handleMovement(float deltaTime) {
     // TODO - Handle world bounds, aka we shouldn't be able to move over the walls on the background.
     if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) position = Vector2Add(position, Brick::right);
     if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) position = Vector2Add(position, Brick::left);
-    if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) position = Vector2Add(position, Brick::up);
-    if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) position = Vector2Add(position, Brick::down);
+    //if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) position = Vector2Add(position, Brick::up);
+    //if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) position = Vector2Add(position, Brick::down);
 }
 
 std::optional<Bullet> Player::handleShooting(float deltaTime) {
+
+    // Stop shooting, your "dead"
+    if (!active) return std::nullopt;
 
     // Is it time to allow the next movement?
     if ((shootingTime += deltaTime) < shootingThreshold) return std::nullopt;
