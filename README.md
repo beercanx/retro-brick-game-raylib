@@ -33,6 +33,14 @@ Game views:
 ## Progress
 Basically documented stages of development, deemed worthy enough of writing down or taking a picture of.
 
+### 2022-01-04
+* Player can fire bullets and kill enemies.
+* Enemies move and can kill players thus ending the game.
+* There's a visible score, although only one enemy to score off of.
+* Game has been scaled up by a factor of 2 from before.
+
+![Game State as of 2022-01-04](examples/2022-01-04.png?raw=true)
+
 ### 2021-12-13
 * Has its first starting background (the brick border to the left and right)
 * Has an "enemy" and "player" drawn, with some example fired bullets.
