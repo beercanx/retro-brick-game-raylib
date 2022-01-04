@@ -7,13 +7,14 @@
 #include "bricks/Background.h"
 #include "bricks/Player.h"
 #include "bricks/Bullet.h"
+#include "sidebar/Score.h"
 
 int main() {
 
     std::cout << "Starting Retro Brick Game" << std::endl;
 
     // Window Dimensions
-    const int windowWidth{Brick::scale * 71};
+    const int windowWidth{Brick::scale * 149};
     const int windowHeight{Brick::scale * 141};
 
     // Always on top
@@ -28,12 +29,16 @@ int main() {
     const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
     const Texture2D backgroundTexture{LoadTexture("assets/bricks/backgrounds.png")};
 
-    // Bricks
+    // Game Area
     Background background{
         backgroundTexture,
         Background::START,
         gameViewPosition
     };
+
+    const Rectangle gameView = background.getDestination();
+
+    // Bricks
     Enemy enemy{
         spriteTexture,
         Enemy::Type::seat,
@@ -56,6 +61,9 @@ int main() {
     // Bullets
     std::list<Bullet> bullets{};
 
+    // Sidebar
+    Score score{{gameView.width + Brick::right.x,0}};
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
@@ -64,14 +72,6 @@ int main() {
 
         BeginDrawing();
         ClearBackground(WHITE);
-
-        // TODO - Draw a grid 1 brick (6 pixels) with 1 "pixel" wide gap, so draw the grid lines in the "gap".
-
-        // TODO - Add a button to toggle the grid
-
-        // TODO - Draw a game area box, that can contain 10 by 20 bricks.
-        //        Left and right most bricks are a border.
-        //        Game content moves in a 8 by 18 grid most of the time.
 
         // TODO - Draw the non game area:
         //          Score (title & value)
@@ -101,6 +101,7 @@ int main() {
             // Handle collisions with enemies.
             if(CheckCollisionRecs(bullet->getDestination(), enemy.getDestination())) {
                 std::cout << "Bullet has collided with Enemy" << std::endl;
+                score.increase(1); // TODO - Scale on difficulty
                 bullets.erase(bullet);
                 enemy.handleDeath();
             }
@@ -124,6 +125,9 @@ int main() {
         for(auto& bullet : bullets) {
             bullet.draw();
         }
+
+        // Draw Sidebar
+        score.draw();
 
         EndDrawing();
     }

@@ -28,8 +28,22 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/bricks/Background.cpp src/bricks/Background.h
         src/bricks/Enemy.cpp src/bricks/Enemy.h
         src/bricks/Player.cpp src/bricks/Player.h
-        src/bricks/Bullet.cpp src/bricks/Bullet.h)
+        src/bricks/Bullet.cpp src/bricks/Bullet.h
+        src/sidebar/Score.cpp src/sidebar/Score.h
+        )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 enable_testing()
+
+##
+# Create distribution
+##
+
+# TODO - Create dist folder
+# TODO - Copy in executable
+# TODO - Copy in assets folder
+# TODO - Externalise versioning
+
+# TODO - Add Github Workflows
+# TODO - Publish on a release
