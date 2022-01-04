@@ -14,30 +14,23 @@ SpriteBrick::SpriteBrick(
         (source.y * offset) - gap,
         source.width * offset,
         source.height * offset
-    }) {
-    updatePosition(position);
-}
-
-void SpriteBrick::updatePosition(const Vector2 &position) {
-
-    this->position = position;
-
-    // Recalculate destination
-    destination = {
-        position.x,
-        position.y,
-        (float) source.width * scale,
-        (float) source.height * scale
-    };
+    }),
+    width(this->source.width * scale),
+    height(this->source.height * scale){
 }
 
 Rectangle SpriteBrick::getDestination() {
-    return destination;
+    return {
+        position.x,
+        position.y,
+        width,
+        height
+    };
 }
 
 void SpriteBrick::draw() {
 
     const Vector2 origin{1.0f, 1.0f};
 
-    DrawTexturePro(texture, source, destination, origin, 0.0f, WHITE);
+    DrawTexturePro(texture, source, getDestination(), origin, 0.0f, WHITE);
 }

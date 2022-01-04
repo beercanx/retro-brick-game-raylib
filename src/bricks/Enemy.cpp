@@ -62,3 +62,10 @@ void Enemy::draw() {
 
     SpriteBrick::draw();
 }
+
+Rectangle Enemy::getDestination() {
+
+    if(!active) return {};
+
+    return SpriteBrick::getDestination();
+}

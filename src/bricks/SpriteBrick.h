@@ -16,14 +16,13 @@ public:
 
     void draw() override;
 
-    void updatePosition(const Vector2 &position);
-
     Rectangle getDestination();
 
 private:
 
     const Rectangle source;
-    Rectangle destination;
+    const float width;
+    const float height;
 
 };
 

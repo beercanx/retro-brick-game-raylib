@@ -36,6 +36,8 @@ public:
 
     void handleDeath();
 
+    Rectangle getDestination();
+
 private:
 
     // TODO - Replace with rebirth
