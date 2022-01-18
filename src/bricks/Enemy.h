@@ -43,7 +43,7 @@ private:
     // TODO - Replace with rebirth
     bool active{true};
 
-    const float movementThreshold{0.500f}; // 50ms
+    const float movementThreshold{0.500f}; // 500ms
     float movementTime{};
 
     const Enemy::Type type;

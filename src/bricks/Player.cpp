@@ -13,7 +13,7 @@ void Player::handleDeath() {
     active = false;
 }
 
-void Player::handleMovement(float deltaTime) {
+void Player::handleMovement(const float deltaTime) {
 
     // Stop moving, your "dead"
     if (!active) return;
@@ -33,7 +33,7 @@ void Player::handleMovement(float deltaTime) {
     //if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) position = Vector2Add(position, Brick::down);
 }
 
-std::optional<Bullet> Player::handleShooting(float deltaTime) {
+std::optional<Bullet> Player::handleShooting(const float deltaTime) {
 
     // Stop shooting, your "dead"
     if (!active) return std::nullopt;

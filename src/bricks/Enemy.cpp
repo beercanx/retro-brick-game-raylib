@@ -35,7 +35,7 @@ const Enemy::EnemyConfig &Enemy::getEnemyConfig() {
     return *map;
 }
 
-void Enemy::handleMovement(float deltaTime) {
+void Enemy::handleMovement(const float deltaTime) {
 
     if(!active) return;
 
