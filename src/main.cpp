@@ -37,7 +37,7 @@ int main() {
         gameViewPosition
     };
 
-    const Rectangle gameView = background.getDestination();
+    const Rectangle gameView = background.getGameView();
 
     // Bricks
     Enemy enemy{
@@ -86,7 +86,9 @@ int main() {
 
         // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
+        // TODO - This one next.
         // TODO - Draw more backgrounds to emphasise the game progression by switching to in_progress.
+        background.handleMovement(deltaTime);
 
         // Handle player movement
         player.handleMovement(deltaTime);
@@ -97,6 +99,9 @@ int main() {
         // Handle enemy colliding with player
         if (CheckCollisionRecs(player.getDestination(), enemy.getDestination())) {
             std::cout << "Player was killed by an Enemy" << std::endl;
+
+            // Stop moving the background
+            background.active = false;
 
             // Kill the player
             player.handleDeath();
