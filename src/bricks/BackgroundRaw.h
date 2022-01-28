@@ -6,6 +6,7 @@
 #define RETRO_BRICK_GAME_BACKGROUNDRAW_H
 
 #include "raylib.h"
+#include "RawBrick.h"
 
 class BackgroundRaw {
 
@@ -29,9 +30,9 @@ private:
     const Vector2 position;
     const Rectangle gameView;
 
-    bool bricks[height][width]{
+    RawBrick rawBricks[height][width]{
         {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
+        {false, false, false, false, false, false, false, false, false, false},
         {true, false, false, false, false, false, false, false, false, true},
         {true, false, false, false, false, false, false, false, false, true},
         {true, false, false, false, false, false, false, false, false, true},

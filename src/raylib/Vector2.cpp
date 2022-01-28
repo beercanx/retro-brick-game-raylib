@@ -16,6 +16,10 @@ Vector2 operator*(const Vector2 &v, float scale) {
     return {v.x * scale, v.y * scale};
 }
 
+Vector2 operator*(const Vector2 &v, int scale) {
+    return {v.x * (float) scale, v.y * (float) scale};
+}
+
 Vector2 operator*(const Vector2 &v1, const Vector2 &v2) {
     return {v1.x * v2.x, v1.y * v2.y};
 }

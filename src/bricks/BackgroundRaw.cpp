@@ -4,7 +4,6 @@
 
 #include "BackgroundRaw.h"
 #include "Brick.h"
-#include "RawBrick.h"
 #include "../raylib/Vector2.h"
 
 BackgroundRaw::BackgroundRaw(const Vector2 &position) :
@@ -13,10 +12,20 @@ BackgroundRaw::BackgroundRaw(const Vector2 &position) :
         {
             position.x,
             position.y,
-            BackgroundRaw::width * Brick::offset * Brick::scale,
-            BackgroundRaw::height * Brick::offset * Brick::scale
+            width * Brick::offset * Brick::scale,
+            height * Brick::offset * Brick::scale
         }
     ) {
+    // Initialise the position of each RawBrick.
+    for (int widthIndex = 0; widthIndex < width; ++widthIndex) {
+        for (int heightIndex = 0; heightIndex < height; ++heightIndex) {
+            rawBricks[heightIndex][widthIndex].updatePosition(
+                position
+                + (Brick::right * widthIndex)
+                + (Brick::down * heightIndex)
+            );
+        }
+    }
 }
 
 Rectangle BackgroundRaw::getGameView() {
@@ -28,20 +37,9 @@ void BackgroundRaw::handleMovement(float deltaTime) {
 }
 
 void BackgroundRaw::draw() {
-    for (int widthIndex = 0; widthIndex < BackgroundRaw::width; ++widthIndex) {
-        for (int heightIndex = 0; heightIndex < BackgroundRaw::height; ++heightIndex) {
-            if (bricks[heightIndex][widthIndex]) {
-
-                // TODO - Probably more performant to track the RawBricks and update to disable their rendering.
-
-                RawBrick brick{
-                    {
-                        position
-                        + (Brick::right * (float) widthIndex)
-                        + (Brick::down * (float) heightIndex)
-                    }
-                };
-
+    for (auto &row: rawBricks) {
+        for (auto &brick: row) {
+            if (brick.visible) {
                 brick.draw();
             }
         }

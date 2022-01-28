@@ -4,14 +4,19 @@
 
 #include "RawBrick.h"
 
-RawBrick::RawBrick(
-    const Vector2 &position
-) : Brick(position) {
-
+RawBrick::RawBrick(const Vector2 &position) : Brick(position) {
     updatePosition(position);
 }
 
+// Is used by the array initializer of BackgroundRaw::rawBricks
+RawBrick::RawBrick(const bool visible) : Brick({}) {
+    this->visible = visible;
+}
+
 void RawBrick::draw() {
+
+    // Don't render, you're not visible
+    if (!visible) return;
 
     // outer square, 6 by 6, gray (7F7F7F)
     DrawRectangleRec(outerBorder, GRAY);

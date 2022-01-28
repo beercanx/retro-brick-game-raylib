@@ -11,6 +11,11 @@ class RawBrick : public Brick {
 
 public:
 
+    bool visible{true};
+
+    // Is used by the array initializer of BackgroundRaw::rawBricks
+    RawBrick(bool visible);
+
     explicit RawBrick(const Vector2 &position);
 
     void draw() override;

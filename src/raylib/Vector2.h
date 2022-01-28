@@ -13,6 +13,8 @@ Vector2 operator-(const Vector2 &v1, const Vector2 &v2);
 
 Vector2 operator*(const Vector2 &a, float scale);
 
+Vector2 operator*(const Vector2 &v, int scale);
+
 Vector2 operator*(const Vector2 &v1, const Vector2 &v2);
 
 Vector2 operator/(const Vector2 &v1, const Vector2 &v2);
