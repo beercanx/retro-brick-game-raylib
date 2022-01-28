@@ -4,6 +4,7 @@
 
 #include "Enemy.h"
 #include "Brick.h"
+#include "../raylib/Vector2.h"
 
 Enemy::Enemy(
     const Texture2D &sprite,
@@ -48,7 +49,7 @@ void Enemy::handleMovement(const float deltaTime) {
     movementTime = 0.0f;
 
     // Update position
-    position = Vector2Add(position, Brick::down);
+    position += Brick::down;
 
     // TODO - Handle falling off the screen.?
 }

@@ -2,13 +2,13 @@
 #include <list>
 #include "raylib.h"
 #include "bricks/RawBrick.h"
-#include "raymath.h"
 #include "bricks/Enemy.h"
-#include "bricks/Background.h"
 #include "bricks/Player.h"
 #include "bricks/Bullet.h"
 #include "sidebar/Score.h"
 #include "sidebar/GameOver.h"
+#include "bricks/BackgroundRaw.h"
+#include "raylib/Vector2.h"
 
 int main() {
 
@@ -31,11 +31,7 @@ int main() {
     const Texture2D backgroundTexture{LoadTexture("assets/bricks/backgrounds.png")};
 
     // Game Area
-    Background background{
-        backgroundTexture,
-        Background::START,
-        gameViewPosition
-    };
+    BackgroundRaw background{gameViewPosition};
 
     const Rectangle gameView = background.getGameView();
 
@@ -43,20 +39,11 @@ int main() {
     Enemy enemy{
         spriteTexture,
         Enemy::Type::seat,
-        Vector2Add( // TODO - Support random position placement
-            gameViewPosition,
-            Vector2Scale(Brick::right, 4)
-        )
+        gameViewPosition + (Brick::right * 4) // TODO - Support random position placement
     };
     Player player{
         spriteTexture,
-        Vector2Add(
-            gameViewPosition,
-            Vector2Add(
-                Vector2Scale(Brick::down, 13),
-                Vector2Scale(Brick::right, 4)
-            )
-        )
+        gameViewPosition + (Brick::down * 13) + (Brick::right * 4)
     };
 
     // Bullets
@@ -117,7 +104,7 @@ int main() {
         for (auto bullet = bullets.begin(); bullet!=bullets.end(); bullet++){
 
             // Handle bullet movement
-            bullet->updatePosition(Vector2Add(bullet->position, Brick::up));
+            bullet->updatePosition(bullet->position + Brick::up);
 
             // Handle collisions with enemies.
             if(CheckCollisionRecs(bullet->getDestination(), enemy.getDestination())) {

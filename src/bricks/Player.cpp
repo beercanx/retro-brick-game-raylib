@@ -5,6 +5,7 @@
 #include <optional>
 #include "RawBrick.h"
 #include "Player.h"
+#include "../raylib/Vector2.h"
 
 Player::Player(const Texture2D &sprite, const Vector2 &position) :
     SpriteBrick(sprite, {9, 0, 3, 4}, position) {}
@@ -27,10 +28,10 @@ void Player::handleMovement(const float deltaTime) {
     movementTime = 0.0f;
 
     // TODO - Handle world bounds, aka we shouldn't be able to move over the walls on the background.
-    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) position = Vector2Add(position, Brick::right);
-    if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) position = Vector2Add(position, Brick::left);
-    //if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) position = Vector2Add(position, Brick::up);
-    //if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) position = Vector2Add(position, Brick::down);
+    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) position += Brick::right;
+    if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) position += Brick::left;
+    //if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) position += Brick::up;
+    //if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) position += Brick::down;
 }
 
 std::optional<Bullet> Player::handleShooting(const float deltaTime) {
@@ -49,13 +50,7 @@ std::optional<Bullet> Player::handleShooting(const float deltaTime) {
 
     // Spawn a bullet - two cells up and one to the right from the player
     Bullet bullet{
-        Vector2Add(
-            position,
-            Vector2Add(
-                Vector2Scale(Brick::up, 2.0f),
-                Brick::right
-            )
-        )
+        position + (Brick::up * 2.0f) + Brick::right
     };
 
     return std::optional{bullet};
