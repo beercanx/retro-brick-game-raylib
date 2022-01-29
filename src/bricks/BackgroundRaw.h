@@ -5,6 +5,7 @@
 #ifndef RETRO_BRICK_GAME_BACKGROUNDRAW_H
 #define RETRO_BRICK_GAME_BACKGROUNDRAW_H
 
+#include <array>
 #include "raylib.h"
 #include "RawBrick.h"
 
@@ -14,7 +15,7 @@ public:
 
     bool active{true};
 
-    explicit BackgroundRaw(const Vector2 &position);
+    explicit BackgroundRaw(Vector2 position);
 
     void handleMovement(float deltaTime);
 
@@ -30,31 +31,12 @@ private:
     const Vector2 position;
     const Rectangle gameView;
 
-    RawBrick rawBricks[height][width]{
-        {true, false, false, false, false, false, false, false, false, true},
-        {false, false, false, false, false, false, false, false, false, false},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true}
-    };
+    std::array<std::array<RawBrick, width>, height> rawBricks;
 
     const float movementThreshold{0.500f}; // 500ms
     float movementTime{};
+
+    void calculateBrickPositions();
 
 };
 
