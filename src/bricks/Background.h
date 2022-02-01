@@ -1,23 +1,21 @@
 //
-// Created by Beercan on 13/12/2021.
+// Created by Beercan on 28/01/2022.
 //
 
 #ifndef RETRO_BRICK_GAME_BACKGROUND_H
 #define RETRO_BRICK_GAME_BACKGROUND_H
 
+#include <array>
 #include "raylib.h"
-#include "SpriteBrick.h"
+#include "RawBrick.h"
 
 class Background {
 
 public:
 
-    explicit Background(const Texture2D &texture, const Rectangle &source, const Vector2 &position);
-
-    constexpr static const Rectangle START{0, 0, 10, 20};
-    constexpr static const Rectangle IN_PROGRESS{0, 0, 10, 20};
-
     bool active{true};
+
+    explicit Background(Vector2 position);
 
     void handleMovement(float deltaTime);
 
@@ -27,18 +25,19 @@ public:
 
 private:
 
-    const Texture2D texture;
+    static const int width{10};
+    static const int height{20};
+
+    const Vector2 position;
+    const Rectangle gameView;
+
+    std::array<std::array<RawBrick, width>, height> rawBricks;
 
     const float movementThreshold{0.500f}; // 500ms
     float movementTime{};
 
-    Rectangle source;
-    Rectangle destination;
-
-    Rectangle originalSource;
-    Rectangle originalDestination;
+    void calculateBrickPositions();
 
 };
-
 
 #endif //RETRO_BRICK_GAME_BACKGROUND_H

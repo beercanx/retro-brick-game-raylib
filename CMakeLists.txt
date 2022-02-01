@@ -31,7 +31,6 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/bricks/Bullet.cpp src/bricks/Bullet.h
         src/sidebar/Score.cpp src/sidebar/Score.h
         src/sidebar/GameOver.cpp src/sidebar/GameOver.h
-        src/bricks/BackgroundRaw.cpp src/bricks/BackgroundRaw.h
         src/raylib/Vector2.cpp src/raylib/Vector2.h
         )
 

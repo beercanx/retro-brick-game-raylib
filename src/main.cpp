@@ -7,7 +7,7 @@
 #include "bricks/Bullet.h"
 #include "sidebar/Score.h"
 #include "sidebar/GameOver.h"
-#include "bricks/BackgroundRaw.h"
+#include "bricks/Background.h"
 #include "raylib/Vector2.h"
 
 int main() {
@@ -31,7 +31,7 @@ int main() {
     const Texture2D backgroundTexture{LoadTexture("assets/bricks/backgrounds.png")};
 
     // Game Area
-    BackgroundRaw background{gameViewPosition};
+    Background background{gameViewPosition};
 
     const Rectangle gameView = background.getGameView();
 
