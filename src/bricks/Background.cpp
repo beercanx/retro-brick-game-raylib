@@ -14,27 +14,27 @@ Background::Background(const Vector2 position) :
         width * Brick::offset * Brick::scale,
         height * Brick::offset * Brick::scale
     },
-    rawBricks{{
-        {true,  false, false, false, false, false, false, false, false, true},
-        {false, false, false, false, false, false, false, false, false, false},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {false,  false, false, false, false, false, false, false, false, false},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true},
-        {true,  false, false, false, false, false, false, false, false, true}
+    rawBricks{{ // Starting Background
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true},
+        {true, false, false, false, false, false, false, false, false, true}
     }} {
     // Initialise the position of each RawBrick.
     calculateBrickPositions();
@@ -68,6 +68,7 @@ void Background::handleMovement(float deltaTime) {
         // Shift each row down by one
         rawBricks[index] = rawBricks[index - 1];
     }
+    reconfigureRow(lastRow);
     rawBricks[0] = lastRow;
 
     // Recalculate brick positions
@@ -94,4 +95,11 @@ void Background::calculateBrickPositions() {
             );
         }
     }
+}
+
+void Background::reconfigureRow(std::array<RawBrick, width> &row) {
+    static bool visible{true};
+    visible = !visible;
+    row.front().visible = visible;
+    row.back().visible = visible;
 }

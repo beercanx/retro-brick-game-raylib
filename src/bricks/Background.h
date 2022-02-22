@@ -38,6 +38,8 @@ private:
 
     void calculateBrickPositions();
 
+    static void reconfigureRow(std::array<RawBrick, width> &row);
+
 };
 
 #endif //RETRO_BRICK_GAME_BACKGROUND_H
