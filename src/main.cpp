@@ -53,6 +53,10 @@ int main() {
     Score score{{gameView.width + Brick::right.x, 0}};
     GameOver gameOver{{Brick::right.x + Brick::gap * Brick::scale, gameView.height / 3}};
 
+    // Pause
+    float pausedTrigger{0.0f};
+    bool paused{true};
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
@@ -61,6 +65,12 @@ int main() {
 
         BeginDrawing();
         ClearBackground(WHITE);
+
+        pausedTrigger += deltaTime;
+        if(IsKeyDown(KEY_P) && pausedTrigger >= 0.1f) {
+            paused = !paused;
+            pausedTrigger = 0.0f;
+        }
 
         // TODO - Draw the non game area:
         //          Score (title & value)
@@ -73,57 +83,60 @@ int main() {
 
         // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
-        // TODO - This one next.
-        // TODO - Draw more backgrounds to emphasise the game progression by switching to in_progress.
-        background.handleMovement(deltaTime);
+        if(!paused) {
 
-        // Handle player movement
-        player.handleMovement(deltaTime);
+            // TODO - This one next.
+            // TODO - Draw more backgrounds to emphasise the game progression by switching to in_progress.
+            background.handleMovement(deltaTime);
 
-        // Handle enemy movement
-        enemy.handleMovement(deltaTime);
+            // Handle player movement
+            player.handleMovement(deltaTime);
 
-        // Handle enemy colliding with player
-        if (CheckCollisionRecs(player.getDestination(), enemy.getDestination())) {
-            std::cout << "Player was killed by an Enemy" << std::endl;
+            // Handle enemy movement
+            enemy.handleMovement(deltaTime);
 
-            // Stop moving the background
-            background.active = false;
+            // Handle enemy colliding with player
+            if (CheckCollisionRecs(player.getDestination(), enemy.getDestination())) {
+                std::cout << "Player was killed by an Enemy" << std::endl;
 
-            // Kill the player
-            player.handleDeath();
+                // Stop moving the background
+                background.active = false;
 
-            // Kill the enemy too?
-            enemy.handleDeath();
+                // Kill the player
+                player.handleDeath();
 
-            // Display game over
-            gameOver.display();
-        }
-
-        // Handle bullet movement and collisions
-        for (auto bullet = bullets.begin(); bullet!=bullets.end(); bullet++){
-
-            // Handle bullet movement
-            bullet->updatePosition(bullet->position + Brick::up);
-
-            // Handle collisions with enemies.
-            if(CheckCollisionRecs(bullet->getDestination(), enemy.getDestination())) {
-                std::cout << "Bullet has collided with Enemy" << std::endl;
-                score.increase(1); // TODO - Scale on difficulty
-                bullets.erase(bullet);
+                // Kill the enemy too?
                 enemy.handleDeath();
+
+                // Display game over
+                gameOver.display();
             }
 
-            // Remove bullet from game once invisible.
-            if(bullet->position.y < gameViewPosition.y) {
-                std::cout << "Bullet has been deleted" << std::endl;
-                bullets.erase(bullet);
-            }
-        }
+            // Handle bullet movement and collisions
+            for (auto bullet = bullets.begin(); bullet != bullets.end(); bullet++) {
 
-        // Handler player shooting
-        if(const auto& bullet = player.handleShooting(deltaTime)) {
-            bullets.push_back(*bullet);
+                // Handle bullet movement
+                bullet->updatePosition(bullet->position + Brick::up);
+
+                // Handle collisions with enemies.
+                if (CheckCollisionRecs(bullet->getDestination(), enemy.getDestination())) {
+                    std::cout << "Bullet has collided with Enemy" << std::endl;
+                    score.increase(1); // TODO - Scale on difficulty
+                    bullets.erase(bullet);
+                    enemy.handleDeath();
+                }
+
+                // Remove bullet from game once invisible.
+                if (bullet->position.y < gameViewPosition.y) {
+                    std::cout << "Bullet has been deleted" << std::endl;
+                    bullets.erase(bullet);
+                }
+            }
+
+            // Handler player shooting
+            if (const auto &bullet = player.handleShooting(deltaTime)) {
+                bullets.push_back(*bullet);
+            }
         }
 
         // Draw bricks
@@ -137,6 +150,15 @@ int main() {
         // Draw Sidebar
         score.draw();
         gameOver.draw();
+        if(paused) {
+            DrawText(
+                "Paused",
+                Brick::right.x + (Brick::gap * Brick::scale) * 10,
+                (int) gameView.height / 3,
+                10 * Brick::scale,
+                RED
+            );
+        }
 
         EndDrawing();
     }
