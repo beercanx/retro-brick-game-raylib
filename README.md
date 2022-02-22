@@ -33,6 +33,10 @@ Game views:
 ## Progress
 Basically documented stages of development, deemed worthy enough of writing down or taking a picture of.
 
+### 2022-02-22
+* Pause mechanism, starts paused and can be toggled by the letter 'p'.
+* Background now progresses from solid to alternating blocks.
+
 ### 2022-01-04
 * Player can fire bullets and kill enemies.
 * Enemies move and can kill players thus ending the game.
