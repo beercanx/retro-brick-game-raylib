@@ -98,8 +98,12 @@ void Background::calculateBrickPositions() {
 }
 
 void Background::reconfigureRow(std::array<RawBrick, width> &row) {
-    static bool visible{true};
-    visible = !visible;
-    row.front().visible = visible;
-    row.back().visible = visible;
+    static int step{0};
+
+    row.front().visible = step != 0;
+    row.back().visible = step != 0;
+
+    if(++step > 2) {
+        step = 0;
+    }
 }
