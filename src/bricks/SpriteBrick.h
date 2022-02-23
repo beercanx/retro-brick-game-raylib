@@ -16,13 +16,17 @@ public:
 
     void draw() override;
 
-    Rectangle getDestination();
+    virtual Rectangle getDestination();
+
+protected:
+
+    void updateSource(Rectangle value);
 
 private:
 
-    const Rectangle source;
-    const float width;
-    const float height;
+    Rectangle source;
+    float width;
+    float height;
 
 };
 

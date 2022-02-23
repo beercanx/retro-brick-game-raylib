@@ -36,7 +36,9 @@ public:
 
     void handleDeath();
 
-    Rectangle getDestination();
+    void handleReBirth();
+
+    Rectangle getDestination() override;
 
 private:
 
@@ -46,7 +48,9 @@ private:
     const float movementThreshold{0.500f}; // 500ms
     float movementTime{};
 
-    const Enemy::Type type;
+    const Vector2 startingPosition;
+
+    Enemy::Type type;
 
     typedef const std::map<Enemy::Type, Rectangle> EnemyConfig;
 

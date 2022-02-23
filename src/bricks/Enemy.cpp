@@ -2,6 +2,7 @@
 // Created by Beercan on 13/12/2021.
 //
 
+#include <random>
 #include "Enemy.h"
 #include "Brick.h"
 #include "../raylib/Vector2.h"
@@ -11,7 +12,8 @@ Enemy::Enemy(
     const Type type,
     const Vector2 &position
 ) : SpriteBrick(sprite, getEnemyConfig().at(type), position),
-    type(type) {
+    type(type),
+    startingPosition(position) {
 }
 
 // Hack to do static map initialisation "safely", credit to https://qr.ae/pGqMSG
@@ -58,6 +60,21 @@ void Enemy::handleDeath() {
 
     active = false;
 }
+
+void Enemy::handleReBirth() {
+
+    active = true;
+
+    // TODO - Change to C++11 random library
+    type = static_cast<Type>(rand() % Type::zee_inverse);
+    updateSource(getEnemyConfig().at(type));
+
+    // Reset back to the top
+    position = startingPosition;
+
+    // TODO - Add in random positions to make it harder and a need to move around.
+}
+
 
 void Enemy::draw() {
 

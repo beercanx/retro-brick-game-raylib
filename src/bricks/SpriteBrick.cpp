@@ -8,15 +8,8 @@ SpriteBrick::SpriteBrick(
     const Texture2D &sprite,
     const Rectangle source,
     const Vector2 &position
-) : TextureBrick(sprite, position),
-    source({
-        (source.x * offset) - gap,
-        (source.y * offset) - gap,
-        source.width * offset,
-        source.height * offset
-    }),
-    width(this->source.width * scale),
-    height(this->source.height * scale){
+) : TextureBrick(sprite, position) {
+    updateSource(source);
 }
 
 Rectangle SpriteBrick::getDestination() {
@@ -33,4 +26,17 @@ void SpriteBrick::draw() {
     const Vector2 origin{1.0f, 1.0f};
 
     DrawTexturePro(texture, source, getDestination(), origin, 0.0f, WHITE);
+}
+
+void SpriteBrick::updateSource(const Rectangle value) {
+
+    source = {
+        (value.x * offset) - gap,
+        (value.y * offset) - gap,
+        value.width * offset,
+        value.height * offset
+    };
+
+    width = source.width * scale;
+    height = source.height * scale;
 }

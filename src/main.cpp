@@ -43,8 +43,10 @@ int main() {
     };
     Player player{
         spriteTexture,
-        gameViewPosition + (Brick::down * 13) + (Brick::right * 4)
+        gameViewPosition + (Brick::down * 13) + (Brick::right * 4) // TODO - Align player and background
     };
+
+    // TODO - Introduce levels, speed increase, score increase, number of enemies per level?
 
     // Bullets
     std::list<Bullet> bullets{};
@@ -85,8 +87,6 @@ int main() {
 
         if(!paused) {
 
-            // TODO - This one next.
-            // TODO - Draw more backgrounds to emphasise the game progression by switching to in_progress.
             background.handleMovement(deltaTime);
 
             // Handle player movement
@@ -123,7 +123,7 @@ int main() {
                     std::cout << "Bullet has collided with Enemy" << std::endl;
                     score.increase(1); // TODO - Scale on difficulty
                     bullets.erase(bullet);
-                    enemy.handleDeath();
+                    enemy.handleReBirth();
                 }
 
                 // Remove bullet from game once invisible.
