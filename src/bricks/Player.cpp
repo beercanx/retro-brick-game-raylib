@@ -7,8 +7,12 @@
 #include "Player.h"
 #include "../raylib/Vector2.h"
 
-Player::Player(const Texture2D &sprite, const Vector2 &position) :
-    SpriteBrick(sprite, {9, 0, 3, 4}, position) {}
+Player::Player(const Texture2D &sprite, const Vector2 &position, const Rectangle &gameView) :
+    SpriteBrick(sprite, {9, 0, 3, 4}, position),
+    topLeft({gameView.x + right.x, gameView.y}),
+    topRight({gameView.x + gameView.width + left.x - gap * scale, gameView.y}),
+    bottomLeft({topLeft.x, gameView.y + gameView.height - gap * scale}),
+    bottomRight({topRight.x, bottomLeft.y}) {}
 
 void Player::handleDeath() {
     active = false;
@@ -27,11 +31,20 @@ void Player::handleMovement(const float deltaTime) {
     // Reset tracker
     movementTime = 0.0f;
 
-    // TODO - Handle world bounds, aka we shouldn't be able to move over the walls on the background.
-    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) position += Brick::right;
-    if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) position += Brick::left;
-    //if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) position += Brick::up;
-    //if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) position += Brick::down;
+    // Movement within game bounds
+    const Rectangle destination = getDestination();
+    if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && destination.x + destination.width < topRight.x) {
+        position += Brick::right;
+    }
+    if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && destination.x > topLeft.x) {
+        position += Brick::left;
+    }
+    //if ((IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) && destination.y > topLeft.y){
+    //    position += Brick::up;
+    //}
+    //if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && destination.y + destination.height < bottomLeft.y) {
+    //    position += Brick::down;
+    //}
 }
 
 std::optional<Bullet> Player::handleShooting(const float deltaTime) {

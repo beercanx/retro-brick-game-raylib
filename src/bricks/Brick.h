@@ -28,6 +28,9 @@ public:
     constexpr static const Vector2 down{0.0f, (size + gap) * scale};
     constexpr static const Vector2 up{down.x * -1.0f, down.y * -1.0f};
 
+    // Other
+    constexpr static const Vector2 space{gap * scale, gap * scale};
+
     Vector2 position;
 
 };

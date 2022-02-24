@@ -25,7 +25,7 @@ int main() {
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
     // Positions
-    const Vector2 gameViewPosition{1.0f, 1.0f};
+    const Vector2 gameViewPosition{1.0f * Brick::scale, 1.0f * Brick::scale};
 
     // Textures
     const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
@@ -40,14 +40,13 @@ int main() {
     Enemy enemy{
         spriteTexture,
         Enemy::Type::seat,
-        gameViewPosition + (Brick::right * 4) // TODO - Support random position placement
+        gameViewPosition + (Brick::right * 4) - Brick::space // TODO - Support random position placement
     };
     Player player{
         spriteTexture,
-        gameViewPosition + (Brick::down * 13) + (Brick::right * 4) // TODO - Align player and background
+        gameViewPosition + (Brick::down * 13) + (Brick::right * 4) - Brick::space,
+        gameView
     };
-
-    // TODO - Introduce levels, speed increase, score increase, number of enemies per level?
 
     // Bullets
     std::list<Bullet> bullets{};
@@ -77,7 +76,6 @@ int main() {
         }
 
         // TODO - Draw the non game area:
-        //          Score (title & value)
         //          Space to display if sound and music is enabled
         //          Space for Game Over text
         //          Space for a next shape view (Title + 4 by 4 grid)

@@ -14,7 +14,7 @@ class Player : public SpriteBrick {
 
 public:
 
-    explicit Player(const Texture2D &sprite, const Vector2 &position);
+    explicit Player(const Texture2D &sprite, const Vector2 &position, const Rectangle &gameView);
 
     void handleDeath();
 
@@ -32,6 +32,11 @@ private:
     const float shootingThreshold{0.250f}; // 250ms
     float shootingTime{};
 
+    // Game boundaries
+    const Vector2 topLeft;
+    const Vector2 topRight;
+    const Vector2 bottomLeft;
+    const Vector2 bottomRight;
 };
 
 

@@ -22,10 +22,7 @@ Rectangle SpriteBrick::getDestination() {
 }
 
 void SpriteBrick::draw() {
-
-    const Vector2 origin{1.0f, 1.0f};
-
-    DrawTexturePro(texture, source, getDestination(), origin, 0.0f, WHITE);
+    DrawTexturePro(texture, source, getDestination(), {}, 0.0f, WHITE);
 }
 
 void SpriteBrick::updateSource(const Rectangle value) {
