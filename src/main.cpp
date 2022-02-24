@@ -9,6 +9,7 @@
 #include "sidebar/GameOver.h"
 #include "bricks/Background.h"
 #include "raylib/Vector2.h"
+#include "sidebar/Level.h"
 
 int main() {
 
@@ -53,6 +54,7 @@ int main() {
 
     // Sidebar
     Score score{{gameView.width + Brick::right.x, 0}};
+    Level level{{gameView.width + Brick::right.x, Brick::down.y}};
     GameOver gameOver{{Brick::right.x + Brick::gap * Brick::scale, gameView.height / 3}};
 
     // Pause
@@ -93,7 +95,7 @@ int main() {
             player.handleMovement(deltaTime);
 
             // Handle enemy movement
-            enemy.handleMovement(deltaTime);
+            enemy.handleMovement(deltaTime * level.getSpeedScale());
 
             // Handle enemy colliding with player
             if (CheckCollisionRecs(player.getDestination(), enemy.getDestination())) {
@@ -121,7 +123,8 @@ int main() {
                 // Handle collisions with enemies.
                 if (CheckCollisionRecs(bullet->getDestination(), enemy.getDestination())) {
                     std::cout << "Bullet has collided with Enemy" << std::endl;
-                    score.increase(1); // TODO - Scale on difficulty
+                    level.updateProgress(1);
+                    score.increase(1 * level.getScoreScale());
                     bullets.erase(bullet);
                     enemy.handleReBirth();
                 }
@@ -149,6 +152,7 @@ int main() {
 
         // Draw Sidebar
         score.draw();
+        level.draw();
         gameOver.draw();
         if(paused) {
             DrawText(
