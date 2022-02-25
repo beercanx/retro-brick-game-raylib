@@ -11,8 +11,8 @@ Background::Background(const Vector2 position) :
     gameView{
         position.x,
         position.y,
-        width * Brick::offset * Brick::scale,
-        height * Brick::offset * Brick::scale
+        width * Brick::offset * Brick::scale - Brick::gap * Brick::scale,
+        height * Brick::offset * Brick::scale - Brick::gap * Brick::scale
     },
     rawBricks{{ // Starting Background
         {true, false, false, false, false, false, false, false, false, true},

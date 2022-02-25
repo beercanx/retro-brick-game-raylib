@@ -52,7 +52,7 @@ int main() {
     // Sidebar
     Score score{gameView.outerTopRight + Brick::right};
     Level level{ gameView.outerTopRight + Brick::right + Brick::down};
-    GameOver gameOver{gameView.innerTopLeft + Vector2{0, gameView.height / 3}};
+    GameOver gameOver{gameView.innerTopLeft + Vector2{0, gameView.outer.height / 3}};
 
     // Pause
     float pausedTrigger{0.0f};
@@ -154,18 +154,20 @@ int main() {
             DrawText(
                 "Paused",
                 Brick::right.x + (Brick::gap * Brick::scale) * 10,
-                (int) gameView.height / 3,
+                (int) gameView.outer.height / 3,
                 10 * Brick::scale,
                 RED
             );
         }
 
         // Gizmos
+//        DrawRectangleLinesEx(gameView.outer, 1.0f, RED);
 //        DrawLineV(gameView.outerTopLeft, gameView.outerTopRight, RED);
 //        DrawLineV(gameView.outerTopRight, gameView.outerBottomRight, RED);
 //        DrawLineV(gameView.outerBottomRight, gameView.outerBottomLeft, RED);
 //        DrawLineV(gameView.outerBottomLeft, gameView.outerTopLeft, RED);
 
+//        DrawRectangleLinesEx(gameView.inner, 1.0f, PURPLE);
 //        DrawLineV(gameView.innerTopLeft, gameView.innerTopRight, PURPLE);
 //        DrawLineV(gameView.innerTopRight, gameView.innerBottomRight, PURPLE);
 //        DrawLineV(gameView.innerBottomRight, gameView.innerBottomLeft, PURPLE);

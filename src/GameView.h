@@ -13,14 +13,13 @@ public:
 
     explicit GameView(float x, float y, float width, float height);
 
-    const float width;
-    const float height;
-
+    const Rectangle outer;
     const Vector2 outerTopLeft;
     const Vector2 outerTopRight;
     const Vector2 outerBottomLeft;
     const Vector2 outerBottomRight;
 
+    const Rectangle inner;
     const Vector2 innerTopLeft;
     const Vector2 innerTopRight;
     const Vector2 innerBottomLeft;
