@@ -3,6 +3,7 @@
 //
 
 #include <random>
+#include <ctime>
 #include <iostream>
 #include "Enemy.h"
 #include "Brick.h"
@@ -69,10 +70,14 @@ void Enemy::handleDeath() {
 
 void Enemy::handleReBirth() {
 
+    static std::random_device rd;
+    static std::default_random_engine generator(rd());
+    static std::uniform_real_distribution<float> distribution(Type::ell, Type::zee_inverse);
+
     active = true;
 
-    // TODO - Change to C++11 random library
-    type = static_cast<Type>(rand() % Type::zee_inverse);
+    type = static_cast<Type>(distribution(generator));
+
     updateSource(getEnemyConfig().at(type));
 
     // Reset back to the top
