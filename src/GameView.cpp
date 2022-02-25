@@ -6,14 +6,14 @@
 #include "bricks/Brick.h"
 #include "raylib/Vector2.h"
 
-GameView::GameView(const Rectangle &gameView) :
+GameView::GameView(const float x, const float y, const float width, const float height) :
 
-    width(gameView.width),
-    height(gameView.height),
+    width(width),
+    height(height),
 
-    outerTopLeft({gameView.x, gameView.y}),
-    outerTopRight({gameView.x + gameView.width - Brick::gap * Brick::scale, gameView.y}),
-    outerBottomLeft({outerTopLeft.x, gameView.y + gameView.height - Brick::gap * Brick::scale}),
+    outerTopLeft({x, y}),
+    outerTopRight({x + width - Brick::gap * Brick::scale, y}),
+    outerBottomLeft({outerTopLeft.x, y + height - Brick::gap * Brick::scale}),
     outerBottomRight({outerTopRight.x, outerBottomLeft.y}),
 
     innerTopLeft(outerTopLeft + Brick::right),

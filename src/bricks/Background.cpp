@@ -9,12 +9,10 @@
 Background::Background(const Vector2 position) :
     position(position),
     gameView{
-        {
-            position.x,
-            position.y,
-            width * Brick::offset * Brick::scale,
-            height * Brick::offset * Brick::scale
-        }
+        position.x,
+        position.y,
+        width * Brick::offset * Brick::scale,
+        height * Brick::offset * Brick::scale
     },
     rawBricks{{ // Starting Background
         {true, false, false, false, false, false, false, false, false, true},

@@ -11,7 +11,7 @@ class GameView {
 
 public:
 
-    explicit GameView(const Rectangle &gameView);
+    explicit GameView(float x, float y, float width, float height);
 
     const float width;
     const float height;
