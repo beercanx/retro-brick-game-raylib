@@ -22,12 +22,9 @@ protected:
 
     void updateSource(Rectangle value);
 
-    float width;
-    float height;
-
-private:
-
-    Rectangle source;
+    Rectangle source{};
+    float width{};
+    float height{};
 
 };
 

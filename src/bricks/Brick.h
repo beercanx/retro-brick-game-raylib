@@ -23,9 +23,9 @@ public:
     static const int offset{size + gap};
 
     // Movement
-    constexpr static const Vector2 right{(size + gap) * scale, 0.0f};
+    constexpr static const Vector2 right{offset * scale, 0.0f};
     constexpr static const Vector2 left{right.x * -1.0f, right.y * -1.0f};
-    constexpr static const Vector2 down{0.0f, (size + gap) * scale};
+    constexpr static const Vector2 down{0.0f, offset * scale};
     constexpr static const Vector2 up{down.x * -1.0f, down.y * -1.0f};
 
     // Other

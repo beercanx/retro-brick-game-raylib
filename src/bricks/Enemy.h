@@ -29,7 +29,7 @@ public:
         zee_inverse
     };
 
-    explicit Enemy(const Texture2D &sprite, Type type, const Vector2 &position, GameView gameView);
+    explicit Enemy(const Texture2D &sprite, Type type, GameView gameView);
 
     void draw() override;
 
@@ -50,11 +50,13 @@ private:
     float movementTime{};
 
     const GameView gameView;
-    const Vector2 startingPosition;
 
     Enemy::Type type;
     typedef const std::map<Enemy::Type, Rectangle> EnemyConfig;
     const static EnemyConfig &getEnemyConfig();
+
+    Vector2 generatePosition();
+
 };
 
 

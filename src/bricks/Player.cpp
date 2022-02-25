@@ -13,6 +13,7 @@ Player::Player(const Texture2D &sprite, const Vector2 &position, const GameView 
 
 void Player::handleDeath() {
     active = false;
+    // TODO - Trigger death scene.
 }
 
 void Player::handleMovement(const float deltaTime) {

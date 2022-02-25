@@ -3,7 +3,6 @@
 //
 
 #include <random>
-#include <ctime>
 #include <iostream>
 #include "Enemy.h"
 #include "Brick.h"
@@ -12,12 +11,12 @@
 Enemy::Enemy(
     const Texture2D &sprite,
     const Type type,
-    const Vector2 &position,
     const GameView gameView
-) : SpriteBrick(sprite, getEnemyConfig().at(type), position),
+) : SpriteBrick(sprite, getEnemyConfig().at(type), {}),
     type(type),
-    startingPosition(position),
-    gameView(gameView) {}
+    gameView(gameView) {
+    position = generatePosition();
+}
 
 // Hack to do static map initialisation "safely", credit to https://qr.ae/pGqMSG
 const Enemy::EnemyConfig &Enemy::getEnemyConfig() {
@@ -72,7 +71,7 @@ void Enemy::handleReBirth() {
 
     static std::random_device rd;
     static std::default_random_engine generator(rd());
-    static std::uniform_real_distribution<float> distribution(Type::ell, Type::zee_inverse);
+    static std::uniform_int_distribution<int> distribution(Type::ell, Type::zee_inverse);
 
     active = true;
 
@@ -80,10 +79,8 @@ void Enemy::handleReBirth() {
 
     updateSource(getEnemyConfig().at(type));
 
-    // Reset back to the top
-    position = startingPosition;
-
-    // TODO - Add in random positions to make it harder and a need to move around.
+    // Reset back to the top with a random x position
+    position = generatePosition();
 }
 
 
@@ -99,4 +96,17 @@ Rectangle Enemy::getDestination() {
     if (!active) return {};
 
     return SpriteBrick::getDestination();
+}
+
+Vector2 Enemy::generatePosition() {
+
+    static std::random_device rd;
+    static std::default_random_engine generator(rd());
+
+    const int wide = (int) (width / scale / offset);
+
+    // We have space for 8 bricks and have enemies of 1 width, which cannot be shot if in position 0 or 8.
+    std::uniform_int_distribution<int> distribution(wide == 1 ? 1 : 0, (wide == 1 ? 7 : 8) - wide);
+
+    return gameView.innerTopLeft + (Brick::right * distribution(generator)) - Brick::space;
 }

@@ -37,7 +37,6 @@ int main() {
     Enemy enemy{
         spriteTexture,
         Enemy::Type::seat,
-        gameView.innerTopLeft + (Brick::right * 3) - Brick::space, // TODO - Support random position placement
         gameView
     };
     Player player{
