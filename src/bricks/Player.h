@@ -9,12 +9,13 @@
 #include "SpriteBrick.h"
 #include "RawBrick.h"
 #include "Bullet.h"
+#include "../GameView.h"
 
 class Player : public SpriteBrick {
 
 public:
 
-    explicit Player(const Texture2D &sprite, const Vector2 &position, const Rectangle &gameView);
+    explicit Player(const Texture2D &sprite, const Vector2 &position, GameView gameView);
 
     void handleDeath();
 
@@ -33,10 +34,7 @@ private:
     float shootingTime{};
 
     // Game boundaries
-    const Vector2 topLeft;
-    const Vector2 topRight;
-    const Vector2 bottomLeft;
-    const Vector2 bottomRight;
+    const GameView gameView;
 };
 
 

@@ -10,6 +10,7 @@
 #include "bricks/Background.h"
 #include "raylib/Vector2.h"
 #include "sidebar/Level.h"
+#include "GameView.h"
 
 int main() {
 
@@ -24,27 +25,24 @@ int main() {
 
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
-    // Positions
-    const Vector2 gameViewPosition{1.0f * Brick::scale, 1.0f * Brick::scale};
-
     // Textures
     const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
     const Texture2D backgroundTexture{LoadTexture("assets/bricks/backgrounds.png")};
 
     // Game Area
-    Background background{gameViewPosition};
-
-    const Rectangle gameView = background.getGameView();
+    Background background{Brick::space};
+    const GameView gameView = background.gameView;
 
     // Bricks
     Enemy enemy{
         spriteTexture,
         Enemy::Type::seat,
-        gameViewPosition + (Brick::right * 4) - Brick::space // TODO - Support random position placement
+        gameView.innerTopLeft + (Brick::right * 3) - Brick::space, // TODO - Support random position placement
+        gameView
     };
     Player player{
         spriteTexture,
-        gameViewPosition + (Brick::down * 13) + (Brick::right * 4) - Brick::space,
+        gameView.innerTopLeft + (Brick::down * 13) + (Brick::right * 3) - Brick::space,
         gameView
     };
 
@@ -52,9 +50,9 @@ int main() {
     std::list<Bullet> bullets{};
 
     // Sidebar
-    Score score{{gameView.width + Brick::right.x, 0}};
-    Level level{{gameView.width + Brick::right.x, Brick::down.y}};
-    GameOver gameOver{{Brick::right.x + Brick::gap * Brick::scale, gameView.height / 3}};
+    Score score{gameView.outerTopRight + Brick::right};
+    Level level{ gameView.outerTopRight + Brick::right + Brick::down};
+    GameOver gameOver{gameView.innerTopLeft + Vector2{0, gameView.height / 3}};
 
     // Pause
     float pausedTrigger{0.0f};
@@ -128,7 +126,7 @@ int main() {
                 }
 
                 // Remove bullet from game once invisible.
-                if (bullet->position.y < gameViewPosition.y) {
+                if (bullet->position.y < gameView.outerTopLeft.y) {
                     std::cout << "Bullet has been deleted" << std::endl;
                     bullets.erase(bullet);
                 }
@@ -161,6 +159,17 @@ int main() {
                 RED
             );
         }
+
+        // Gizmos
+//        DrawLineV(gameView.outerTopLeft, gameView.outerTopRight, RED);
+//        DrawLineV(gameView.outerTopRight, gameView.outerBottomRight, RED);
+//        DrawLineV(gameView.outerBottomRight, gameView.outerBottomLeft, RED);
+//        DrawLineV(gameView.outerBottomLeft, gameView.outerTopLeft, RED);
+
+//        DrawLineV(gameView.innerTopLeft, gameView.innerTopRight, PURPLE);
+//        DrawLineV(gameView.innerTopRight, gameView.innerBottomRight, PURPLE);
+//        DrawLineV(gameView.innerBottomRight, gameView.innerBottomLeft, PURPLE);
+//        DrawLineV(gameView.innerBottomLeft, gameView.innerTopLeft, PURPLE);
 
         EndDrawing();
     }

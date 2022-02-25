@@ -7,12 +7,9 @@
 #include "Player.h"
 #include "../raylib/Vector2.h"
 
-Player::Player(const Texture2D &sprite, const Vector2 &position, const Rectangle &gameView) :
+Player::Player(const Texture2D &sprite, const Vector2 &position, const GameView gameView) :
     SpriteBrick(sprite, {9, 0, 3, 4}, position),
-    topLeft({gameView.x + right.x, gameView.y}),
-    topRight({gameView.x + gameView.width + left.x - gap * scale, gameView.y}),
-    bottomLeft({topLeft.x, gameView.y + gameView.height - gap * scale}),
-    bottomRight({topRight.x, bottomLeft.y}) {}
+    gameView(gameView) {}
 
 void Player::handleDeath() {
     active = false;
@@ -33,16 +30,16 @@ void Player::handleMovement(const float deltaTime) {
 
     // Movement within game bounds
     const Rectangle destination = getDestination();
-    if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && destination.x + destination.width < topRight.x) {
+    if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && destination.x + destination.width < gameView.innerTopRight.x) {
         position += Brick::right;
     }
-    if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && destination.x > topLeft.x) {
+    if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && destination.x > gameView.innerTopLeft.x) {
         position += Brick::left;
     }
-    //if ((IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) && destination.y > topLeft.y){
+    //if ((IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) && destination.y > gameView.innerTopLeft.y){
     //    position += Brick::up;
     //}
-    //if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && destination.y + destination.height < bottomLeft.y) {
+    //if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && destination.y + destination.height < gameView.innerBottomLeft.y) {
     //    position += Brick::down;
     //}
 }

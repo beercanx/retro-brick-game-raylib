@@ -9,10 +9,12 @@
 Background::Background(const Vector2 position) :
     position(position),
     gameView{
-        this->position.x,
-        this->position.y,
-        width * Brick::offset * Brick::scale,
-        height * Brick::offset * Brick::scale
+        {
+            position.x,
+            position.y,
+            width * Brick::offset * Brick::scale,
+            height * Brick::offset * Brick::scale
+        }
     },
     rawBricks{{ // Starting Background
         {true, false, false, false, false, false, false, false, false, true},
@@ -38,10 +40,6 @@ Background::Background(const Vector2 position) :
     }} {
     // Initialise the position of each RawBrick.
     calculateBrickPositions();
-}
-
-Rectangle Background::getGameView() {
-    return gameView;
 }
 
 void Background::handleMovement(float deltaTime) {

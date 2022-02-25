@@ -8,6 +8,7 @@
 #include <map>
 #include "raylib.h"
 #include "SpriteBrick.h"
+#include "../GameView.h"
 
 class Enemy : public SpriteBrick {
 
@@ -28,7 +29,7 @@ public:
         zee_inverse
     };
 
-    explicit Enemy(const Texture2D &sprite, Type type, const Vector2 &position);
+    explicit Enemy(const Texture2D &sprite, Type type, const Vector2 &position, GameView gameView);
 
     void draw() override;
 
@@ -48,12 +49,11 @@ private:
     const float movementThreshold{0.500f}; // 500ms
     float movementTime{};
 
+    const GameView gameView;
     const Vector2 startingPosition;
 
     Enemy::Type type;
-
     typedef const std::map<Enemy::Type, Rectangle> EnemyConfig;
-
     const static EnemyConfig &getEnemyConfig();
 };
 

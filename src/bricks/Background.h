@@ -8,6 +8,7 @@
 #include <array>
 #include "raylib.h"
 #include "RawBrick.h"
+#include "../GameView.h"
 
 class Background {
 
@@ -15,11 +16,11 @@ public:
 
     bool active{true};
 
+    const GameView gameView;
+
     explicit Background(Vector2 position);
 
     void handleMovement(float deltaTime);
-
-    Rectangle getGameView();
 
     void draw();
 
@@ -29,7 +30,6 @@ private:
     static const int height{20};
 
     const Vector2 position;
-    const Rectangle gameView;
 
     std::array<std::array<RawBrick, width>, height> rawBricks;
 

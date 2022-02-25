@@ -3,6 +3,7 @@
 //
 
 #include <random>
+#include <iostream>
 #include "Enemy.h"
 #include "Brick.h"
 #include "../raylib/Vector2.h"
@@ -10,11 +11,12 @@
 Enemy::Enemy(
     const Texture2D &sprite,
     const Type type,
-    const Vector2 &position
+    const Vector2 &position,
+    const GameView gameView
 ) : SpriteBrick(sprite, getEnemyConfig().at(type), position),
     type(type),
-    startingPosition(position) {
-}
+    startingPosition(position),
+    gameView(gameView) {}
 
 // Hack to do static map initialisation "safely", credit to https://qr.ae/pGqMSG
 const Enemy::EnemyConfig &Enemy::getEnemyConfig() {
@@ -40,7 +42,7 @@ const Enemy::EnemyConfig &Enemy::getEnemyConfig() {
 
 void Enemy::handleMovement(const float deltaTime) {
 
-    if(!active) return;
+    if (!active) return;
 
     // Is it time to allow the next movement?
     if ((movementTime += deltaTime) < movementThreshold) {
@@ -53,7 +55,11 @@ void Enemy::handleMovement(const float deltaTime) {
     // Update position
     position += Brick::down;
 
-    // TODO - Handle falling off the screen.?
+    // The enemy fell off the screen!
+    if (position.y > gameView.innerBottomRight.y) {
+        std::cout << "Enemy got past the player" << std::endl;
+        handleReBirth();
+    }
 }
 
 void Enemy::handleDeath() {
@@ -78,14 +84,14 @@ void Enemy::handleReBirth() {
 
 void Enemy::draw() {
 
-    if(!active) return;
+    if (!active) return;
 
     SpriteBrick::draw();
 }
 
 Rectangle Enemy::getDestination() {
 
-    if(!active) return {};
+    if (!active) return {};
 
     return SpriteBrick::getDestination();
 }
