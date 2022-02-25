@@ -18,7 +18,7 @@ int main() {
 
     // Window Dimensions
     const int windowWidth{Brick::scale * 149};
-    const int windowHeight{Brick::scale * 141};
+    const int windowHeight{Brick::scale * 142 + (int) Brick::space.y};
 
     // Always on top
     SetConfigFlags(FLAG_WINDOW_TOPMOST);
@@ -30,7 +30,7 @@ int main() {
     const Texture2D backgroundTexture{LoadTexture("assets/bricks/backgrounds.png")};
 
     // Game Area
-    Background background{Brick::space};
+    Background background{Brick::space * 2};
     const GameView gameView = background.gameView;
 
     // Bricks
@@ -153,8 +153,8 @@ int main() {
         if(paused) {
             DrawText(
                 "Paused",
-                Brick::right.x + (Brick::gap * Brick::scale) * 10,
-                (int) gameView.outer.height / 3,
+                (int) gameView.inner.width / 3,
+                (int) gameView.inner.height / 3,
                 10 * Brick::scale,
                 RED
             );

@@ -11,8 +11,8 @@ Background::Background(const Vector2 position) :
     gameView{
         position.x,
         position.y,
-        width * Brick::offset * Brick::scale - Brick::gap * Brick::scale,
-        height * Brick::offset * Brick::scale - Brick::gap * Brick::scale
+        width * Brick::offset * Brick::scale - Brick::space.x,
+        height * Brick::offset * Brick::scale - Brick::space.y
     },
     rawBricks{{ // Starting Background
         {true, false, false, false, false, false, false, false, false, true},
@@ -53,9 +53,7 @@ void Background::handleMovement(float deltaTime) {
     // Reset tracker
     movementTime = 0.0f;
 
-    // TODO - Implement the switch from "Start" layout to "In Progress" with maybe a "Level End".
-    // Mode Tracker
-    // Last row got X tracker
+    // TODO - on new level reset the background
 
     // Shift down each row by one
     // Take the last row and move it to the first.
@@ -79,6 +77,7 @@ void Background::draw() {
             }
         }
     }
+    DrawRectangleLinesEx(gameView.border, 1.0f, BLACK);
 }
 
 void Background::calculateBrickPositions() {

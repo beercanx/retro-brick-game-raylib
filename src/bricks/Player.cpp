@@ -29,17 +29,16 @@ void Player::handleMovement(const float deltaTime) {
     movementTime = 0.0f;
 
     // Movement within game bounds
-    const Rectangle destination = getDestination();
-    if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && destination.x + destination.width < gameView.innerTopRight.x) {
+    if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && position.x + width < gameView.innerTopRight.x) {
         position += Brick::right;
     }
-    if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && destination.x > gameView.innerTopLeft.x) {
+    if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && position.x > gameView.innerTopLeft.x) {
         position += Brick::left;
     }
-    //if ((IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) && destination.y > gameView.innerTopLeft.y){
+    //if ((IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) && position.y > gameView.innerTopLeft.y){
     //    position += Brick::up;
     //}
-    //if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && destination.y + destination.height < gameView.innerBottomLeft.y) {
+    //if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && position.y + height < gameView.innerBottomLeft.y) {
     //    position += Brick::down;
     //}
 }
@@ -60,7 +59,7 @@ std::optional<Bullet> Player::handleShooting(const float deltaTime) {
 
     // Spawn a bullet - two cells up and one to the right from the player
     Bullet bullet{
-        position + (Brick::up * 2.0f) + Brick::right
+        position + Brick::space + Brick::up + Brick::right
     };
 
     return std::optional{bullet};

@@ -25,6 +25,8 @@ public:
     const Vector2 innerBottomLeft;
     const Vector2 innerBottomRight;
 
+    const Rectangle border;
+
 };
 
 #endif //RETRO_BRICK_GAME_GAMEVIEW_H

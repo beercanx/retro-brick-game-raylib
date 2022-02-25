@@ -26,6 +26,8 @@ void Level::updateProgress(const int value) {
         scoreScale++;
         speedScale++;
         level++;
+        // TODO - on new level reset the background
+        // TODO - on new level pause for a few seconds and increment the score a bit.
         std::cout << "Level: " + std::to_string(level) << std::endl;
     }
 }
