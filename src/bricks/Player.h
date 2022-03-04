@@ -38,9 +38,10 @@ private:
     // Game boundaries
     const GameView gameView;
 
-    int deathScene{0};
     Vector2 deathPosition;
+    int deathSceneIndex{0};
     static const int deathSize{5};
+    std::array<std::array<RawBrick, deathSize>, deathSize> deathScene = deathZero;
 
     const std::array<std::array<RawBrick, deathSize>, deathSize> deathZero{
         {

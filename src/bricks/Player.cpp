@@ -28,7 +28,18 @@ void Player::handleMovement(const float deltaTime) {
     movementTime = 0.0f;
 
     // Update death scene
-    if (++deathScene > 2) deathScene = 0;
+    if (++deathSceneIndex > 2) deathSceneIndex = 0;
+    deathScene = deathSceneIndex == 0 ? deathZero : deathSceneIndex == 1 ? deathOne : deathTwo;
+    for (int widthIndex = 0; widthIndex < deathSize; ++widthIndex) {
+        for (int heightIndex = 0; heightIndex < deathSize; ++heightIndex) {
+            deathScene[heightIndex][widthIndex].updatePosition(
+                deathPosition
+                + (Brick::right * widthIndex)
+                + (Brick::down * heightIndex)
+                + Brick::space
+            );
+        }
+    }
 
     // Stop moving, your "dead"
     if (!active) return;
@@ -88,20 +99,7 @@ void Player::draw() {
     if (active) return SpriteBrick::draw();
 
     // Player is dead, so lets draw the death scene.
-    std::array<std::array<RawBrick, deathSize>, deathSize> scene = deathScene == 0 ? deathZero : deathScene == 1 ? deathOne : deathTwo;
-
-    for (int widthIndex = 0; widthIndex < deathSize; ++widthIndex) {
-        for (int heightIndex = 0; heightIndex < deathSize; ++heightIndex) {
-            scene[heightIndex][widthIndex].updatePosition(
-                deathPosition
-                + (Brick::right * widthIndex)
-                + (Brick::down * heightIndex)
-                + Brick::space
-            );
-        }
-    }
-
-    for (auto &row: scene) {
+    for (auto &row: deathScene) {
         for (auto &brick: row) {
             if (brick.visible) {
                 brick.draw();
