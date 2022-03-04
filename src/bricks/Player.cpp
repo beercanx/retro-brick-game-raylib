@@ -3,23 +3,21 @@
 //
 
 #include <optional>
+#include <array>
 #include "RawBrick.h"
 #include "Player.h"
 #include "../raylib/Vector2.h"
 
 Player::Player(const Texture2D &sprite, const Vector2 &position, const GameView gameView) :
     SpriteBrick(sprite, {9, 0, 3, 4}, position),
-    gameView(gameView) {}
+    gameView(gameView),
+    deathPosition(position) {}
 
 void Player::handleDeath() {
     active = false;
-    // TODO - Trigger death scene.
 }
 
 void Player::handleMovement(const float deltaTime) {
-
-    // Stop moving, your "dead"
-    if (!active) return;
 
     // Is it time to allow the next movement?
     if ((movementTime += deltaTime) < movementThreshold) {
@@ -29,18 +27,36 @@ void Player::handleMovement(const float deltaTime) {
     // Reset tracker
     movementTime = 0.0f;
 
+    // Update death scene
+    if (++deathScene > 2) deathScene = 0;
+
+    // Stop moving, your "dead"
+    if (!active) return;
+
     // Movement within game bounds
     if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && position.x + width < gameView.innerTopRight.x) {
         position += Brick::right;
+        if (deathPosition.x + deathSize * scale * offset < gameView.innerTopRight.x) {
+            deathPosition += Brick::right;
+        }
     }
     if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && position.x > gameView.innerTopLeft.x) {
         position += Brick::left;
+        if (deathPosition.x > gameView.innerTopLeft.x) {
+            deathPosition += Brick::left;
+        }
     }
-    //if ((IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) && position.y > gameView.innerTopLeft.y){
+    //if ((IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) && position.y > gameView.innerTopLeft.y) {
     //    position += Brick::up;
+    //    if (deathPosition.y > gameView.innerTopLeft.y) {
+    //        deathPosition += Brick::up;
+    //    }
     //}
     //if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && position.y + height < gameView.innerBottomLeft.y) {
     //    position += Brick::down;
+    //    if (deathPosition.y + deathSize * scale * offset < gameView.innerBottomLeft.y) {
+    //        deathPosition += Brick::down;
+    //    }
     //}
 }
 
@@ -64,4 +80,32 @@ std::optional<Bullet> Player::handleShooting(const float deltaTime) {
     };
 
     return std::optional{bullet};
+}
+
+void Player::draw() {
+
+    // Player is alive, draw as normal
+    if (active) return SpriteBrick::draw();
+
+    // Player is dead, so lets draw the death scene.
+    std::array<std::array<RawBrick, deathSize>, deathSize> scene = deathScene == 0 ? deathZero : deathScene == 1 ? deathOne : deathTwo;
+
+    for (int widthIndex = 0; widthIndex < deathSize; ++widthIndex) {
+        for (int heightIndex = 0; heightIndex < deathSize; ++heightIndex) {
+            scene[heightIndex][widthIndex].updatePosition(
+                deathPosition
+                + (Brick::right * widthIndex)
+                + (Brick::down * heightIndex)
+                + Brick::space
+            );
+        }
+    }
+
+    for (auto &row: scene) {
+        for (auto &brick: row) {
+            if (brick.visible) {
+                brick.draw();
+            }
+        }
+    }
 }
