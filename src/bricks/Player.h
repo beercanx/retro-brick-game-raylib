@@ -43,7 +43,7 @@ private:
     static const int deathSize{5};
     std::array<std::array<RawBrick, deathSize>, deathSize> deathScene = deathZero;
 
-    const std::array<std::array<RawBrick, deathSize>, deathSize> deathZero{
+    std::array<std::array<RawBrick, deathSize>, deathSize> deathZero{
         {
             {true, false, false, false, true},
             {false, true, true, true, false},
@@ -53,7 +53,7 @@ private:
         }
     };
 
-    const std::array<std::array<RawBrick, deathSize>, deathSize> deathOne{
+    std::array<std::array<RawBrick, deathSize>, deathSize> deathOne{
         {
             {false, false, false, false, false},
             {false, true, true, true, false},
@@ -63,7 +63,7 @@ private:
         }
     };
 
-    const std::array<std::array<RawBrick, deathSize>, deathSize> deathTwo{
+    std::array<std::array<RawBrick, deathSize>, deathSize> deathTwo{
         {
             {false, true, true, true, false},
             {true, false, false, false, true},
@@ -74,6 +74,5 @@ private:
     };
 
 };
-
 
 #endif //RETRO_BRICK_GAME_PLAYER_H

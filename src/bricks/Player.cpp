@@ -14,7 +14,33 @@ Player::Player(const Texture2D &sprite, const Vector2 &position, const GameView 
     deathPosition(position) {}
 
 void Player::handleDeath() {
+
+    // Mark player as "dead"
     active = false;
+
+    // Update the death scenes positions.
+    for (int widthIndex = 0; widthIndex < deathSize; ++widthIndex) {
+        for (int heightIndex = 0; heightIndex < deathSize; ++heightIndex) {
+            deathZero[heightIndex][widthIndex].updatePosition(
+                deathPosition
+                + (Brick::right * widthIndex)
+                + (Brick::down * heightIndex)
+                + Brick::space
+            );
+            deathOne[heightIndex][widthIndex].updatePosition(
+                deathPosition
+                + (Brick::right * widthIndex)
+                + (Brick::down * heightIndex)
+                + Brick::space
+            );
+            deathTwo[heightIndex][widthIndex].updatePosition(
+                deathPosition
+                + (Brick::right * widthIndex)
+                + (Brick::down * heightIndex)
+                + Brick::space
+            );
+        }
+    }
 }
 
 void Player::handleMovement(const float deltaTime) {
@@ -30,16 +56,6 @@ void Player::handleMovement(const float deltaTime) {
     // Update death scene
     if (++deathSceneIndex > 2) deathSceneIndex = 0;
     deathScene = deathSceneIndex == 0 ? deathZero : deathSceneIndex == 1 ? deathOne : deathTwo;
-    for (int widthIndex = 0; widthIndex < deathSize; ++widthIndex) {
-        for (int heightIndex = 0; heightIndex < deathSize; ++heightIndex) {
-            deathScene[heightIndex][widthIndex].updatePosition(
-                deathPosition
-                + (Brick::right * widthIndex)
-                + (Brick::down * heightIndex)
-                + Brick::space
-            );
-        }
-    }
 
     // Stop moving, your "dead"
     if (!active) return;
