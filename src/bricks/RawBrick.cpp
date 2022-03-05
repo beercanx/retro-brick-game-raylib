@@ -28,7 +28,6 @@ void RawBrick::draw() {
     DrawRectangleRec(center, BLACK);
 }
 
-// TODO - Can this be done via triggers or backing fields?
 void RawBrick::updatePosition(const Vector2 &position) {
 
     this->position = position;
