@@ -13,8 +13,11 @@ public:
 
     bool visible{true};
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "google-explicit-constructor"
     // Is used by the array initializer of BackgroundRaw::rawBricks
     RawBrick(bool visible);
+#pragma clang diagnostic pop
 
     explicit RawBrick(const Vector2 &position);
 
