@@ -35,7 +35,8 @@ Background::Background(const Vector2 position) :
         {true, false, false, false, false, false, false, false, false, true},
         {true, false, false, false, false, false, false, false, false, true},
         {true, false, false, false, false, false, false, false, false, true}
-    }} {
+    }},
+    startingBricks(rawBricks) {
     // Initialise the position of each RawBrick.
     calculateBrickPositions();
 }
@@ -101,4 +102,9 @@ void Background::reconfigureRow(std::array<RawBrick, width> &row) {
     if(++step > 2) {
         step = 0;
     }
+}
+
+void Background::resetBackground() {
+    rawBricks = startingBricks;
+    calculateBrickPositions();
 }

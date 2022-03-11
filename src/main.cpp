@@ -53,6 +53,9 @@ int main() {
     Level level{ gameView.outerTopRight + Brick::right + Brick::down};
     GameOver gameOver{gameView.innerTopLeft + Vector2{0, gameView.outer.height / 3}};
 
+    // Register event hooks
+    level.onLevelChange.emplace_back([&background](int) -> void { background.resetBackground(); });
+
     // Pause
     float pausedTrigger{0.0f};
     bool paused{true};

@@ -24,6 +24,8 @@ public:
 
     void draw();
 
+    void resetBackground();
+
 private:
 
     static const int width{10};
@@ -32,6 +34,7 @@ private:
     const Vector2 position;
 
     std::array<std::array<RawBrick, width>, height> rawBricks;
+    const std::array<std::array<RawBrick, width>, height> startingBricks;
 
     const float movementThreshold{0.500f}; // 500ms
     float movementTime{};

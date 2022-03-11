@@ -6,6 +6,8 @@
 #define RETRO_BRICK_GAME_LEVEL_H
 
 #include "raylib.h"
+#include <list>
+#include <functional>
 
 class Level {
 
@@ -17,9 +19,14 @@ public:
 
     void updateProgress(int value);
 
-    int getScoreScale() const;
+    [[deprecated("Replaced by onScoreScaleChange events")]] int getScoreScale() const;
 
-    float getSpeedScale() const;
+    [[deprecated("Replaced by onSpeedScaleChange events")]] float getSpeedScale() const;
+
+    // Events
+    std::list<std::function<void(int level)>> onLevelChange{};
+    std::list<std::function<void(int scoreScale)>> onScoreScaleChange{};
+    std::list<std::function<void(int speedScale)>> onSpeedScaleChange{};
 
 private:
 
