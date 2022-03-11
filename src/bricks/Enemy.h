@@ -41,6 +41,8 @@ public:
 
     Rectangle getDestination() override;
 
+    int speedScale{1};
+
 private:
 
     // TODO - Replace with rebirth

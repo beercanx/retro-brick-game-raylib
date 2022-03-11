@@ -55,6 +55,9 @@ int main() {
 
     // Register event hooks
     level.onLevelChange.emplace_back([&background](int) -> void { background.resetBackground(); });
+    level.onScoreScaleChange.emplace_back([&score](int scale) -> void { score.scoreScale = scale; });
+    level.onSpeedScaleChange.emplace_back([&enemy](int scale) -> void { enemy.speedScale = scale; });
+    level.onSpeedScaleChange.emplace_back([&background](int scale) -> void { background.speedScale = scale; });
 
     // Pause
     float pausedTrigger{0.0f};
@@ -93,7 +96,7 @@ int main() {
             player.handleMovement(deltaTime);
 
             // Handle enemy movement
-            enemy.handleMovement(deltaTime * level.getSpeedScale());
+            enemy.handleMovement(deltaTime);
 
             // Handle enemy colliding with player
             if (CheckCollisionRecs(player.getDestination(), enemy.getDestination())) {
@@ -122,7 +125,7 @@ int main() {
                 if (CheckCollisionRecs(bullet->getDestination(), enemy.getDestination())) {
                     std::cout << "Bullet has collided with Enemy" << std::endl;
                     level.updateProgress(1);
-                    score.increase(1 * level.getScoreScale());
+                    score.increase();
                     bullets.erase(bullet);
                     enemy.handleReBirth();
                 }
@@ -152,6 +155,8 @@ int main() {
         score.draw();
         level.draw();
         gameOver.draw();
+        // TODO - Draw a level progress bar?
+        // TODO - Draw next incoming shape
         if(paused) {
             DrawText(
                 "Paused",

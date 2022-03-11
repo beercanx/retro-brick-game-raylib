@@ -19,10 +19,6 @@ public:
 
     void updateProgress(int value);
 
-    [[deprecated("Replaced by onScoreScaleChange events")]] int getScoreScale() const;
-
-    [[deprecated("Replaced by onSpeedScaleChange events")]] float getSpeedScale() const;
-
     // Events
     std::list<std::function<void(int level)>> onLevelChange{};
     std::list<std::function<void(int scoreScale)>> onScoreScaleChange{};

@@ -7,9 +7,9 @@
 
 Score::Score(const Vector2 &position) : position(position) {}
 
-void Score::increase(const int value) {
+void Score::increase() {
     if (score >= max) return;
-    score += value;
+    score += scoreScale;
     if (score >= max) score = max;
 }
 

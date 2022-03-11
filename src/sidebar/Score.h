@@ -13,9 +13,11 @@ public:
 
     explicit Score(const Vector2 &position);
 
-    void increase(int value);
+    void increase();
 
     void draw() const;
+
+    int scoreScale{1};
 
 private:
 

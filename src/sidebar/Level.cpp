@@ -35,7 +35,7 @@ void Level::updateProgress(const int value) {
     progress += value;
     if(progress >= progressThreshold) {
         progress = 0;
-        progressThreshold++;
+        progressThreshold *= 2;
 
         level++;
         std::for_each(onLevelChange.begin(), onLevelChange.end(), [&](const auto& listener){
@@ -53,12 +53,4 @@ void Level::updateProgress(const int value) {
             listener(speedScale);
         });
     }
-}
-
-int Level::getScoreScale() const {
-    return scoreScale;
-}
-
-float Level::getSpeedScale() const {
-    return speedScale;
 }

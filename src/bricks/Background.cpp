@@ -47,7 +47,7 @@ void Background::handleMovement(float deltaTime) {
     if (!active) return;
 
     // Is it time to allow the next movement?
-    if ((movementTime += deltaTime) < movementThreshold) {
+    if ((movementTime += deltaTime * (float) speedScale) < movementThreshold) {
         return;
     }
 

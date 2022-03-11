@@ -26,6 +26,8 @@ public:
 
     void resetBackground();
 
+    int speedScale{1};
+
 private:
 
     static const int width{10};
