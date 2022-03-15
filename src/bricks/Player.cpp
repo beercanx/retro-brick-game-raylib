@@ -109,14 +109,14 @@ std::optional<Bullet> Player::handleShooting(const float deltaTime) {
     return std::optional{bullet};
 }
 
-void Player::draw() {
+void Player::draw() const {
 
     // Player is alive, draw as normal
     if (active) return SpriteBrick::draw();
 
     // Player is dead, so lets draw the death scene.
-    for (auto &row: deathScene) {
-        for (auto &brick: row) {
+    for (const auto &row: deathScene) {
+        for (const auto &brick: row) {
             if (brick.visible) {
                 brick.draw();
             }

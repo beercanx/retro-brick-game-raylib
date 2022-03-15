@@ -10,6 +10,6 @@ TextureBrick::TextureBrick(
 ) : Brick(position),
     texture(texture) {}
 
-void TextureBrick::draw() {
+void TextureBrick::draw() const {
     DrawTextureEx(texture, position, 0.0f, scale, WHITE);
 }

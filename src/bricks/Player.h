@@ -17,7 +17,7 @@ public:
 
     explicit Player(const Texture2D &sprite, const Vector2 &position, GameView gameView);
 
-    void draw() override;
+    void draw() const override;
 
     void handleDeath();
 

@@ -12,17 +12,17 @@ SpriteBrick::SpriteBrick(
     updateSource(source);
 }
 
-Rectangle SpriteBrick::getDestination() {
+void SpriteBrick::draw() const {
+    DrawTexturePro(texture, source, getDestination(), {}, 0.0f, WHITE);
+}
+
+Rectangle SpriteBrick::getDestination() const {
     return {
         position.x,
         position.y,
         width,
         height
     };
-}
-
-void SpriteBrick::draw() {
-    DrawTexturePro(texture, source, getDestination(), {}, 0.0f, WHITE);
 }
 
 void SpriteBrick::updateSource(const Rectangle value) {

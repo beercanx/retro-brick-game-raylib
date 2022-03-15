@@ -84,14 +84,14 @@ void Enemy::handleReBirth() {
 }
 
 
-void Enemy::draw() {
+void Enemy::draw() const {
 
     if (!active) return;
 
     SpriteBrick::draw();
 }
 
-Rectangle Enemy::getDestination() {
+Rectangle Enemy::getDestination() const {
 
     if (!active) return {};
 

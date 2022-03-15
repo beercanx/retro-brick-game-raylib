@@ -14,7 +14,7 @@ public:
 
     explicit Brick(const Vector2 &position);
 
-    virtual void draw() = 0;
+    virtual void draw() const = 0;
 
     // Sizes
     static const int scale{4};

@@ -147,7 +147,7 @@ int main() {
         background.draw();
         enemy.draw();
         player.draw();
-        for(auto& bullet : bullets) {
+        for(const auto& bullet : bullets) {
             bullet.draw();
         }
 

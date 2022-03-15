@@ -31,7 +31,7 @@ public:
 
     explicit Enemy(const Texture2D &sprite, Type type, GameView gameView);
 
-    void draw() override;
+    void draw() const override;
 
     void handleMovement(float deltaTime);
 
@@ -39,7 +39,7 @@ public:
 
     void handleReBirth();
 
-    Rectangle getDestination() override;
+    [[nodiscard]] Rectangle getDestination() const override;
 
     int speedScale{1};
 

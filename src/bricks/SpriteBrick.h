@@ -14,9 +14,9 @@ public:
 
     explicit SpriteBrick(const Texture2D &sprite, Rectangle source, const Vector2 &position);
 
-    void draw() override;
+    void draw() const override;
 
-    virtual Rectangle getDestination();
+    [[nodiscard]] virtual Rectangle getDestination() const;
 
 protected:
 

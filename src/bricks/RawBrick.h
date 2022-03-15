@@ -21,7 +21,7 @@ public:
 
     explicit RawBrick(const Vector2 &position);
 
-    void draw() override;
+    void draw() const override;
 
     void updatePosition(const Vector2 &position);
 

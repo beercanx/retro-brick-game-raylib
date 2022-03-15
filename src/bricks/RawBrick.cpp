@@ -13,7 +13,7 @@ RawBrick::RawBrick(const bool visible) : Brick({}) {
     this->visible = visible;
 }
 
-void RawBrick::draw() {
+void RawBrick::draw() const {
 
     // Don't render, you're not visible
     if (!visible) return;
