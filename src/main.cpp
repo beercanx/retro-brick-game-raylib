@@ -27,7 +27,6 @@ int main() {
 
     // Textures
     const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
-    const Texture2D backgroundTexture{LoadTexture("assets/bricks/backgrounds.png")};
 
     // Game Area
     Background background{Brick::space * 2};
@@ -79,12 +78,17 @@ int main() {
         }
 
         // TODO - Draw the non game area:
-        //          Space to display if sound and music is enabled
-        //          Space for Game Over text
-        //          Space for a next shape view (Title + 4 by 4 grid)
-        //          Space to display current speed (2 digits, maybe base speed)
-        //          Space to display current level (2 digits)
-        //          Space to display a pause symbol (maybe a cup tea/coffee)
+        //          Score -- DONE
+        //          Level -- DONE
+        //          Music -- Space to display if sound and music is enabled
+        //          Game Over -- Space for Game Over text
+        //          Next -- Text
+        //          Next Shape - Space for a next shape view (Title + 4 by 4 grid)
+        //          Speed -- Text
+        //          Speed -- Space to display current speed (2 digits, maybe base speed)
+        //          Level -- Text
+        //          Level -- Space to display current level (2 digits)
+        //          Paused -- Space to display a pause symbol (maybe a cup tea/coffee)
 
         // TODO - Add non game buttons, starting with a pause, sound and music toggles
 
@@ -184,7 +188,6 @@ int main() {
     }
 
     UnloadTexture(spriteTexture);
-    UnloadTexture(backgroundTexture);
 
     CloseWindow();
 
