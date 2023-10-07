@@ -1,43 +1,42 @@
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
-project(retro_brick_game LANGUAGES C CXX VERSION 0.0.1)
+project(retro_brick_game LANGUAGES C CXX VERSION 0.0.2)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ##
-# Setting parameters for raylib
-##
-set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
-set(OpenGL_GL_PREFERENCE GLVND)
-
-##
 # Dependencies
 ##
-add_subdirectory(libs/raylib)
+set(RAYLIB_VERSION 4.5.0)
+find_package(raylib ${RAYLIB_VERSION} QUIET)
+if (NOT raylib_FOUND)
+    include(FetchContent)
+    # Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
+    if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+        cmake_policy(SET CMP0135 NEW)
+    endif ()
+    FetchContent_Declare(
+            raylib
+            URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
+    )
+    FetchContent_GetProperties(raylib)
+    if (NOT raylib_POPULATED)
+        set(FETCHCONTENT_QUIET NO)
+        FetchContent_Populate(raylib)
+        set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+        add_subdirectory(${raylib_SOURCE_DIR} ${raylib_BINARY_DIR})
+    endif ()
+endif ()
 
 ##
 # Define the game
 ##
-add_executable(${PROJECT_NAME} src/main.cpp
-        src/bricks/Brick.cpp src/bricks/Brick.h
-        src/bricks/RawBrick.cpp src/bricks/RawBrick.h
-        src/bricks/TextureBrick.cpp src/bricks/TextureBrick.h
-        src/bricks/SpriteBrick.cpp src/bricks/SpriteBrick.h
-        src/bricks/Background.cpp src/bricks/Background.h
-        src/bricks/Enemy.cpp src/bricks/Enemy.h
-        src/bricks/Player.cpp src/bricks/Player.h
-        src/bricks/Bullet.cpp src/bricks/Bullet.h
-        src/sidebar/Score.cpp src/sidebar/Score.h
-        src/sidebar/GameOver.cpp src/sidebar/GameOver.h
-        src/raylib/Vector2.cpp src/raylib/Vector2.h
-        src/sidebar/Level.cpp src/sidebar/Level.h
-        src/GameView.cpp src/GameView.h)
+file(GLOB_RECURSE PROJECT_SOURCE_FILES ${CMAKE_SOURCE_DIR}/src/*.cpp)
+
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
-
-enable_testing()
 
 ##
 # Create distribution

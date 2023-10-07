@@ -23,7 +23,7 @@ Level::Level(const Vector2 &position) : position(position) {
 
 void Level::draw() const {
     DrawText(
-        FormatText("Level:  %07d", level),
+        TextFormat("Level:  %07d", level),
         (int) position.x,
         (int) position.y,
         9 * Brick::scale,
