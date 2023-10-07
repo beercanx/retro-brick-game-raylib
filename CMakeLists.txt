@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
-project(retro_brick_game LANGUAGES C CXX VERSION 0.0.2)
-
+project(retro_brick_game LANGUAGES CXX VERSION 0.0.2)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -36,7 +35,16 @@ file(GLOB_RECURSE PROJECT_SOURCE_FILES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_FILES})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+target_link_libraries(${PROJECT_NAME} raylib)
+
+# Web Configurations
+if (${PLATFORM} STREQUAL "Web")
+    # Use GLFW 3?
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3")
+
+    # Tell Emscripten to build an example.html file.
+    set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+endif ()
 
 ##
 # Create distribution
