@@ -5,6 +5,7 @@
 #ifndef RETRO_BRICK_GAME_PLAYER_H
 #define RETRO_BRICK_GAME_PLAYER_H
 
+#include <array>
 #include <optional>
 #include "SpriteBrick.h"
 #include "RawBrick.h"
