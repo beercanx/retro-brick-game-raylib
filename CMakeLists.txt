@@ -37,13 +37,33 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} raylib)
 
-# Web Configurations
+# Web Configurations - https://github.com/raysan5/raylib/wiki/Working-for-Web-(HTML5)
 if (${PLATFORM} STREQUAL "Web")
-    # Use GLFW 3?
+
+    # Tell the linker that the game/library uses GLFW3 library internally
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3")
 
+    # Specify a resources directory for data compilation
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --preload-file ${CMAKE_SOURCE_DIR}/assets@assets")
+
+    # Enable runtime checks for common memory allocation errors
+    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASSERTIONS=1")
+
+    # Force filesystem creation to load/save files data
+    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s FORCE_FILESYSTEM=1")
+
+    # Replace default emscripten shell with Raylib one
+    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --shell-file ${raylib_SOURCE_DIR}/src/shell.html")
+    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --shell-file ${raylib_SOURCE_DIR}/src/minshell.html")
+
+    # Replace default emscripten shell with our own forked from the Raylib one
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --shell-file ${CMAKE_SOURCE_DIR}/src/shell.html")
+
+    # Specify a heap memory size in bytes (default = 16MB) (67108864 = 64MB)
+    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s TOTAL_MEMORY=67108864")
+
     # Tell Emscripten to build an example.html file.
-    set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif ()
 
 ##
