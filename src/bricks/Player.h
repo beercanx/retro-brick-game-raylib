@@ -42,7 +42,6 @@ private:
     Vector2 deathPosition;
     int deathSceneIndex{0};
     static const int deathSize{5};
-    std::array<std::array<RawBrick, deathSize>, deathSize> deathScene = deathZero;
 
     std::array<std::array<RawBrick, deathSize>, deathSize> deathZero{
         {
@@ -73,6 +72,8 @@ private:
             {false, true, true, true, false}
         }
     };
+
+    std::array<std::array<RawBrick, deathSize>, deathSize> deathScene = deathZero;
 
 };
 
