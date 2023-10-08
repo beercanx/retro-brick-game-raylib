@@ -28,8 +28,8 @@ Rectangle SpriteBrick::getDestination() const {
 void SpriteBrick::updateSource(const Rectangle value) {
 
     source = {
-        (value.x * offset) - gap,
-        (value.y * offset) - gap,
+        value.x * offset,
+        value.y * offset,
         value.width * offset,
         value.height * offset
     };
