@@ -153,6 +153,7 @@ void UpdateDrawFrame() {
                 score.increase();
                 bullet = bullets.erase(bullet);
                 enemy->handleReBirth();
+                continue;
             }
 
             // Remove bullet from game once invisible.
