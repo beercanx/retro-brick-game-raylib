@@ -151,14 +151,14 @@ void UpdateDrawFrame() {
                 std::cout << "Bullet has collided with Enemy" << std::endl;
                 level.updateProgress(1);
                 score.increase();
-                bullets.erase(bullet);
+                bullet = bullets.erase(bullet);
                 enemy->handleReBirth();
             }
 
             // Remove bullet from game once invisible.
             if (bullet->position.y < gameView.outerTopLeft.y) {
                 std::cout << "Bullet has been deleted" << std::endl;
-                bullets.erase(bullet);
+                bullet = bullets.erase(bullet);
             }
         }
 
