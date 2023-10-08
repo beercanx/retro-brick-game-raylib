@@ -33,6 +33,23 @@ Game views:
 ## Progress
 Basically documented stages of development, deemed worthy enough of writing down or taking a picture of.
 
+### 2023-10-08
+* Upgraded to Raylib v4.5.0
+* Support added to build the game so that it runs in a browser, using Emscripten.
+* Various minor bug fixes, some form before the switch to support browsers, some after.
+
+![Game State as of 2022-01-04](examples/2023-10-08.png?raw=true)
+
+### 2022-03-15
+* Player now has a death "scene"
+* Background now resets when progression to the next level happens.
+* Level progression is handled by an events system.
+
+### 2022-02-25
+* Enemies now spawn as a random type.
+* There's a difficulty level, which contributes to the score amount.
+* Enemies also now spawn at random positions.
+
 ### 2022-02-22
 * Pause mechanism, starts paused and can be toggled by the letter 'p'.
 * Background now progresses from solid to alternating blocks.
