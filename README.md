@@ -6,6 +6,9 @@ The original game can be found here:
 * https://github.com/beercan1989/retro-brick-game
 * https://beercan.itch.io/retro-brick-game
 
+This game can now be found here:
+* https://beercan.itch.io/retro-brick-game-v2
+
 ## Artwork
 
 Player forms:  
