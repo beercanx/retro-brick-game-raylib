@@ -29,6 +29,13 @@ if (NOT raylib_FOUND)
 endif ()
 
 ##
+# Configure emulation of Android UI
+##
+if (EMULATE STREQUAL "Android")
+    add_compile_definitions(EMULATE_ANDROID_UI)
+endif ()
+
+##
 # Define the game
 ##
 file(GLOB_RECURSE PROJECT_SOURCE_FILES ${CMAKE_SOURCE_DIR}/src/*.cpp)
@@ -42,6 +49,15 @@ else ()
 endif ()
 
 target_link_libraries(${PROJECT_NAME} raylib)
+
+##
+# Assets Location
+##
+if (${PLATFORM} STREQUAL "Android")
+    add_compile_definitions(ASSETS_LOCATION="")
+else ()
+    add_compile_definitions(ASSETS_LOCATION="assets/")
+endif ()
 
 ##
 # Android Configurations

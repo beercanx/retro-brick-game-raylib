@@ -38,6 +38,7 @@ Basically documented stages of development, deemed worthy enough of writing down
 
 ### 2023-10-14
 * Support added to build the game so that it runs on Android 9+
+* Android support is pared back, such as there's no sidebar (score/level) visuals.
 
 ### 2023-10-08
 * Upgraded to Raylib v4.5.0

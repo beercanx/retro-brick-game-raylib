@@ -17,6 +17,11 @@ java {
 android {
     compileSdk = 33
     namespace = "uk.co.baconi.rbg"
+    sourceSets.named("main") {
+        assets {
+            srcDir("${project.rootDir}/assets")
+        }
+    }
     defaultConfig {
         minSdk = 26
         targetSdk = 33

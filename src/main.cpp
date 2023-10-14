@@ -43,8 +43,14 @@ int main() {
     std::cout << "Starting Retro Brick Game" << std::endl;
 
     // Window Dimensions
+#if defined(PLATFORM_ANDROID) || defined(EMULATE_ANDROID_UI)
+    const int windowWidth{(int) gameView.border.width + Brick::offset};
+    const int windowHeight{(int) gameView.border.height + Brick::offset};
+#else
+    // TODO - Consider changing to update based on GameView + Sidebar
     const int windowWidth{Brick::scale * 149};
     const int windowHeight{Brick::scale * 142 + (int) Brick::space.y};
+#endif
 
     // Always on top
     SetConfigFlags(FLAG_WINDOW_TOPMOST);
@@ -52,7 +58,7 @@ int main() {
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
     // Textures
-    const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
+    const Texture2D spriteTexture{LoadTexture(ASSETS_LOCATION"bricks/sprite.png")};
 
     // Bricks
     enemy = std::make_unique<Enemy>(
@@ -177,9 +183,11 @@ void UpdateDrawFrame() {
         bullet.draw();
     }
 
+#if !defined(PLATFORM_ANDROID) && !defined(EMULATE_ANDROID_UI)
     // Draw Sidebar
     score.draw();
     level.draw();
+#endif
     gameOver.draw();
     // TODO - Draw a level progress bar?
     // TODO - Draw next incoming shape
