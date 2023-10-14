@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
-project(retro_brick_game LANGUAGES CXX VERSION 0.0.2)
+project(retro_brick_game LANGUAGES CXX VERSION 0.0.3)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -33,11 +33,27 @@ endif ()
 ##
 file(GLOB_RECURSE PROJECT_SOURCE_FILES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_FILES})
+if (${PLATFORM} STREQUAL "Android")
+    # Define the output as a library
+    add_library(${PROJECT_NAME} SHARED ${PROJECT_SOURCE_FILES})
+else ()
+    # Define the output as an executable
+    add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_FILES})
+endif ()
 
 target_link_libraries(${PROJECT_NAME} raylib)
 
+##
+# Android Configurations
+##
+if (${PLATFORM} STREQUAL "Android")
+    # Declare a link on the Native Activity onCreate
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -u ANativeActivity_onCreate")
+endif ()
+
+##
 # Web Configurations - https://github.com/raysan5/raylib/wiki/Working-for-Web-(HTML5)
+##
 if (${PLATFORM} STREQUAL "Web")
 
     # Tell the linker that the game/library uses GLFW3 library internally
