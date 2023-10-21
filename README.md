@@ -39,6 +39,7 @@ Basically documented stages of development, deemed worthy enough of writing down
 ### 2023-10-14
 * Support added to build the game so that it runs on Android 9+
 * Android support is pared back, such as there's no sidebar (score/level) visuals.
+* Gesture input detection has been added to provide support for Android, but not limited to.
 
 ### 2023-10-08
 * Upgraded to Raylib v4.5.0
@@ -76,12 +77,18 @@ Basically documented stages of development, deemed worthy enough of writing down
 
 ![Game State as of 2021-12-13](examples/2021-12-13.png?raw=true)
 
+## Controls
+| Action     | Keyboard       | Touch       |
+|------------|----------------|-------------|
+| Pause      | P              | N/A         |
+| Move Left  | A, Left Arrow  | Swipe Left  |
+| Move Right | D, Right Arrow | Swipe Right |
+| Shoot      | Space          | Tap         |
+
 ## Platforms
 Supported:
 * Windows 10
 * Linux
-
-Probable future support:
 * Web
 * Android
 

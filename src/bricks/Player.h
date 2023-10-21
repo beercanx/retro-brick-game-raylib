@@ -33,6 +33,9 @@ private:
     constexpr static const float movementThreshold{0.050f}; // 50ms
     float movementTime{};
 
+    constexpr static const float deathThreshold{0.050f}; // 50ms
+    float deathTime{};
+
     constexpr static const float shootingThreshold{0.250f}; // 250ms
     float shootingTime{};
 

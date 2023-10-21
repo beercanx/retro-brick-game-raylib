@@ -3,21 +3,22 @@
 //
 
 #include <iostream>
+#include "raylib.h"
 #include "Level.h"
 #include "../bricks/Brick.h"
 
 Level::Level(const Vector2 &position) : position(position) {
 
     onLevelChange.emplace_back([](int lvl) -> void {
-        std::cout << "Level: " + std::to_string(lvl) << std::endl;
+        TraceLog(LOG_INFO, ("Level: " + std::to_string(lvl)).c_str());
     });
 
     onScoreScaleChange.emplace_back([](int score) -> void {
-        std::cout << "Score Multiplier: " + std::to_string(score) << std::endl;
+        TraceLog(LOG_INFO, ("Score Multiplier: " + std::to_string(score)).c_str());
     });
 
     onSpeedScaleChange.emplace_back([](int speed) -> void {
-        std::cout << "Speed Multiplier: " + std::to_string(speed) << std::endl;
+        TraceLog(LOG_INFO, ("Speed Multiplier: " + std::to_string(speed)).c_str());
     });
 }
 

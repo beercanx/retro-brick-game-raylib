@@ -57,7 +57,7 @@ void Enemy::handleMovement(const float deltaTime) {
 
     // The enemy fell off the screen!
     if (position.y + height > gameView.innerBottomRight.y) {
-        std::cout << "Enemy got past the player" << std::endl;
+        TraceLog(LOG_INFO, "Enemy got past the player");
         handleReBirth();
     }
 }
