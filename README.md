@@ -36,6 +36,11 @@ Game views:
 ## Progress
 Basically documented stages of development, deemed worthy enough of writing down or taking a picture of.
 
+### 2023-10-14
+* Support added to build the game so that it runs on Android 9+
+* Android support is pared back, such as there's no sidebar (score/level) visuals.
+* Gesture input detection has been added to provide support for Android, but not limited to.
+
 ### 2023-10-08
 * Upgraded to Raylib v4.5.0
 * Support added to build the game so that it runs in a browser, using Emscripten.
@@ -72,12 +77,18 @@ Basically documented stages of development, deemed worthy enough of writing down
 
 ![Game State as of 2021-12-13](examples/2021-12-13.png?raw=true)
 
+## Controls
+| Action     | Keyboard       | Touch       |
+|------------|----------------|-------------|
+| Pause      | P              | N/A         |
+| Move Left  | A, Left Arrow  | Swipe Left  |
+| Move Right | D, Right Arrow | Swipe Right |
+| Shoot      | Space          | Tap         |
+
 ## Platforms
 Supported:
 * Windows 10
 * Linux
-
-Probable future support:
 * Web
 * Android
 
@@ -119,10 +130,10 @@ Basically this is build in Linux (Ubuntu) to be able to run on Windows.
 
 1) Install MinGW in the WSL environment.
     ```bash
-    sudo apt install cmake mingw-w64 gdb-mingw-w64 
+    sudo apt install cmake mingw-w64 gdb-mingw-w64
     ```
 
-2) Manually create the toolchain instead of relying on the cmake auto-detection.
+2) Manually create the toolchain instead of relying on the CMake auto-detection.
     ```
     CMake:        /usr/bin/cmake
     Make:         /usr/bin/make
@@ -168,11 +179,47 @@ This is to build in order to run in a browser, these instructions focus on Windo
     ```powershell
     choco install emscripten
     ```
- 
+
 2) Create a toolchain on the same platform as your Emscripten install and add in the CMake options field add:
    ```
    -DCMAKE_TOOLCHAIN_FILE=${EMSDK_HOME}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
    -DPLATFORM=Web
    ```
-   
+
 3) Build as normal now but remember it is going to create a HTML page, which you can't launch like an executable.
+
+### Android
+
+Build this and it should it work on Android, if its not too old a version, API versions may need tweaking to add support.
+
+This project was successfully compiled using NDK v26, older versions might not work.
+
+Setup your local.properties to tell Gradle where your Android SDK is:
+```properties
+sdk.dir=C\:\\Android\\Sdk
+```
+
+#### Native Library + Application
+
+Using Gradle on the command line, this will build the native library and the Android APK:
+
+```bash
+./gradlew assembleDebug
+```
+
+To both build and install to an emulator or connect device run:
+```bash
+./gradlew installDebug
+```
+
+#### Just Native Library
+
+Using CLion, this optional only allows for building the native library for the Android project, create a new CMake
+profile named `Android` using the same toolchain as the desktop, with these CMake options set:
+
+```
+-DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake
+-DPLATFORM=Android
+-DANDROID_ABI=x86
+-DANDROID_PLATFORM=android-28
+```

@@ -34,17 +34,27 @@ Level level{ gameView.outerTopRight + Brick::right + Brick::down};
 
 // Pause
 float pausedTrigger{0.0f};
+#if defined(PLATFORM_ANDROID) || defined(EMULATE_ANDROID_UI)
+bool paused{false};
+#else
 bool paused{true};
+#endif
 
 void UpdateDrawFrame();
 
 int main() {
 
-    std::cout << "Starting Retro Brick Game" << std::endl;
+    TraceLog(LOG_INFO, "Starting Retro Brick Game");
 
     // Window Dimensions
+#if defined(PLATFORM_ANDROID) || defined(EMULATE_ANDROID_UI)
+    const int windowWidth{(int) gameView.border.width + Brick::offset};
+    const int windowHeight{(int) gameView.border.height + Brick::offset};
+#else
+    // TODO - Consider changing to update based on GameView + Sidebar
     const int windowWidth{Brick::scale * 149};
     const int windowHeight{Brick::scale * 142 + (int) Brick::space.y};
+#endif
 
     // Always on top
     SetConfigFlags(FLAG_WINDOW_TOPMOST);
@@ -52,7 +62,7 @@ int main() {
     InitWindow(windowWidth, windowHeight, "Retro Brick Game");
 
     // Textures
-    const Texture2D spriteTexture{LoadTexture("assets/bricks/sprite.png")};
+    const Texture2D spriteTexture{LoadTexture(ASSETS_LOCATION"bricks/sprite.png")};
 
     // Bricks
     enemy = std::make_unique<Enemy>(
@@ -125,7 +135,7 @@ void UpdateDrawFrame() {
 
         // Handle enemy colliding with player
         if (CheckCollisionRecs(player->getDestination(), enemy->getDestination())) {
-            std::cout << "Player was killed by an Enemy" << std::endl;
+            TraceLog(LOG_INFO, "Player was killed by an Enemy");
 
             // Stop moving the background
             background.active = false;
@@ -148,7 +158,7 @@ void UpdateDrawFrame() {
 
             // Handle collisions with enemies.
             if (CheckCollisionRecs(bullet->getDestination(), enemy->getDestination())) {
-                std::cout << "Bullet has collided with Enemy" << std::endl;
+                TraceLog(LOG_INFO, "Bullet has collided with Enemy");
                 level.updateProgress(1);
                 score.increase();
                 bullet = bullets.erase(bullet);
@@ -158,7 +168,7 @@ void UpdateDrawFrame() {
 
             // Remove bullet from game once invisible.
             if (bullet->position.y < gameView.outerTopLeft.y) {
-                std::cout << "Bullet has been deleted" << std::endl;
+                TraceLog(LOG_INFO, "Bullet has been deleted");
                 bullet = bullets.erase(bullet);
             }
         }
@@ -177,9 +187,11 @@ void UpdateDrawFrame() {
         bullet.draw();
     }
 
+#if !defined(PLATFORM_ANDROID) && !defined(EMULATE_ANDROID_UI)
     // Draw Sidebar
     score.draw();
     level.draw();
+#endif
     gameOver.draw();
     // TODO - Draw a level progress bar?
     // TODO - Draw next incoming shape
