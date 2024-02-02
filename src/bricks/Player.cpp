@@ -3,7 +3,6 @@
 //
 
 #include <optional>
-#include <string>
 #include "RawBrick.h"
 #include "Player.h"
 #include "../raylib/Vector2.h"
@@ -63,47 +62,54 @@ void Player::handleMovement(const float deltaTime) {
     // Stop moving, your "dead"
     if (!active) return;
 
-    bool isMouseRight = GetMouseDelta().x > 0;
-    bool isMouseLeft = GetMouseDelta().x < 0;
+    // So are we moving?
+    bool moveLeft{false};
+    bool moveRight{false};
+    //bool moveUp{false};
+    //bool moveDown{false};
 
-//    bool isSwipeRight = IsGestureDetected(GESTURE_SWIPE_RIGHT);
-//    if(isSwipeRight) TraceLog(LOG_INFO, "isSwipeRight");
-//    bool isDragRight = IsGestureDetected(GESTURE_DRAG) && ((GetGestureDragAngle() < 30) || (GetGestureDragAngle() > 330));
-//    if(isDragRight) TraceLog(LOG_INFO, "isDragRight");
-//    bool isHoldRight = IsGestureDetected(GESTURE_HOLD) && ((GetGestureDragAngle() < 30) || (GetGestureDragAngle() > 330));
-//    if(isHoldRight) TraceLog(LOG_INFO, "isHoldRight");
+    // Detect Keyboard
+    if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) moveLeft = true;
+    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) moveRight = true;
+    //if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) moveUp = true;
+    //if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) moveDown = true;
 
-    bool isGesturingRight = false; //isSwipeRight || isDragRight;// || isHoldRight;
-
-//    bool isSwipeLeft = IsGestureDetected(GESTURE_SWIPE_LEFT);
-//    if(isSwipeLeft) TraceLog(LOG_INFO, "isSwipeLeft");
-//    bool isDragLeft = IsGestureDetected(GESTURE_DRAG) && ((GetGestureDragAngle() > 120) && (GetGestureDragAngle() < 210));
-//    if(isDragLeft) TraceLog(LOG_INFO, "isDragLeft");
-//    bool isHoldLeft = IsGestureDetected(GESTURE_HOLD) && ((GetGestureDragAngle() > 120) && (GetGestureDragAngle() < 210));
-//    if(isHoldLeft) TraceLog(LOG_INFO, "isHoldLeft");
-
-    bool isGesturingLeft = false; //isSwipeLeft || isDragLeft;// || isHoldLeft;
+#if defined(PLATFORM_ANDROID) || defined(EMULATE_ANDROID_UI)
+    // Detect Touch
+    if (IsGestureDetected(GESTURE_DRAG)) {
+        if (GetGestureDragVector().x < 0) moveLeft = true;
+        if (GetGestureDragVector().x > 0) moveRight = true;
+        //if (GetGestureDragVector().y < 0) moveUp = true;
+        //if (GetGestureDragVector().y > 0) moveDown = true;
+    }
+#else
+    // Detect Mouse
+    if (GetMouseDelta().x < 0) moveLeft = true;
+    if (GetMouseDelta().x > 0) moveRight = true;
+    //if (GetMouseDelta().y < 0) moveUp = true;
+    //if (GetMouseDelta().y > 0) moveDown = true;
+#endif
 
     // Movement within game bounds
-    if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT) || isMouseRight) && position.x + width < gameView.innerTopRight.x) {
+    if (moveRight && position.x + width < gameView.innerTopRight.x) {
         position += Brick::right;
         if (deathPosition.x + deathSize * scale * offset < gameView.innerTopRight.x) {
             deathPosition += Brick::right;
         }
     }
-    if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT) || isMouseLeft) && position.x > gameView.innerTopLeft.x) {
+    if (moveLeft && position.x > gameView.innerTopLeft.x) {
         position += Brick::left;
         if (deathPosition.x > gameView.innerTopLeft.x) {
             deathPosition += Brick::left;
         }
     }
-    //if ((IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) && position.y > gameView.innerTopLeft.y) {
+    //if (moveUp && position.y > gameView.innerTopLeft.y) {
     //    position += Brick::up;
     //    if (deathPosition.y > gameView.innerTopLeft.y) {
     //        deathPosition += Brick::up;
     //    }
     //}
-    //if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && position.y + height < gameView.innerBottomLeft.y) {
+    //if (moveDown && position.y + height < gameView.innerBottomLeft.y) {
     //    position += Brick::down;
     //    if (deathPosition.y + deathSize * scale * offset < gameView.innerBottomLeft.y) {
     //        deathPosition += Brick::down;
@@ -120,7 +126,7 @@ std::optional<Bullet> Player::handleShooting(const float deltaTime) {
     if ((shootingTime += deltaTime) < shootingThreshold) return std::nullopt;
 
     // Check if a shot has been attempted
-    if (!(IsKeyDown(KEY_SPACE) || (IsGestureDetected(GESTURE_TAP)))) return std::nullopt;
+    if (!(IsKeyDown(KEY_SPACE) || IsMouseButtonDown(MOUSE_BUTTON_LEFT) || (IsGestureDetected(GESTURE_TAP)))) return std::nullopt;
 
     // Reset tracker
     shootingTime = 0.0f;
