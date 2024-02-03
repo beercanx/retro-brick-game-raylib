@@ -25,13 +25,16 @@ android {
     defaultConfig {
         minSdk = 26
         targetSdk = 33
-        versionCode = 3
-        versionName = "0.0.3"
+        versionCode = 4
+        versionName = "0.0.4"
         externalNativeBuild {
             cmake {
                 arguments += listOf("-DPLATFORM=Android")
                 targets += listOf("retro_brick_game")
             }
+        }
+        ndk {
+            abiFilters += listOf("x86", "x86_64", "arm64-v8a") // Excluding 'armeabi-v7a' as raylib 5.0 fails to compile
         }
     }
     externalNativeBuild {
