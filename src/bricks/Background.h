@@ -22,7 +22,7 @@ public:
 
     void handleMovement(float deltaTime);
 
-    void draw();
+    void draw() const;
 
     void resetBackground();
 
@@ -30,8 +30,8 @@ public:
 
 private:
 
-    static const int width{10};
-    static const int height{20};
+    static constexpr int width{10};
+    static constexpr int height{20};
 
     const Vector2 position;
 

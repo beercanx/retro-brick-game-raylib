@@ -12,11 +12,11 @@
 #include "Bullet.h"
 #include "../GameView.h"
 
-class Player : public SpriteBrick {
+class Player final : public SpriteBrick {
 
 public:
 
-    explicit Player(const Texture2D &sprite, const Vector2 &position, GameView gameView);
+    explicit Player(const Texture2D &sprite, const Vector2 &position, GameView  gameView);
 
     void draw() const override;
 
@@ -30,13 +30,13 @@ private:
 
     bool active{true};
 
-    constexpr static const float movementThreshold{0.050f}; // 50ms
+    constexpr static float movementThreshold{0.050f}; // 50ms
     float movementTime{};
 
-    constexpr static const float deathThreshold{0.050f}; // 50ms
+    constexpr static float deathThreshold{0.050f}; // 50ms
     float deathTime{};
 
-    constexpr static const float shootingThreshold{0.250f}; // 250ms
+    constexpr static float shootingThreshold{0.250f}; // 250ms
     float shootingTime{};
 
     // Game boundaries
@@ -44,7 +44,7 @@ private:
 
     Vector2 deathPosition;
     int deathSceneIndex{0};
-    static const int deathSize{5};
+    static constexpr int deathSize{5};
 
     std::array<std::array<RawBrick, deathSize>, deathSize> deathZero{
         {

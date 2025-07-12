@@ -2,6 +2,7 @@
 #include <list>
 #include <memory>
 #include "raylib.h"
+#include "raymath.h"
 #include "bricks/RawBrick.h"
 #include "bricks/Enemy.h"
 #include "bricks/Player.h"
@@ -51,8 +52,8 @@ int main() {
     const int windowHeight{(int) gameView.border.height + Brick::offset};
 #else
     // TODO - Consider changing to update based on GameView + Sidebar
-    const int windowWidth{Brick::scale * 149};
-    const int windowHeight{Brick::scale * 142 + (int) Brick::space.y};
+    constexpr int windowWidth{Brick::scale * 149};
+    constexpr int windowHeight{Brick::scale * 142 + static_cast<int>(Brick::space.y)};
 #endif
 
     // Always on top
@@ -77,9 +78,9 @@ int main() {
 
     // Register event hooks
     level.onLevelChange.emplace_back([&](int) -> void { background.resetBackground(); });
-    level.onScoreScaleChange.emplace_back([&](int scale) -> void { score.scoreScale = scale; });
-    level.onSpeedScaleChange.emplace_back([&](int scale) -> void { enemy->speedScale = scale; });
-    level.onSpeedScaleChange.emplace_back([&](int scale) -> void { background.speedScale = scale; });
+    level.onScoreScaleChange.emplace_back([&](const int scale) -> void { score.scoreScale = scale; });
+    level.onSpeedScaleChange.emplace_back([&](const int scale) -> void { enemy->speedScale = scale; });
+    level.onSpeedScaleChange.emplace_back([&](const int scale) -> void { background.speedScale = scale; });
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
@@ -150,7 +151,7 @@ void UpdateDrawFrame() {
         }
 
         // Handle bullet movement and collisions
-        for (auto bullet = bullets.begin(); bullet != bullets.end(); bullet++) {
+        for (auto bullet = bullets.begin(); bullet != bullets.end(); ++bullet) {
 
             // Handle bullet movement
             bullet->updatePosition(bullet->position + Brick::up);
@@ -197,8 +198,8 @@ void UpdateDrawFrame() {
     if(paused) {
         DrawText(
             "Paused",
-            (int) gameView.inner.width / 3,
-            (int) gameView.inner.height / 3,
+            static_cast<int>(gameView.inner.width) / 3,
+            static_cast<int>(gameView.inner.height) / 3,
             10 * Brick::scale,
             RED
         );

@@ -18,6 +18,8 @@ public:
 
 protected:
 
+    virtual ~TextureBrick() = default;
+
     const Texture2D texture;
 
 };

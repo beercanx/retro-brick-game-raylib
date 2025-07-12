@@ -9,15 +9,15 @@
 
 Level::Level(const Vector2 &position) : position(position) {
 
-    onLevelChange.emplace_back([](int lvl) -> void {
+    onLevelChange.emplace_back([](const int lvl) -> void {
         TraceLog(LOG_INFO, ("Level: " + std::to_string(lvl)).c_str());
     });
 
-    onScoreScaleChange.emplace_back([](int score) -> void {
+    onScoreScaleChange.emplace_back([](const int score) -> void {
         TraceLog(LOG_INFO, ("Score Multiplier: " + std::to_string(score)).c_str());
     });
 
-    onSpeedScaleChange.emplace_back([](int speed) -> void {
+    onSpeedScaleChange.emplace_back([](const int speed) -> void {
         TraceLog(LOG_INFO, ("Speed Multiplier: " + std::to_string(speed)).c_str());
     });
 }
@@ -25,8 +25,8 @@ Level::Level(const Vector2 &position) : position(position) {
 void Level::draw() const {
     DrawText(
         TextFormat("Level:  %07d", level),
-        (int) position.x,
-        (int) position.y,
+        static_cast<int>(position.x),
+        static_cast<int>(position.y),
         9 * Brick::scale,
         { 127, 127, 127, 255 }
     );

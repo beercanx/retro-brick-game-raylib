@@ -10,7 +10,7 @@
 #include "SpriteBrick.h"
 #include "../GameView.h"
 
-class Enemy : public SpriteBrick {
+class Enemy final : public SpriteBrick {
 
 public:
 
@@ -29,7 +29,7 @@ public:
         zee_inverse
     };
 
-    explicit Enemy(const Texture2D &sprite, Type type, GameView gameView);
+    explicit Enemy(const Texture2D &sprite, Type type, GameView  gameView);
 
     void draw() const override;
 
@@ -53,11 +53,11 @@ private:
 
     const GameView gameView;
 
-    Enemy::Type type;
-    typedef const std::map<Enemy::Type, Rectangle> EnemyConfig;
+    Type type;
+    typedef const std::map<Type, Rectangle> EnemyConfig;
     const static EnemyConfig &getEnemyConfig();
 
-    Vector2 generatePosition();
+    [[nodiscard]] Vector2 generatePosition() const;
 
 };
 

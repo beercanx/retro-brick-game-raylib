@@ -33,6 +33,6 @@ void RawBrick::updatePosition(const Vector2 &position) {
     this->position = position;
 
     this->outerBorder = {position.x, position.y, scale * 6, scale * 6};
-    this->innerBorder = {position.x + (scale * 1), position.y + (scale * 1), scale * 4, scale * 4};
+    this->innerBorder = {position.x + scale * 1, position.y + scale * 1, scale * 4, scale * 4};
     this->center = {position.x + scale * 2, position.y + scale * 2, scale * 2, scale * 2};
 }

@@ -3,17 +3,19 @@
 //
 
 #include <optional>
+#include <utility>
 #include "RawBrick.h"
 #include "Player.h"
+#include "raymath.h"
 
-Player::Player(const Texture2D &sprite, const Vector2 &position, const GameView gameView) :
+Player::Player(const Texture2D &sprite, const Vector2 &position, GameView gameView) :
     SpriteBrick(sprite, {9, 0, 3, 4}, position),
-    gameView(gameView),
+    gameView(std::move(gameView)),
     deathPosition(position) {}
 
 void Player::handleDeath() {
 
-    // Mark player as "dead"
+    // Mark the player as "dead"
     active = false;
 
     // Update the death scenes positions.
@@ -21,21 +23,21 @@ void Player::handleDeath() {
         for (int heightIndex = 0; heightIndex < deathSize; ++heightIndex) {
             deathZero[heightIndex][widthIndex].updatePosition(
                 deathPosition
-                + (Brick::right * widthIndex)
-                + (Brick::down * heightIndex)
-                + Brick::space
+                + right * static_cast<float>(widthIndex)
+                + down * static_cast<float>(heightIndex)
+                + space
             );
             deathOne[heightIndex][widthIndex].updatePosition(
                 deathPosition
-                + (Brick::right * widthIndex)
-                + (Brick::down * heightIndex)
-                + Brick::space
+                + right * static_cast<float>(widthIndex)
+                + down * static_cast<float>(heightIndex)
+                + space
             );
             deathTwo[heightIndex][widthIndex].updatePosition(
                 deathPosition
-                + (Brick::right * widthIndex)
-                + (Brick::down * heightIndex)
-                + Brick::space
+                + right * static_cast<float>(widthIndex)
+                + down * static_cast<float>(heightIndex)
+                + space
             );
         }
     }
@@ -51,14 +53,14 @@ void Player::handleMovement(const float deltaTime) {
     // Reset tracker
     movementTime = 0.0f;
 
-    // Update death scene
+    // Update the death scene
     if((deathTime += deltaTime) > deathThreshold) {
         if (++deathSceneIndex > 2) deathSceneIndex = 0;
         deathScene = deathSceneIndex == 0 ? deathZero : deathSceneIndex == 1 ? deathOne : deathTwo;
         deathTime = 0.0f;
     }
 
-    // Stop moving, your "dead"
+    // Stop moving, you're "dead"
     if (!active) return;
 
     // So are we moving?
@@ -91,15 +93,15 @@ void Player::handleMovement(const float deltaTime) {
 
     // Movement within game bounds
     if (moveRight && position.x + width < gameView.innerTopRight.x) {
-        position += Brick::right;
+        position += right;
         if (deathPosition.x + deathSize * scale * offset < gameView.innerTopRight.x) {
-            deathPosition += Brick::right;
+            deathPosition += right;
         }
     }
     if (moveLeft && position.x > gameView.innerTopLeft.x) {
-        position += Brick::left;
+        position += left;
         if (deathPosition.x > gameView.innerTopLeft.x) {
-            deathPosition += Brick::left;
+            deathPosition += left;
         }
     }
     //if (moveUp && position.y > gameView.innerTopLeft.y) {
@@ -125,14 +127,14 @@ std::optional<Bullet> Player::handleShooting(const float deltaTime) {
     if ((shootingTime += deltaTime) < shootingThreshold) return std::nullopt;
 
     // Check if a shot has been attempted
-    if (!(IsKeyDown(KEY_SPACE) || IsMouseButtonDown(MOUSE_BUTTON_LEFT) || (IsGestureDetected(GESTURE_TAP)))) return std::nullopt;
+    if (!(IsKeyDown(KEY_SPACE) || IsMouseButtonDown(MOUSE_BUTTON_LEFT) || IsGestureDetected(GESTURE_TAP))) return std::nullopt;
 
     // Reset tracker
     shootingTime = 0.0f;
 
     // Spawn a bullet - two cells up and one to the right from the player
     Bullet bullet{
-        position + Brick::space + Brick::up + Brick::right
+        position + space + up + right
     };
 
     return std::optional{bullet};
