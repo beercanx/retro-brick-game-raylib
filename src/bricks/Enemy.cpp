@@ -3,10 +3,8 @@
 //
 
 #include <random>
-#include <iostream>
 #include "Enemy.h"
 #include "Brick.h"
-#include "../raylib/Vector2.h"
 
 Enemy::Enemy(
     const Texture2D &sprite,

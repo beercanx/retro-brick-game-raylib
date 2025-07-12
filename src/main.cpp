@@ -9,7 +9,6 @@
 #include "sidebar/Score.h"
 #include "sidebar/GameOver.h"
 #include "bricks/Background.h"
-#include "raylib/Vector2.h"
 #include "sidebar/Level.h"
 #include "GameView.h"
 #if defined(PLATFORM_WEB)

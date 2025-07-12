@@ -5,7 +5,6 @@
 #include <optional>
 #include "RawBrick.h"
 #include "Player.h"
-#include "../raylib/Vector2.h"
 
 Player::Player(const Texture2D &sprite, const Vector2 &position, const GameView gameView) :
     SpriteBrick(sprite, {9, 0, 3, 4}, position),

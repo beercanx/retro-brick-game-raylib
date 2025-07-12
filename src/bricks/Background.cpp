@@ -4,7 +4,6 @@
 
 #include "Background.h"
 #include "Brick.h"
-#include "../raylib/Vector2.h"
 
 Background::Background(const Vector2 position) :
     position(position),
