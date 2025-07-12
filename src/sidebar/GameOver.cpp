@@ -14,5 +14,5 @@ void GameOver::display() {
 
 void GameOver::draw() const {
     if (!active) return;
-    DrawText(text, (int) position.x, (int) position.y, 10 * Brick::scale, RED);
+    DrawText(text, static_cast<int>(position.x), static_cast<int>(position.y), 10 * Brick::scale, RED);
 }

@@ -16,8 +16,8 @@ void Score::increase() {
 void Score::draw() const {
     DrawText(
         TextFormat("Score: %07d", score),
-        (int) position.x,
-        (int) position.y,
+        static_cast<int>(position.x),
+        static_cast<int>(position.y),
         9 * Brick::scale,
         { 127, 127, 127, 255 }
     );

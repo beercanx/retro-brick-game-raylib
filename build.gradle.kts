@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application") version "8.1.2"
+    id("com.android.application") version "8.10.1"
 }
 
 repositories {
@@ -15,26 +15,26 @@ java {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 35
     namespace = "uk.co.baconi.rbg"
     sourceSets.named("main") {
         assets {
             srcDir("${project.rootDir}/assets")
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     defaultConfig {
         minSdk = 26
-        targetSdk = 33
-        versionCode = 4
-        versionName = "0.0.4"
+        targetSdk = 35
+        versionCode = 5
+        versionName = "0.0.5"
         externalNativeBuild {
             cmake {
                 arguments += listOf("-DPLATFORM=Android")
                 targets += listOf("retro_brick_game")
             }
-        }
-        ndk {
-            abiFilters += listOf("x86", "x86_64", "arm64-v8a") // Excluding 'armeabi-v7a' as raylib 5.0 fails to compile
         }
     }
     externalNativeBuild {

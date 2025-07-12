@@ -4,16 +4,16 @@
 
 #include "Background.h"
 #include "Brick.h"
-#include "../raylib/Vector2.h"
+#include "raymath.h"
 
 Background::Background(const Vector2 position) :
-    position(position),
     gameView{
         position.x,
         position.y,
         width * Brick::offset * Brick::scale - Brick::space.x,
         height * Brick::offset * Brick::scale - Brick::space.y
     },
+    position(position),
     rawBricks{{ // Starting Background
         {true, false, false, false, false, false, false, false, false, true},
         {true, false, false, false, false, false, false, false, false, true},
@@ -41,13 +41,13 @@ Background::Background(const Vector2 position) :
     calculateBrickPositions();
 }
 
-void Background::handleMovement(float deltaTime) {
+void Background::handleMovement(const float deltaTime) {
 
     // Stop moving, you're not active at the moment.
     if (!active) return;
 
     // Is it time to allow the next movement?
-    if ((movementTime += deltaTime * (float) speedScale) < movementThreshold) {
+    if ((movementTime += deltaTime * static_cast<float>(speedScale)) < movementThreshold) {
         return;
     }
 
@@ -70,7 +70,7 @@ void Background::handleMovement(float deltaTime) {
     calculateBrickPositions();
 }
 
-void Background::draw() {
+void Background::draw() const {
     for (auto &row: rawBricks) {
         for (auto &brick: row) {
             if (brick.visible) {
@@ -86,8 +86,8 @@ void Background::calculateBrickPositions() {
         for (int heightIndex = 0; heightIndex < height; ++heightIndex) {
             rawBricks[heightIndex][widthIndex].updatePosition(
                 position
-                + (Brick::right * widthIndex)
-                + (Brick::down * heightIndex)
+                + Brick::right * static_cast<float>(widthIndex)
+                + Brick::down * static_cast<float>(heightIndex)
             );
         }
     }

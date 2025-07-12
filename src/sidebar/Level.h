@@ -28,7 +28,7 @@ private:
 
     const Vector2 position;
 
-    static const int max{9999999};
+    static constexpr int max{9999999};
 
     int level{1};
 

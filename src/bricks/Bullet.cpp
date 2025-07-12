@@ -6,6 +6,6 @@
 
 Bullet::Bullet(const Vector2 &position) : RawBrick(position) {}
 
-Rectangle Bullet::getDestination() {
+Rectangle Bullet::getDestination() const {
     return outerBorder;
 }

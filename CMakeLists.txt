@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
-project(retro_brick_game LANGUAGES CXX VERSION 0.0.4)
+project(retro_brick_game LANGUAGES CXX VERSION 0.0.5)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ##
 # Dependencies
 ##
-set(RAYLIB_VERSION 5.0)
+set(RAYLIB_VERSION 5.5)
 find_package(raylib ${RAYLIB_VERSION} QUIET)
 if (NOT raylib_FOUND)
     include(FetchContent)
