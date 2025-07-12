@@ -5,6 +5,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  actions: write
+
 env:
   BUILD_TYPE: Release
 
