@@ -7,29 +7,25 @@
 
 #include "Brick.h"
 
-class RawBrick : public Brick {
-
+class RawBrick : public Brick
+{
 public:
-
     bool visible{true};
 
     virtual ~RawBrick() = default;
 
-    // Is used by the array initializer of BackgroundRaw::rawBricks
     RawBrick(bool visible);
 
-    explicit RawBrick(const Vector2 &position);
+    explicit RawBrick(const Vector2& position);
 
     void draw() const override;
 
-    void updatePosition(const Vector2 &position);
+    void updatePosition(const Vector2& position);
 
 protected:
-
     Rectangle outerBorder{};
     Rectangle innerBorder{};
     Rectangle center{};
-
 };
 
 

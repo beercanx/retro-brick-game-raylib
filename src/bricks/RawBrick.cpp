@@ -8,17 +8,17 @@ RawBrick::RawBrick(const Vector2 &position) : Brick(position) {
     updatePosition(position);
 }
 
-// Is used by the array initializer of BackgroundRaw::rawBricks
-RawBrick::RawBrick(const bool visible) : Brick({}) {
+RawBrick::RawBrick(const bool visible) : Brick({})
+{
     this->visible = visible;
 }
 
-void RawBrick::draw() const {
-
+void RawBrick::draw() const
+{
     // Don't render, you're not visible
     if (!visible) return;
 
-    // outer square, 6 by 6, gray (7F7F7F)
+    // outer square, 6 by 6, grey (7F7F7F)
     DrawRectangleRec(outerBorder, GRAY);
 
     // inner border, 4 by 4, white
@@ -28,8 +28,8 @@ void RawBrick::draw() const {
     DrawRectangleRec(center, BLACK);
 }
 
-void RawBrick::updatePosition(const Vector2 &position) {
-
+void RawBrick::updatePosition(const Vector2& position)
+{
     this->position = position;
 
     this->outerBorder = {position.x, position.y, scale * 6, scale * 6};

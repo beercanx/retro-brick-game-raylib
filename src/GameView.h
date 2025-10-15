@@ -7,10 +7,9 @@
 
 #include "raylib.h"
 
-class GameView {
-
+class GameView
+{
 public:
-
     explicit GameView(float x, float y, float width, float height);
 
     const Rectangle outer;
@@ -26,7 +25,6 @@ public:
     const Vector2 innerBottomRight;
 
     const Rectangle border;
-
 };
 
 #endif //RETRO_BRICK_GAME_GAMEVIEW_H

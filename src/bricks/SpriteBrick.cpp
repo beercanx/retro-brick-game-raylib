@@ -5,9 +5,9 @@
 #include "SpriteBrick.h"
 
 SpriteBrick::SpriteBrick(
-    const Texture2D &sprite,
-    const Rectangle source,
-    const Vector2 &position
+    const Texture2D& sprite,
+    const Rectangle& source,
+    const Vector2& position
 ) : TextureBrick(sprite, position) {
     updateSource(source);
 }
@@ -25,8 +25,7 @@ Rectangle SpriteBrick::getDestination() const {
     };
 }
 
-void SpriteBrick::updateSource(const Rectangle value) {
-
+void SpriteBrick::updateSource(const Rectangle& value) {
     source = {
         value.x * offset,
         value.y * offset,

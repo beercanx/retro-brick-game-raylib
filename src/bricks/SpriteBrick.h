@@ -8,24 +8,21 @@
 #include "raylib.h"
 #include "TextureBrick.h"
 
-class SpriteBrick : public TextureBrick {
-
+class SpriteBrick : public TextureBrick
+{
 public:
-
-    explicit SpriteBrick(const Texture2D &sprite, Rectangle source, const Vector2 &position);
+    explicit SpriteBrick(const Texture2D& sprite, const Rectangle& source, const Vector2& position);
 
     void draw() const override;
 
     [[nodiscard]] virtual Rectangle getDestination() const;
 
 protected:
-
-    void updateSource(Rectangle value);
+    void updateSource(const Rectangle& value);
 
     Rectangle source{};
     float width{};
     float height{};
-
 };
 
 #endif //RETRO_BRICK_GAME_SPRITEBRICK_H
