@@ -7,14 +7,13 @@
 
 #include "raylib.h"
 
-class Brick {
-
+class Brick
+{
 protected:
     ~Brick() = default;
 
 public:
-
-    explicit Brick(const Vector2 &position);
+    explicit Brick(const Vector2& position);
 
     virtual void draw() const = 0;
 
@@ -33,8 +32,7 @@ public:
     // Other
     constexpr static Vector2 space{gap * scale, gap * scale};
 
-    Vector2 position;
-
+    Vector2 position{};
 };
 
 #endif //RETRO_BRICK_GAME_BRICK_H

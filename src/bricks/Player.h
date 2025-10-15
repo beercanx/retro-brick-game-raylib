@@ -16,7 +16,7 @@ class Player final : public SpriteBrick {
 
 public:
 
-    explicit Player(const Texture2D &sprite, const Vector2 &position, GameView  gameView);
+    explicit Player(const Texture2D& sprite, const Vector2& position, GameView gameView);
 
     void draw() const override;
 

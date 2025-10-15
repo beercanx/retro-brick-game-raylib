@@ -8,19 +8,23 @@
 #include "Player.h"
 #include "raymath.h"
 
-Player::Player(const Texture2D &sprite, const Vector2 &position, GameView gameView) :
+Player::Player(const Texture2D& sprite, const Vector2& position, GameView gameView) :
     SpriteBrick(sprite, {9, 0, 3, 4}, position),
     gameView(std::move(gameView)),
-    deathPosition(position) {}
+    deathPosition(position)
+{
+}
 
-void Player::handleDeath() {
-
+void Player::handleDeath()
+{
     // Mark the player as "dead"
     active = false;
 
     // Update the death scenes positions.
-    for (int widthIndex = 0; widthIndex < deathSize; ++widthIndex) {
-        for (int heightIndex = 0; heightIndex < deathSize; ++heightIndex) {
+    for (int widthIndex = 0; widthIndex < deathSize; ++widthIndex)
+    {
+        for (int heightIndex = 0; heightIndex < deathSize; ++heightIndex)
+        {
             deathZero[heightIndex][widthIndex].updatePosition(
                 deathPosition
                 + right * static_cast<float>(widthIndex)
@@ -43,10 +47,11 @@ void Player::handleDeath() {
     }
 }
 
-void Player::handleMovement(const float deltaTime) {
-
+void Player::handleMovement(const float deltaTime)
+{
     // Is it time to allow the next movement?
-    if (active && (movementTime += deltaTime) < movementThreshold) {
+    if (active && (movementTime += deltaTime) < movementThreshold)
+    {
         return;
     }
 
@@ -54,7 +59,8 @@ void Player::handleMovement(const float deltaTime) {
     movementTime = 0.0f;
 
     // Update the death scene
-    if((deathTime += deltaTime) > deathThreshold) {
+    if ((deathTime += deltaTime) > deathThreshold)
+    {
         if (++deathSceneIndex > 2) deathSceneIndex = 0;
         deathScene = deathSceneIndex == 0 ? deathZero : deathSceneIndex == 1 ? deathOne : deathTwo;
         deathTime = 0.0f;
@@ -77,7 +83,8 @@ void Player::handleMovement(const float deltaTime) {
 
 #if defined(PLATFORM_ANDROID) || defined(EMULATE_ANDROID_UI)
     // Detect Touch
-    if (IsGestureDetected(GESTURE_DRAG)) {
+    if (IsGestureDetected(GESTURE_DRAG))
+    {
         if (GetGestureDragVector().x < 0) moveLeft = true;
         if (GetGestureDragVector().x > 0) moveRight = true;
         //if (GetGestureDragVector().y < 0) moveUp = true;
@@ -92,15 +99,19 @@ void Player::handleMovement(const float deltaTime) {
 #endif
 
     // Movement within game bounds
-    if (moveRight && position.x + width < gameView.innerTopRight.x) {
+    if (moveRight && position.x + width < gameView.innerTopRight.x)
+    {
         position += right;
-        if (deathPosition.x + deathSize * scale * offset < gameView.innerTopRight.x) {
+        if (deathPosition.x + deathSize * scale * offset < gameView.innerTopRight.x)
+        {
             deathPosition += right;
         }
     }
-    if (moveLeft && position.x > gameView.innerTopLeft.x) {
+    if (moveLeft && position.x > gameView.innerTopLeft.x)
+    {
         position += left;
-        if (deathPosition.x > gameView.innerTopLeft.x) {
+        if (deathPosition.x > gameView.innerTopLeft.x)
+        {
             deathPosition += left;
         }
     }
@@ -118,8 +129,8 @@ void Player::handleMovement(const float deltaTime) {
     //}
 }
 
-std::optional<Bullet> Player::handleShooting(const float deltaTime) {
-
+std::optional<Bullet> Player::handleShooting(const float deltaTime)
+{
     // Stop shooting, your "dead"
     if (!active) return std::nullopt;
 
@@ -140,15 +151,18 @@ std::optional<Bullet> Player::handleShooting(const float deltaTime) {
     return std::optional{bullet};
 }
 
-void Player::draw() const {
-
+void Player::draw() const
+{
     // Player is alive, draw as normal
     if (active) return SpriteBrick::draw();
 
-    // Player is dead, so lets draw the death scene.
-    for (const auto &row: deathScene) {
-        for (const auto &brick: row) {
-            if (brick.visible) {
+    // Player is dead, so let's draw the death scene.
+    for (const auto& row : deathScene)
+    {
+        for (const auto& brick : row)
+        {
+            if (brick.visible)
+            {
                 brick.draw();
             }
         }

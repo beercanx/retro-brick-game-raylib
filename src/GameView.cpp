@@ -19,4 +19,6 @@ GameView::GameView(const float x, const float y, const float width, const float 
     innerBottomLeft({inner.x, inner.y + inner.height}),
     innerBottomRight({innerTopRight.x, innerBottomLeft.y}),
 
-    border({x - Brick::space.x, y - Brick::space.y, width + Brick::space.x * 2, height + Brick::space.x * 2}) {}
+    border({x - Brick::space.x, y - Brick::space.y, width + Brick::space.x * 2, height + Brick::space.x * 2})
+{
+}

@@ -10,11 +10,11 @@
 #include "SpriteBrick.h"
 #include "../GameView.h"
 
-class Enemy final : public SpriteBrick {
-
+class Enemy final : public SpriteBrick
+{
 public:
-
-    enum Type {
+    enum Type
+    {
         ell,
         ell_inverse,
         ess,
@@ -29,7 +29,7 @@ public:
         zee_inverse
     };
 
-    explicit Enemy(const Texture2D &sprite, Type type, GameView  gameView);
+    explicit Enemy(const Texture2D& sprite, Type type, GameView gameView);
 
     void draw() const override;
 
@@ -44,7 +44,6 @@ public:
     int speedScale{1};
 
 private:
-
     // TODO - Replace with rebirth
     bool active{true};
 
@@ -55,10 +54,9 @@ private:
 
     Type type;
     typedef const std::map<Type, Rectangle> EnemyConfig;
-    const static EnemyConfig &getEnemyConfig();
+    const static EnemyConfig& getEnemyConfig();
 
     [[nodiscard]] Vector2 generatePosition() const;
-
 };
 
 

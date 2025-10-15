@@ -10,10 +10,9 @@
 #include "RawBrick.h"
 #include "../GameView.h"
 
-class Background {
-
+class Background
+{
 public:
-
     bool active{true};
 
     const GameView gameView;
@@ -29,7 +28,6 @@ public:
     int speedScale{1};
 
 private:
-
     static constexpr int width{10};
     static constexpr int height{20};
 
@@ -43,8 +41,7 @@ private:
 
     void calculateBrickPositions();
 
-    static void reconfigureRow(std::array<RawBrick, width> &row);
-
+    static void reconfigureRow(std::array<RawBrick, width>& row);
 };
 
 #endif //RETRO_BRICK_GAME_BACKGROUND_H

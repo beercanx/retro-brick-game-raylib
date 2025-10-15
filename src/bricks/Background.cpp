@@ -14,40 +14,45 @@ Background::Background(const Vector2 position) :
         height * Brick::offset * Brick::scale - Brick::space.y
     },
     position(position),
-    rawBricks{{ // Starting Background
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true},
-        {true, false, false, false, false, false, false, false, false, true}
-    }},
-    startingBricks(rawBricks) {
+    rawBricks{
+        {
+            // Starting Background
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true},
+            {true, false, false, false, false, false, false, false, false, true}
+        }
+    },
+    startingBricks(rawBricks)
+{
     // Initialise the position of each RawBrick.
     calculateBrickPositions();
 }
 
-void Background::handleMovement(const float deltaTime) {
-
+void Background::handleMovement(const float deltaTime)
+{
     // Stop moving, you're not active at the moment.
     if (!active) return;
 
     // Is it time to allow the next movement?
-    if ((movementTime += deltaTime * static_cast<float>(speedScale)) < movementThreshold) {
+    if ((movementTime += deltaTime * static_cast<float>(speedScale)) < movementThreshold)
+    {
         return;
     }
 
@@ -59,7 +64,8 @@ void Background::handleMovement(const float deltaTime) {
     // Shift down each row by one
     // Take the last row and move it to the first.
     auto lastRow = rawBricks[height - 1];
-    for (int index = height - 1; index > 0; index--) {
+    for (int index = height - 1; index > 0; index--)
+    {
         // Shift each row down by one
         rawBricks[index] = rawBricks[index - 1];
     }
@@ -70,10 +76,14 @@ void Background::handleMovement(const float deltaTime) {
     calculateBrickPositions();
 }
 
-void Background::draw() const {
-    for (auto &row: rawBricks) {
-        for (auto &brick: row) {
-            if (brick.visible) {
+void Background::draw() const
+{
+    for (const auto& row : rawBricks)
+    {
+        for (const auto& brick : row)
+        {
+            if (brick.visible)
+            {
                 brick.draw();
             }
         }
@@ -81,9 +91,12 @@ void Background::draw() const {
     DrawRectangleLinesEx(gameView.border, 1.0f, BLACK);
 }
 
-void Background::calculateBrickPositions() {
-    for (int widthIndex = 0; widthIndex < width; ++widthIndex) {
-        for (int heightIndex = 0; heightIndex < height; ++heightIndex) {
+void Background::calculateBrickPositions()
+{
+    for (int widthIndex = 0; widthIndex < width; ++widthIndex)
+    {
+        for (int heightIndex = 0; heightIndex < height; ++heightIndex)
+        {
             rawBricks[heightIndex][widthIndex].updatePosition(
                 position
                 + Brick::right * static_cast<float>(widthIndex)
@@ -93,18 +106,21 @@ void Background::calculateBrickPositions() {
     }
 }
 
-void Background::reconfigureRow(std::array<RawBrick, width> &row) {
+void Background::reconfigureRow(std::array<RawBrick, width>& row)
+{
     static int step{0};
 
     row.front().visible = step != 0;
     row.back().visible = step != 0;
 
-    if(++step > 2) {
+    if (++step > 2)
+    {
         step = 0;
     }
 }
 
-void Background::resetBackground() {
+void Background::resetBackground()
+{
     rawBricks = startingBricks;
     calculateBrickPositions();
 }

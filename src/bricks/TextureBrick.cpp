@@ -5,11 +5,14 @@
 #include "TextureBrick.h"
 
 TextureBrick::TextureBrick(
-    const Texture2D &texture,
-    const Vector2 &position
+    const Texture2D& texture,
+    const Vector2& position
 ) : Brick(position),
-    texture(texture) {}
+    texture(texture)
+{
+}
 
-void TextureBrick::draw() const {
+void TextureBrick::draw() const
+{
     DrawTextureEx(texture, position, 0.0f, scale, WHITE);
 }
