@@ -30,9 +30,9 @@
 
     <style>
       body {
-        font-family: arial;
+        font-family: arial,serif;
         margin: 0;
-        padding: none;
+        padding: 0;
       }
 
       #header {
@@ -72,16 +72,14 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
 
       /* NOTE: Canvas *must not* have any border or padding, or mouse coords will be wrong */
       canvas.emscripten {
-        border: 0px none;
+        border: 0 none;
         background: black;
       }
 
       .spinner {
         height: 30px;
         width: 30px;
-        margin: 0;
-        margin-top: 20px;
-        margin-left: 20px;
+        margin: 20px 0 0 20px;
         display: inline-block;
         vertical-align: top;
         -webkit-animation: rotation .8s linear infinite;
@@ -122,8 +120,8 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
       }
 
       #progress {
-        height: 0px;
-        width: 0px;
+        height: 0;
+        width: 0;
       }
 
       #controls {
@@ -137,8 +135,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
       #output {
         width: 99%;
         height: 140px;
-        margin: 0 auto;
-        margin-top: 10px;
+        margin: 10px auto 0;
         display: block;
         background-color: black;
         color: rgb(37, 174, 38);
@@ -175,7 +172,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
         </span>
 
         <div class="emscripten">
-          <progress value="0" max="100" id="progress" hidden=1></progress>
+          <progress value="0" max="100" id="progress" hidden="hidden"></progress>
         </div>
     </div>
 
@@ -239,8 +236,8 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
             canvas: (function() {
                 var canvas = document.querySelector('#canvas');
 
-                // As a default initial behavior, pop up an alert when webgl context is lost.
-                // To make your application robust, you may want to override this behavior before shipping!
+                // As a default initial behaviour, pop up an alert when webgl context is lost.
+                // To make your application robust, you may want to override this behaviour before shipping!
                 // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
                 canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
 
@@ -303,7 +300,7 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
                 construct(target, args) {
                     const result = new target(...args);
                     audioContexList.push(result);
-                    if (result.state == "suspended") audioBtn.value = "🔈 RESUME";
+                    if (result.state === "suspended") audioBtn.value = "🔈 RESUME";
                     return result;
                 }
             });
@@ -312,8 +309,8 @@ jwE50AGjLCVuS8Yt4H7OgZLKK5EKOsLviEWJSL/+0uMi7gLUSBseYwqEbXvSHCec1CJvZPyHCmYQffaB
         function toggleAudio() {
             var resumed = false;
             audioContexList.forEach(ctx => {
-                if (ctx.state == "suspended") { ctx.resume(); resumed = true; }
-                else if (ctx.state == "running") ctx.suspend();
+                if (ctx.state === "suspended") { ctx.resume(); resumed = true; }
+                else if (ctx.state === "running") ctx.suspend();
             });
 
             if (resumed) audioBtn.value = "🔇 SUSPEND";
