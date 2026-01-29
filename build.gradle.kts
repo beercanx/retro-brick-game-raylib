@@ -12,6 +12,9 @@ buildscript {
         // Security patching the Android Gradle Plugin in the eyes of the GitHub Dependency Graph.
         constraints {
             classpath("org.apache.httpcomponents:httpclient:4.5.14")
+            classpath("org.apache.commons:commons-compress:1.27.1")
+            classpath("com.google.protobuf:protobuf-java:3.25.5")
+            classpath("com.google.protobuf:protobuf-kotlin:3.25.5")
         }
     }
 }
