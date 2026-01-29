@@ -7,6 +7,14 @@ repositories {
     mavenCentral()
 }
 
+buildscript {
+    configurations.classpath {
+        resolutionStrategy {
+            force("org.apache.httpcomponents:httpmime:4.5.14")
+        }
+    }
+}
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(11))
