@@ -8,9 +8,10 @@ repositories {
 }
 
 buildscript {
-    configurations.classpath {
-        resolutionStrategy {
-            force("org.apache.httpcomponents:httpmime:4.5.14")
+    dependencies {
+        // Security patching the Android Gradle Plugin in the eyes of the GitHub Dependency Graph.
+        constraints {
+            classpath("org.apache.httpcomponents:httpclient:4.5.14")
         }
     }
 }
