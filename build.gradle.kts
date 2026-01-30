@@ -8,13 +8,33 @@ repositories {
 }
 
 buildscript {
+
+    // Review these on each update of the AGP (com.android.application)
+    gradle.extra["securityPatches"] = listOf(
+        "org.apache.httpcomponents:httpmime:4.5.14",
+        "org.apache.httpcomponents:httpclient:4.5.14",
+        "org.apache.commons:commons-compress:1.27.1",
+        "com.google.protobuf:protobuf-java:3.25.5",
+        "com.google.protobuf:protobuf-kotlin:3.25.5",
+    )
+
+    // Handles the patching of the Android Gradle Plugin
     dependencies {
-        // Security patching the Android Gradle Plugin in the eyes of the GitHub Dependency Graph.
         constraints {
-            classpath("org.apache.httpcomponents:httpclient:4.5.14")
-            classpath("org.apache.commons:commons-compress:1.27.1")
-            classpath("com.google.protobuf:protobuf-java:3.25.5")
-            classpath("com.google.protobuf:protobuf-kotlin:3.25.5")
+            for (securityPatch in gradle.extra["securityPatches"] as List<String>) {
+                classpath(securityPatch)
+            }
+        }
+    }
+}
+
+configurations.named { it.startsWith("_internal-unified-test-platform") }.configureEach {
+    // Handles the patching of the Android UTP (Unified Test Platform)
+    dependencies {
+        constraints {
+            for (securityPatch in gradle.extra["securityPatches"] as List<String>) {
+                add(name, securityPatch)
+            }
         }
     }
 }
