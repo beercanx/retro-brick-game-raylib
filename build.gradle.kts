@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application") version "9.0.1"
+    id("com.android.application") version "9.1.0"
 }
 
 repositories {
@@ -17,8 +17,6 @@ buildscript {
         "org.apache.httpcomponents:httpmime:4.5.14",
         "org.apache.httpcomponents:httpclient:4.5.14",
         "org.apache.commons:commons-lang3:3.20.0",
-        "com.google.protobuf:protobuf-java:3.25.5",
-        "com.google.protobuf:protobuf-kotlin:3.25.5",
         "org.jdom:jdom2:2.0.6.1",
         "org.bitbucket.b_c:jose4j:0.9.6",
     )
