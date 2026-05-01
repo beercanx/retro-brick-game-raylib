@@ -66,7 +66,7 @@ jobs:
           key: ${{env.EMSCRIPTEN_VERSION}}-${{ runner.os }}
 
       - name: Setup Emscripten SDK
-        uses: mymindstorm/setup-emsdk@v14
+        uses: mymindstorm/setup-emsdk@v16
         with:
           version: ${{env.EMSCRIPTEN_VERSION}}
           actions-cache-folder: ${{env.EMSCRIPTEN_CACHE_FOLDER}}
