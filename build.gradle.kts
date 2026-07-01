@@ -12,7 +12,7 @@ buildscript {
     // Review these on each update of the AGP (com.android.application)
     gradle.extra["securityBoms"] = listOf(
         "org.bouncycastle:bc-jdk18on-bom:1.84",
-        "io.netty:netty-bom:4.1.133.Final",
+        "io.netty:netty-bom:4.1.135.Final",
     )
     gradle.extra["securityPatches"] = listOf(
         "org.apache.httpcomponents:httpmime:4.5.14",
@@ -36,7 +36,7 @@ buildscript {
 }
 
 // Handles the patching of the Android UTP (Unified Test Platform) and Android Lint
-    configurations.named { it.startsWith("unified-test-platform") || it == "androidLintTool" }.configureEach {
+configurations.named { it.startsWith("unified-test-platform") || it == "androidLintTool" }.configureEach {
     dependencies {
         for (securityBom in gradle.extra["securityBoms"] as List<*>) {
             add(name, platform(securityBom!!))
