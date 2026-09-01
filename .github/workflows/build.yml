@@ -40,12 +40,14 @@ jobs:
         with:
           name: retro_brick_game-debug.apk
           path: ${{github.workspace}}/build/outputs/apk/debug/retro_brick_game-debug.apk
+          archive: false
 
       - name: Upload Artifact - Release
         uses: actions/upload-artifact@v7
         with:
           name: retro_brick_game-release.apk
           path: ${{github.workspace}}/build/outputs/apk/release/retro_brick_game-release-unsigned.apk
+          archive: false
 
   web:
     runs-on: ubuntu-latest

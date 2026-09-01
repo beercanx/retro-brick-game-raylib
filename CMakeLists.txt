@@ -1,23 +1,20 @@
-cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-project(retro_brick_game LANGUAGES CXX VERSION 0.0.5)
+project(retro_brick_game LANGUAGES CXX VERSION 0.0.6)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ##
 # Dependencies
 ##
-set(RAYLIB_VERSION 5.5)
+set(RAYLIB_VERSION 6.0)
 find_package(raylib ${RAYLIB_VERSION} QUIET)
 if (NOT raylib_FOUND)
     include(FetchContent)
-    # Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
-    if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
-        cmake_policy(SET CMP0135 NEW)
-    endif ()
     FetchContent_Declare(
-            raylib
-            URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
+        raylib
+        DOWNLOAD_EXTRACT_TIMESTAMP OFF
+        URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
     )
     FetchContent_GetProperties(raylib)
     if (NOT raylib_POPULATED)
