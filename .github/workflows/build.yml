@@ -131,6 +131,7 @@ jobs:
         with:
           name: retro_brick_game-windows
           path: ${{github.workspace}}/cmake-build-desktop-windows/retro_brick_game.zip
+          archive: false
 
   desktop-linux:
     runs-on: ubuntu-latest
@@ -159,3 +160,4 @@ jobs:
         with:
           name: retro_brick_game-linux
           path: ${{github.workspace}}/cmake-build-desktop-linux/retro_brick_game.zip
+          archive: false
