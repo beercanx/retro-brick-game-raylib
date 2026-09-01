@@ -12,7 +12,7 @@ buildscript {
     // Review these on each update of the AGP (com.android.application)
     gradle.extra["securityBoms"] = listOf(
         "org.bouncycastle:bc-jdk18on-bom:1.85.2",
-        "io.netty:netty-bom:4.1.136.Final",
+        "io.netty:netty-bom:4.1.137.Final",
     )
     gradle.extra["securityPatches"] = listOf(
         "org.apache.httpcomponents:httpmime:4.5.14",
@@ -60,7 +60,7 @@ android {
     namespace = "uk.co.baconi.rbg"
     sourceSets.named("main") {
         assets {
-            srcDir("${project.rootDir}/assets")
+            directories += "${project.rootDir}/assets"
         }
     }
     buildFeatures {
@@ -69,8 +69,8 @@ android {
     defaultConfig {
         minSdk = 26
         targetSdk = 35
-        versionCode = 5
-        versionName = "0.0.5"
+        versionCode = 6
+        versionName = "0.0.6"
         externalNativeBuild {
             cmake {
                 arguments += listOf("-DPLATFORM=Android")
@@ -80,6 +80,7 @@ android {
     }
     externalNativeBuild {
         cmake {
+            version = "4.1.2"
             path = file("CMakeLists.txt")
         }
     }

@@ -221,5 +221,5 @@ profile named `Android` using the same toolchain as the desktop, with these CMak
 -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake
 -DPLATFORM=Android
 -DANDROID_ABI=x86
--DANDROID_PLATFORM=android-28
+-DANDROID_PLATFORM=android-35
 ```
