@@ -124,7 +124,7 @@ jobs:
         working-directory: ${{github.workspace}}
         run: |
           zip -j cmake-build-desktop-windows/retro_brick_game.zip cmake-build-desktop-windows/retro_brick_game*
-          zip -r cmake-build-desktop-windows/retro_brick_game.zip assets
+          zip cmake-build-desktop-windows/retro_brick_game.zip assets/bricks/sprite.png
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
@@ -153,7 +153,7 @@ jobs:
         working-directory: ${{github.workspace}}
         run: |
           zip -j cmake-build-desktop-linux/retro_brick_game.zip cmake-build-desktop-linux/retro_brick_game*
-          zip -r cmake-build-desktop-linux/retro_brick_game.zip assets
+          zip cmake-build-desktop-linux/retro_brick_game.zip assets/bricks/sprite.png
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
